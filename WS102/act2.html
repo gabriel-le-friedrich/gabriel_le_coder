@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel_le_Friedrich Pizzeria</title>
+
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-evenly;
+            padding: 10px;
+            margin: 10px;
+            
+        }
+
+        .main-nav {
+            width: 50%;
+            font-size: 30px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .main-nav a:hover {
+            color: burlywood;
+        }
+
+        .log {
+            width: 20%;
+        }
+
+        .form {
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+        .home {
+            width: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .products {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pizza {
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: column;
+
+        }
+
+        .selections {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .Pepperoni, .Hawaiian, .Creamy {
+            width: 30%;
+            font-size: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .Pepperoni label, .Hawaiian label, .Creamy label {
+            margin: 5px;
+        }
+
+        .input {
+            width: 20%;
+            height: 50px;
+            font-size: large;
+        }
+
+        img {
+            width: 500px;
+            height: 500px;
+
+        }
+
+        .box-order {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .order {
+            width: 200px;
+            height: 50px;
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="main-nav">
+            <a href="#home">HOME</a>
+            <a href="#products">PRODUCTS</a>
+            <a href="#about">ABOUT</a>
+        </div>
+        <div class="log">
+            <!-- <button class="form-box">Log-in/Register</button> -->
+            <p id="User"></p>
+            <form action="Act2.php" method="post">
+                <label>Username:</label>
+                <input type="text" id="username" name="username" placeholder="Username"><br>
+                <label>Password:</label>
+                <input type="password" name="password" placeholder="Password"><br>
+                <input type="submit" value="Log in" onclick="EchoUser()">
+            </form>
+        </div>
+    </nav>
+    
+    
+
+    <div class="home">
+        <h1 id="home">Home</h1>
+        <h2>Gabriel_le_Friedrich's Pizzeria</h2>    
+    
+    </div>
+    <div class="products">
+        <h1 id="products">Products</h1>
+        <h2>Pizzas</h2>
+        <form class="pizza" action="Act2.php" method="get">
+            <div class="selections">
+                <div class="Pepperoni">
+                    <img src="./img/Act2/Pepperoni.jpg" alt="Pepperoni Pizza">
+                    <label for="">Pepperoni Pizza</label>
+                    <p>Php 199</p>
+                    <input class="input" type="number" name="Pepperoni" id="" placeholder="Quantity"><br><br>
+                </div>
+    
+                <div class="Hawaiian">
+                    <img src="./img/Act2/Hawaiian.jpg" alt="Hawaiian Pizza">
+                    <label for="">Hawaiian Pizza</label>
+                    <p>Php 299</p>
+                    <input class="input" type="number" name="Hawaiian" id="" placeholder="Quantity"><br><br>
+                </div>
+    
+                <div class="Creamy">
+                    <img src="./img/Act2/Creamy Spinach.jpg" alt="Creamy Spinach Pizza">
+                    <label for="">Creamy Spinach Pizza</label>
+                    <p>Php 399</p>
+                    <input class="input" type="number" name="Creamy Spinach" id="" placeholder="Quantity"><br><br>
+                </div>
+            </div>
+
+            <div class="box-order">
+                <input class="order" type="submit" value="Order">
+            </div>
+        </form>
+        
+    </div>
+    <div>
+        <h1 id="about">About</h1>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor, ipsum rem harum cupiditate quis necessitatibus deleniti repellendus eaque at pariatur quidem modi reprehenderit ipsa? Consectetur temporibus veniam laudantium repellendus? Fugiat?</p>
+
+    </div>
+
+
+    <script>
+        function EchoUser() {
+            // var x = document.getElementsByClassName("navbar");
+            // var y = x.getElementsByClassName("log");
+            // var z = y.getElementsByClassName("form");
+            var user = document.getElementById("username");
+            document.getElementById("User").innerHTML = "Hello, " + user.innerHTML + "!";
+            
+            
+        }
+    </script>
+</body>
+</html>
