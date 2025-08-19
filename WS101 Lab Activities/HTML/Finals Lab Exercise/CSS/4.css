@@ -1,0 +1,15 @@
+.mine {
+    box-shadow: 0px 0px 5px 4px rgba(128, 128, 128, 0.349);
+    border-radius: 10px;
+}
+
+.num {
+    color: rgb(66, 22, 170);
+    font-size: 50px;
+    font-weight: 500;
+}
+
+.t {
+    color: black;
+    font-size: 15px;
+}

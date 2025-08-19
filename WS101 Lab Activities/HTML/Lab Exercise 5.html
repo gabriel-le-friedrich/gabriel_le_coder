@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Exercise 5</title>
+    <style>
+        body {
+            background-color: wheat;
+            margin: 100px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #sum {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .info {
+            background-color: bisque;
+            width: 450px;
+            height: 130px;
+        }
+
+        .carobj, .expert, .ed, .exp, .hskills, .sskills, .askills, .charref {
+            color: brown;
+        }
+
+        #FullName, #Email, #Phone, #Address, #LinkedIn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        #mail {
+            color: blue;
+        }
+
+        .nav > a {
+            display: inline-block;
+            background-color: blanchedalmond;
+            width: 130px;
+            height: auto;
+            margin: 0 10px 0 0;
+            border: 1px solid rgb(192, 171, 79);
+            text-decoration: none;
+            text-align: center;
+        }
+
+        a {
+            color: black;
+        }
+
+        a:visited {
+            color: black;
+        }
+
+        p, li, td {
+            color: rgb(61, 28, 0);
+        }
+
+        .Name, .Des, .EA, .Con {
+            text-align: center;
+        }
+
+        .Name {
+            background-color: rgb(255, 172, 112);
+        }
+
+        .Des {
+            background-color: rgb(255, 163, 129);
+        }
+
+        .EA {
+            background-color: rgb(255, 204, 74);
+        }
+
+        .Con {
+            background-color: rgb(255, 222, 73);
+        }
+
+        .back {
+            width: 100%;
+            display: flex;
+            align-items: center ;
+            justify-content: center;
+        }
+
+        .go {
+            display: flex;
+            align-items: center ;
+            justify-content: center;
+            background-color: rgb(255, 194, 102);
+            width: 150px;
+            height: 50px;
+            border: 1px solid black;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body id="top">
+    <div id="sum">
+        <div style="text-align: center;">
+        <img style="border: 1px solid black;" width="300px" height="300px" src="https://scontent.xx.fbcdn.net/v/t1.15752-9/421231052_240246442502647_355021712431039408_n.jpg?stp=dst-jpg_p403x403&_nc_cat=107&ccb=1-7&_nc_sid=510075&_nc_ohc=NvWrNqzJR50AX8fYO0F&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdT4avKpoN3OvtqJtiXsexJecNP9MzoFWWLW1WWXPKSf6w&oe=65F18149" alt="Gab's Pic">
+        </div>
+        <div class="info">
+            <div id="FullName"><h1>Cunanan, Frederick Gabrielle F.</h1></div>
+            <div id="Email"><b>Email:&nbsp;</b><a id="mail" href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=new">fgcunanan0216@iskwela.psau.edu.ph</a><br></div>
+            <div id="Phone"><b>Phone:</b> (+63)966 378 2105<br></div>
+            <div id="Address"><b>Address:</b> 407 Purok 1 Sitio Gubat, Laput, Mexico, Pampanga <br></div>
+            <div id="LinkedIn"><b>LinkedIn:</b> N/A <br></div>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <div class="nav">
+            <a href="#sum">Summary</a>
+            <a href="#ed">Education</a>
+            <a href="#exp">Experience</a>
+            <a href="#hskills">Hardware Skills</a>
+            <a href="#sskills">Software Skills</a>
+        </div>
+        <div>
+            <h2 class="carobj">Career Objective</h2>
+            <p>To be an IT Expert that helps the innovation of technology towards the futuristic world.</p>
+        </div>
+        <div>
+            <h2 class="expert">Experties BIO</h2>
+            <p>Information Technology expert with three years of experience from web developer to project manager. Strengths include problem-solving and analysis, communicating with other people and supporting others.</p>
+        </div>
+
+        <div>
+            <h2 id="ed" class="ed">Education</h2>
+            <ul>
+                <li>Bachelor of Science in Information Technology at Pampanga State Agricultural University (PSAU), 2026</li>
+                <li>STEM Graduate at San Juan National High School, 2022</li>
+                <li>Junior High School Graduate at San Juan National High School, 2020</li>
+                <li>Elementary Graduate at Laput Elementary School, 2016</li>
+            </ul>
+        </div>
+
+        <div>    
+            <h2 id="exp" class="exp">Work Experience or Seminars and Workshop Attended</h2>
+            <p>GJM International: Travel and Tours, 2018 <br>
+            Position: Technical Manager <br>
+            Job Description:</p>
+            <ul type="disc">
+                <li>Web Developer</li>
+                <li>Networking</li>
+                <li>Data Analysis</li>
+            </ul>
+        </div>
+
+        <div>
+            <h2 id="hskills" class="hskills">Hardware Skills</h2>
+            <p>Windows OS</p>
+        </div>
+        <div>
+            <h2 id="sskills" class="sskills">Software Skills</h2>
+            <p>HTML, CSS, JavaScript, Java, Microsoft Office, Visual Studio</p>
+        </div>
+
+        <div>
+            <h2 class="askills">Additional Skills</h2>
+            <p>Flexibility <br>
+            Organizational Skills <br>
+            Time Management</p>
+        </div>
+
+        <div>
+            <h2 class="charref">Character References</h2>
+            <table border="1px" width="80%" height="100px">
+                <tr>
+                    <td class="Name">Full Name</td>
+                    <td class="Des">Designation</td>
+                    <td class="EA">Email Address</td>
+                    <td class="Con">Contact Number</td>
+                </tr>
+                <tr>
+                    <td class="Name">Frederico Cunanan</td>
+                    <td class="Des">CEO</td>
+                    <td class="EA">fcunanan@gmail.com</td>
+                    <td class="Con">09663782105</td>
+                </tr>
+                <tr>
+                    <td class="Name">Grace Marcaida</td>
+                    <td class="Des">Manager</td>
+                    <td class="EA">gmarcaida@yahoo.com</td>
+                    <td class="Con">09761356122</td>
+                </tr>
+            </table><br>
+        </div>
+        <div>
+            <p>I HEREBY CERTIFY that the information provided in this form is complete, true, and correct to the best of my knowledge.</p>
+        </div>
+        <div class="back">
+            <a class="go" href="#top">Back to the Top</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratory Task 10</title>
+	<link id="theme" rel="stylesheet" type="text/css" href="./CSS/nostyle.css">
+</head>
+<body>
+    <script src="./JS/switchCss.js"></script>
+    <header>
+        <h1>Welcome to My Homepage</h1>
+        <p>Use the menu to select different Stylesheets</p>
+    </header>
+    <div class="s2">
+        <div class="s1">
+            <div class="s3">
+                <nav>
+                    <ul type="disc">
+                        <li class="active1"><a href="#" id="active1" class="nav" onclick="toggleTheme('./CSS/style1.css')">Stylesheet 1</a></li>
+                        <li class="active2"><a href="#" id="active2" class="nav" onclick="toggleTheme('./CSS/style2.css')">Stylesheet 2</a></li>
+                        <li class="active3"><a href="#" id="active3" class="nav" onclick="toggleTheme('./CSS/style3.css')">Stylesheet 3</a></li>
+                        <li class="active4"><a href="#" id="active4" class="nav" onclick="toggleTheme('./CSS/style4.css')">Stylesheet 4</a></li>
+                        <li class="active" ><a href="#" id="active" class="nav" onclick="toggleTheme('./CSS/nostyle.css')">No Stylesheet</a></li>
+                    </ul> 
+                </nav>
+
+                <aside class="side">
+                    <h3>Side-Bar</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat reprehenderit
+                        laborum natus temporibus optio minus! Nesciunt consequatur reiciendis dolorem eligendi.
+                        Cum.
+                    </p>
+                </aside>
+            </div>
+            <div id="s1">
+                <main>
+                    <h1>Same Page Different Stylesheets</h1>
+                    <p>
+                        This is a  demonstration of how different stylesheets can change the layout of your HTML page.
+                        You can change the layout of this page by selecting different stylesheets in the menu, or by 
+                        selecting one of the following links: <br>
+                        <a href="#" class="main" onclick="toggleTheme('./CSS/style1.css')">Stylesheet1</a>,
+                        <a href="#" class="main" onclick="toggleTheme('./CSS/style2.css')">Stylesheet2</a>,
+                        <a href="#" class="main" onclick="toggleTheme('./CSS/style3.css')">Stylesheet3</a>,
+                        <a href="#" class="main" onclick="toggleTheme('./CSS/style4.css')">Stylesheet4</a>.
+                    </p>
+                </main>
+
+                <section>
+                    <h2>No Styles</h2>
+                    <p>
+                        This page uses DIV elements to group different sections of the HTML page.
+                        Click here to see how the page looks like with no stylesheet: <br>
+                        <a href="#" class="sec" onclick="toggleTheme('./CSS/nostyle.css')">No Stylesheet</a>.
+                    </p>
+                </section>
+            </div>
+        </div>
+
+            <aside id="side">
+                <h3>Side-Bar</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat reprehenderit
+                    laborum natus temporibus optio minus! Nesciunt consequatur reiciendis dolorem eligendi.
+                    Cum.
+                </p>
+            </aside>
+    </div>
+    <footer>
+        <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus non ullam magni
+            dolorum maiores expedita iusto rem deleniti nostrum optio. Omnis repellendus reprehenderit
+            vero alias qui officia, odio voluptatum modi! Lorem ipsum dolor sit amet, consectetur
+            adipisicing elit. Animi corrupti nihil eaque atque pariatur in suscipit, repellat reprehenderit
+            architecto quasi veniam, consectetur doloribus vero, natus reiciendis vel ea at amet!
+        </p>
+    </footer>
+</body>
+</html>

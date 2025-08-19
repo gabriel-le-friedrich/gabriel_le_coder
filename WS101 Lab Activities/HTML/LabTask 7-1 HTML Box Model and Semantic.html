@@ -1,0 +1,155 @@
+<html>
+<head>
+  <title> Using Non Semnatic HTML Elements</title>
+  <style>
+    nav {
+      border: 5px solid green;
+      background-color: greenyellow;
+      margin: 0 0 5px 0;
+    }
+
+    .nav {
+      text-decoration: none;
+      color: green;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+    }
+
+    header {
+      border: 5px solid goldenrod;
+      background-color: yellow;
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, Helvetica, sans-serif;
+      color: rgb(175, 133, 25);
+      padding: 0 0 10px 10px;
+      margin: 0 0 5px 0;
+    }
+
+    .headcon {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    button {
+      font-weight: bold;
+    }
+
+    #About {
+      border: 5px solid blue;
+      background-color: cadetblue;
+      display: flex;
+      margin: 0 0 5px 0;
+      font-weight: bold;
+    }
+
+    section, aside {
+      border: 5px solid blue;
+      background-color: rgb(37, 94, 170);
+      color: blue;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 5px;
+      padding: 5px;
+    }
+
+    section {
+      width: 70%;
+    }
+
+    aside {
+      width: 30%;
+    }
+
+    #Contact {
+      border: 5px solid rgb(80, 0, 80);
+      background-color: rgb(90, 50, 236);
+      height: 230px;
+      padding: 10px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      color: rgb(78, 0, 78);
+      margin: 0 0 5px 0;
+    }
+
+    form {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    footer {
+      border: 5px solid darkorange;
+      background-color: orange;
+      color: orangered;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      padding: 0 0 0 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- navigation -->
+  <nav>
+    <ul>
+      <li class="nav"><a class="nav" href="#Home">Home</a></li>
+      <li class="nav"><a class="nav" href="#About">About</a></li>
+      <li class="nav"><a class="nav" href="#Products">Products</a></li>
+      <li class="nav"><a class="nav" href="#Contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- header -->
+  <header id="Home">
+    <h1>Tom's Fruit Co.</h1>
+    <div class="headcon">
+      <img src="https://scontent.fmnl7-2.fna.fbcdn.net/v/t1.15752-9/429469011_296359953234247_2203551982126220995_n.jpg?stp=dst-jpg_p403x403&_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGbRoNxjlvdIJ-9TelNEiaNB8KAy561t-oHwoDLnrW36tyiWGLFDQkdy6ns_pkgu9fcanKDN5njfDeHk2zhs9ig&_nc_ohc=fhxBNTVVlXAAX9ALeAd&_nc_ht=scontent.fmnl7-2.fna&oh=03_AdSXpvAnMUHVEZklt_B6Zs4B--cflo93DGlQc-lFgOfLvw&oe=6610F300" alt="main banner">
+      <button>Find out more</button>  
+    </div>
+  </header>    
+
+  <main id="About">
+    <!-- about section -->
+    <section>
+      <h2>About Us</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab pariatur repellendus reiciendis veniam molestias itaque labore placeat odit! Est ipsum maiores, ducimus natus aliquam recusandae quisquam dolore similique odio saepe.
+      </p>
+    </section>
+    
+    <!-- products section -->
+    <aside id="Products">
+      <h3>Our Products</h3>
+      <ul>
+        <li>Apples</li>
+        <li>Oranges</li>
+        <li>Grapes</li>
+        <li>Limes</li>
+      </ul>
+    </aside>
+  </main>
+  
+  
+  <!-- contact -->
+  <div id="Contact">
+    <h3>Get in Touch!</h3>
+    <form>
+      <label>Name:</label>
+      <input type="text">
+      <label>Email:</label>
+      <input type="email">
+      <label>Message:</label>
+      <textarea></textarea>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  
+  <!-- footer -->
+  <footer>
+    <p>Copyright &copy; 2019</p>
+  </footer>
+
+</body>
+</html>

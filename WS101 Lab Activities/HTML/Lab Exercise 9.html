@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Exercise 9</title>
+    <style>
+        .a12, .b12, .c12, .d12, .navbar {
+            display: flex;
+        }
+
+        .a {
+            background-color: aquamarine;
+        }
+
+        .pink {
+            background-color: pink;
+        }
+
+        #a1 {
+            width: 200px;
+        }
+
+        #a2 {
+            width: 75px;
+        }
+
+        #b1 {
+            width: 50px;
+        }
+
+        #b2 {
+            width: 100%;
+        }
+
+        #b3 {
+            width: 75px;
+        }
+
+        .c12 {
+            justify-content: space-between;
+        }
+
+        .d12 {
+            height: 50px;
+            border: 1px solid grey;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #d1, #d2 {
+            height: 18px;
+        }
+
+        .navbar {
+            height: 60px;
+            background-color: rgba(76, 15, 133, 0.801);
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #Home {
+            width: 100px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0);
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            border: none;
+            margin: 0 25px 0 5px;
+            cursor: pointer;
+        }
+
+        #search {
+            width: 60%;
+            height: 30px;
+            border: none;
+            border-radius: 50px;
+            margin: 0 25px 0 25px;
+        }
+
+        #dl {
+            width: 100px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0);
+            color: white;
+            font-size: 15px;
+            border: 1px solid white;
+            border-radius: 2px;
+            margin: 0 10px 0 25px;
+            cursor: pointer;
+        }
+
+        .notif {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            height: 90px;
+            border: 1px solid rgba(128, 128, 128, 0.342);
+            border-radius: 5px;
+        }
+
+        .note {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 30px;
+            width: 100%;
+        }
+
+        .con1 {
+            margin-left: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+        }
+
+        .con2 {
+            background-color: rgb(55, 99, 241);
+            color: white;
+            font-size: 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-right: 10px;
+            padding: 2px 10px 2px 10px;
+            height: auto;
+            width: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 50px;
+        }
+
+        .notif:hover {
+            border-radius: 5px;
+        }
+
+        .note:hover {
+            background-color: rgba(161, 161, 161, 0.582);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="a12">
+        <div id="a1" class="a">200px</div>
+        <div id="a2" class="pink">75px</div>
+    </div>
+    <br>
+    <div class="b12">
+        <div id="b1" class="a">item 1</div>
+        <div id="b2" class="pink">item 2</div>
+        <div id="b3" class="a">item 3</div>
+    </div>
+    <br>
+    <div class="c12">
+        <div id="c1" class="pink">item 1</div>
+        <div id="c2" class="pink">item 2</div>
+        <div id="c3" class="pink">item 3</div>
+        <div id="c4" class="pink">item 4</div>
+    </div>
+    <br>
+    <div class="d12">
+        <div id="d1" class="pink">item 1</div>
+        <div id="d2" class="pink">item 2</div>
+    </div>
+    <br>
+    <div class="navbar">
+        <input id="Home" type="button" value="Home">
+        <input id="search" type="text" placeholder="     Search">
+        <input id="dl" type="button" value="Download">
+    </div>
+    <br>
+    <div class="notif">
+        <div class="note">
+            <div class="con1">Home</div>
+            <div class="con2">14</div>
+        </div>
+        <div class="note">
+            <div class="con1">Notifications</div>
+            <div class="con2">3</div>
+        </div>
+        <div class="note">
+            <div class="con1">Messages</div>
+            <div class="con2">5</div>
+        </div>
+    </div>
+</body>
+</html>

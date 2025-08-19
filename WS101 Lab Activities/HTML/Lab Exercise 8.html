@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Exercise 8</title>
+    <style>
+        body {
+            height: 3000px;
+        }
+
+        .button {
+            width: 99%;
+            position: absolute;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            font-size: 25px;
+            height: 50px;
+            width: 50px;
+            border: 1px solid black;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .fixed {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .ad {
+            background-color: rgb(128, 128, 128);
+            height: 180px;
+            width: 320px;
+            position: fixed;
+            margin-top: 46%;
+        }
+
+        .market {
+            position: relative;
+            height: 350px;
+            width: 320px;
+        }
+
+        .shirt {
+            height: 350px;
+            width: 320px;
+            object-fit: cover;
+            position: absolute;
+            z-index: -1;
+        }
+
+        .price {
+            width: 320px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .off {
+            width: 80px;
+            height: 30px;
+            background-color: black;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .addtocart {
+            display: none;
+        }
+
+        .add {
+            
+            display: none;
+        }
+
+        .market:hover {
+            .addtocart {
+                background-color: rgba(255, 255, 255, 0.637);
+            height: 100px;
+            width: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 210px;
+            position: absolute;
+            cursor: pointer;
+            }
+
+            .add {
+                background-color: white;
+                display: inline;
+                height: 35px;
+                width: 100px;
+                border: 1px solid black;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="button">
+        <input class="btn" type="button" value="X">
+    </div>
+
+    <div class="fixed">
+        <div class="ad"></div>
+    </div>
+
+    <div class="market">
+        <img class="shirt" src="https://scontent.xx.fbcdn.net/v/t1.15752-9/336320693_938312720504932_8537649571038713672_n.jpg?stp=dst-jpg_p320x320&_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Jz1PKil_D2sAX-llOG5&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdRToo085yWMWuhQU79b4fcYdWcdtl3zsoS_CByWgXuXpQ&oe=661A80BC" alt="">
+            <div class="price">
+                <div class="off">
+                    <p>20% OFF</p>
+                </div>
+            </div>
+        </img>
+        <div class="addtocart">
+            <input class="add" type="button" value="Add to Cart">
+        </div>
+    </div>
+</body>
+</html>

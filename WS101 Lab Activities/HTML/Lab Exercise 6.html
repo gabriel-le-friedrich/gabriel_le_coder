@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Exercise 6</title>
+    <style>
+        .a {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .b {
+            width: 200px;
+            display: inline-block;
+            vertical-align: middle;
+            font-weight: 500;
+        }
+
+        .c {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .Google {
+            height: 30px;
+            width: 400px;
+            border-radius: 50px;
+            border-color: rgba(182, 175, 175, 0.473);
+            color: gray;
+            margin: 10px 0 10px 0;
+        }
+
+        .name, .mail, .subtn {
+            border-radius: 5px;
+            height: 35px;
+            border-color: rgba(182, 175, 175, 0.473);
+        }
+
+        .name {
+            width: 100px;
+        }
+
+        .mail {
+            width: 210px;
+            display: block;
+            margin: 5px 5px 5px 0;
+        }
+
+        .subtn {
+            width: 210px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            background-color: rgb(32, 107, 247);
+        }
+
+        h1 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 500;
+        }
+
+        .Enter {
+            display: block;
+            width: 300px;
+            height: 35px;
+            margin: 5px 5px 5px 0;
+            background-color: rgba(182, 175, 175, 0.267);
+            color: rgb(73, 73, 73);
+            border: 0;
+            border-radius: 2px;
+        }
+
+        .Req, .Sched {
+            height: 45px;
+            width: 150px;
+            margin-top: 25px;
+            border: 0;
+            font-weight: 600;
+        }
+
+        .Req {
+            color: white;
+            background-color: black;
+        }
+
+        .Sched {
+            background-color: rgba(182, 175, 175, 0.267);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input class="a" type="text" value="Name">
+        <input class="a" type="text" value="Email">
+    </div>
+
+    <div>
+        <p class="b">
+            Thanks for chatting with our customer support. Would you like to take our quick survey?
+        </p>
+        <input type="button" value="Yes">
+        <input type="button" value="No">
+    </div>
+
+    <div class="c">
+        <img class="imgGoogle" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google Logo">
+        <input class="Google" type="text" value="   Search Google or type a URL">
+    </div>
+
+    <div>
+        <div>
+            <input class="name" type="text" value="  First name">
+            <input class="name" type="text" value="  Last name">
+        </div>
+        <div>
+            <input class="mail" type="text" value="  Email">
+            <input class="subtn" type="button" value="Sign Up">
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <h1>Request a ride now</h1>
+            <input class="Enter" type="text" value="  Enter pick up location">
+            <input class="Enter" type="text" value="  Enter destination">
+        </div>
+        <div>
+            <input class="Req" type="button" value="Request now">
+            <input class="Sched" type="button" value="Schedule for later">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Exercise #3</title>
+</head>
+<body>
+    <div class="head">    
+        <h1 style="color: orange;">How can we help?</h1>
+    </div>
+    <div class="form">
+        <!--<form action="">Request for Proposal
+            <p>Your name: <input type="text"><br>
+            Email: <input type="text"><br>
+            Username: <input type="text"><br>
+            Password: <input type="password"><br>
+            Your Business: <input type="text"></p>
+
+
+        </form>-->
+
+        <form name="regsForm" action="">
+            <fieldset>
+                <legend>
+                    Request for Proposal
+                </legend>
+
+                <label for="">Your Name: </label>
+                <input type="text">
+                <br>
+
+                <label for="">Birthday: </label>
+                <input type="date">
+                <br>
+
+                <label for="">Gender: </label>
+                Male <input type="radio" name="gender" value="Male">
+                Female <input type="radio" name="gender" value="Female">
+                <br>
+
+                <label for="">Skill Set: </label>
+                CHS <input type="checkbox" name="chs" value="CHS">
+                Networking <input type="checkbox" name="networking" value="Networking">
+                <br>
+
+                <label for="">Contact Number: </label>
+                <input type="text" placeholder="1234-567-8901" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}">
+                <br>
+
+                <label for="">Degree Programs:
+                    <select name="" id="">
+                        <optgroup label="CoECS Programs">
+                            <option value="">BSIT</option>
+                            <option value="">BSCPE</option>
+                            <option value="">BSCE</option>
+                        </optgroup>
+                        <optgroup label="COED Programs">
+                            <option value="">BSED</option>
+                            <option value="">BPE</option>
+                            <option value="">BPEE</option>
+                        </optgroup>
+                    </select>
+                </label>
+                <br>
+
+                <label for="">Year Level: </label>
+                    <select name="" id="">
+                        <option value="" selected>First Year</option>
+                        <option value="">Second Year</option>
+                        <option value="">Third Year</option>
+                        <option value="">Fourth Year</option>
+                    </select>
+                <br>
+
+                <label for="">Subject Enrolled: </label>
+                <input list="subjects" name="subjects">
+                <datalist id="subjects">
+                    <option value="Edge"></option>
+                    <option value="Firefox"></option>
+                    <option value="Chrome"></option>
+                    <option value="Safari"></option>
+                </datalist>
+                <br>
+
+                <label for="">Terms and Conditions: </label>
+                <textarea name="" id="" cols="30" rows="10" readonly>
+Please read the content
+                </textarea>
+                <br>
+
+                <label for="">Number</label>
+                <input type="number" min="1900" max="2030" step="10" value="1900">
+                <br>
+                <label for="">Slider</label>
+                <input type="range" min="1900" max="2030">
+
+                <label for="">This is an image button</label>
+                <input type="image" src="">
+                <br>
+                <label for="">Sample Buttons</label><br>
+                <input type="button" value="SUBMIT"><br>
+                <input type="button" value="RESET">
+
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>User Credentials</legend>
+                
+                <label for="">Username: </label>
+                <input type="text">
+                <br>
+
+                <label for="">Password: </label>
+                <input type="password">
+                <br>
+
+            </fieldset>
+        </form>
+
+        <form action=""></form>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Exercise 7</title>
+
+    <style>
+        .square {
+            height: 100px;
+            width: 100px;
+            background-color: red;
+        }
+
+        .circle {
+            height: 100px;
+            width: 100px;
+            background-color: green;
+            border-radius: 50px;
+        }
+
+        .formbox {
+            width: 275px;
+            height: 90px;
+            border: 1px solid black;
+            padding: 0 0 0 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 500;
+        }
+
+        .notif {
+            background-color: rgb(39, 39, 39);
+            width: 375px;
+            height: 120px;
+            padding: 5px 10px 0 20px;
+        }
+
+        .head {
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size: 25px;
+            margin-top: 15px;
+        }
+
+        .para {
+            color: rgb(179, 179, 179);
+            font-family: Arial, Helvetica, sans-serif;
+            margin-top: -15px;
+        }
+
+        .fb1, .fb2 {
+            border: 1px solid rgba(128, 128, 128, 0.63);
+            width: 200px;
+            height: 320px;
+            box-shadow: 2px 2px 3px rgba(128, 128, 128, 0.63);
+            display: inline-block;
+        }
+
+        .cat {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .name {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 25px;
+            font-weight: 600;
+            margin: 5px 0 0 8px;
+        }
+
+        .friends {
+            color: rgb(105, 105, 105);
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 2px 0 10px 8px;
+        }
+        
+        .add {
+            background-color: rgb(35, 100, 221);
+            height: 40px;
+            width: 100px;
+            border: 0;
+            border-radius: 5px;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            margin: 0 0 5px 8px;
+        }
+
+        .google {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .Google {
+            height: 30px;
+            width: 400px;
+            border-radius: 50px;
+            border-color: rgba(182, 175, 175, 0.473);
+            color: gray;
+            margin: 10px 0 10px 0;
+        }
+
+        .btn {
+            width: 125px;
+            height: 40px;
+            margin: 10px 0 0 15px;
+            border: 0;
+            border-color: rgba(182, 175, 175, 0.473);
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="square">
+
+    </div>
+    <br>
+    <div class="circle">
+
+    </div>
+    <br>
+    <div class="formbox">
+        <p>Satisfied with our service?</p>
+        <input type="button" value="Yes">
+        <input type="button" value="No">
+    </div>
+    <br>
+    <div class="notif">
+        <p class="head">Install YouTube Music</p>
+        <p class="para">Add YouTube Music to your desktop for quick and easy access</p>
+    </div>
+    <br>
+    <div class="fb1">
+        <img class="cat" src="https://scontent.xx.fbcdn.net/v/t1.15752-9/275571350_1008521473376999_6731627992628174094_n.jpg?stp=dst-jpg_p403x403&_nc_cat=111&ccb=1-7&_nc_sid=510075&_nc_eui2=AeE6EzGUPS3vYl0pWqapVThZOrrAfuE7ebw6usB-4Tt5vEpIvuiQ9W_qKSHm785LE9ZZHFI0odaJAa-N-kHYKkVt&_nc_ohc=mIptH_DJATQAX9MdswV&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdSBqKsPErn1gszTEkG9AqF2zfvMsGCHZD9FIvrPxDydkg&oe=660E7094" alt="Cat">
+        <p class="name">Oliver</p>
+        <p class="friends">2 mutual friends</p>
+        <input class="add" type="button" value="Add Friend">
+    </div>
+    <br><br>
+    <div class="fb">
+        <div class="fb2">
+            <img class="cat" src="https://scontent.xx.fbcdn.net/v/t1.15752-9/275571350_1008521473376999_6731627992628174094_n.jpg?stp=dst-jpg_p403x403&_nc_cat=111&ccb=1-7&_nc_sid=510075&_nc_eui2=AeE6EzGUPS3vYl0pWqapVThZOrrAfuE7ebw6usB-4Tt5vEpIvuiQ9W_qKSHm785LE9ZZHFI0odaJAa-N-kHYKkVt&_nc_ohc=mIptH_DJATQAX9MdswV&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdSBqKsPErn1gszTEkG9AqF2zfvMsGCHZD9FIvrPxDydkg&oe=660E7094" alt="Oliver">
+            <p class="name">Oliver</p>
+            <p class="friends">2 mutual friends</p>
+            <input class="add" type="button" value="Add Friend">
+        </div>
+
+        <div class="fb2">
+        <img class="cat" src="https://scontent.xx.fbcdn.net/v/t1.15752-9/277315998_1136711860422103_1285095032798865493_n.jpg?stp=dst-jpg_s600x600&_nc_cat=106&ccb=1-7&_nc_sid=510075&_nc_eui2=AeFcaUkb95dIiHcGPl-olMKlfX9_4tJ_C8p9f3_i0n8LymBDZryVR0VGJgEjq-oozhZVR3eAlbMd3wvi5eAAnO9q&_nc_ohc=-SiS_Au79iIAX_fTVzz&_nc_oc=AQncyhwZHOtxMcwLhkEmjwwIuDehwLKK_rsTG9YB1zOqNRR6loOxRCE9UHMzPlNv0KL-ASEjDO4WGe_74rkqB94C&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQ2_tAA7cTHYNZO3bhPOpnuc0hSl7ILTSOwPhLfSbg8Og&oe=660E8170" alt="Mimi">
+        <p class="name">Mimi</p>
+        <p class="friends">3 mutual friends</p>
+        <input class="add" type="button" value="Add Friend">
+        </div>
+
+        <div class="fb2">
+        <img class="cat" src="https://scontent.xx.fbcdn.net/v/t1.15752-9/334949924_590456233003087_3493891983155680503_n.jpg?stp=dst-jpg_s600x600&_nc_cat=108&ccb=1-7&_nc_sid=510075&_nc_eui2=AeF40UixoQ8QqBHTdZXq8G_lIkc_tCWbB8kiRz-0JZsHyS92IACQongDwXqeczIAkfqOadYwXI_L2EpZT4JGqlVC&_nc_ohc=93dzd5jmFVsAX8hGl--&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdS0x6_6bebuCubr_k8ZGHHbSVewlslDGS2TAugo9UQZuQ&oe=660E8D86" alt="Rex">
+        <p class="name">Rex</p>
+        <p class="friends">4 mutual friends</p>
+        <input class="add" type="button" value="Add Friend">
+        </div>
+    </div>
+    <br><br>
+    <div class="google">
+        <img class="imgGoogle" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google Logo">
+        <input class="Google" type="text" value="   Search Google or type a URL">
+        <div>
+            <input class="btn" type="button" value="Google Search">
+            <input class="btn" type="button" value="I'm Feeling Lucky">    
+        </div>
+    </div>
+</body>
+</html>

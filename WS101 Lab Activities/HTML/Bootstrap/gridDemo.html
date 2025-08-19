@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using Bootsrap Grid </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+        <style>
+
+        body
+        {
+            margin: 30px;
+        }
+        
+        .my-container
+        {
+          
+            border: 1px solid rgb(231, 226, 226);
+           
+        }
+
+        .my-row
+        {
+            border: 1px dotted green;
+            height: auto;
+            /* justify-content: center; */
+        }
+        .my-col
+        {
+            border: 1px dotted rgb(240, 105, 15);
+            width:  21em;
+            height: 25em;
+            background-color: rgb(246, 244, 242);
+            /* box-shadow: 5px 5px 24px rgb(179, 175, 175); */
+            padding: 10px 10px;
+            border-radius: 10px;
+            text-align: justify;
+         
+        }
+</style>
+</head>
+<body>
+    <h1>Demo Grid in Bootsrap</h1>
+    <div class="container my-container">
+        <div class="row my-row">
+            <div class="col-lg-4 col-sm-4 m-2 my-col">Row 1 Column 1</div>
+            <div class="col-lg-4 col-sm-4 m-2 my-col">Row 1 Column 2</div>
+            <div class="col-lg-4 col-sm-4 m-2 my-col">Row 1 Column 3</div>
+        </div>
+
+        <div class="row justify-content-between my-row">
+            <div class="col-lg-4 col-sm-4 m-2 my-col">Row 2 Column 1</div>
+            <div class="col-lg-2 col-sm-2 m-2 my-col">Row 2 Column 2</div>
+            <div class="col-lg-6 col-sm-6 m-2 my-col">Row 2 Column 3</div>
+        </div>
+
+        <div class="row justify-content-between my-row">
+            <div class="col-lg col-sm m-2 my-col">Row 3 Column 1</div>
+            <div class="col-lg col-sm m-2 my-col">Row 3 Column 2</div>
+           
+        </div>
+    </div>
+</body>
+</html>
