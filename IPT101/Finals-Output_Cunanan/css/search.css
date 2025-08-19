@@ -1,0 +1,117 @@
+/* Search Bar */
+.search-container {
+  display: flex;
+  width: 400px;
+  margin: 0 auto 20px;
+}
+
+.search-container input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+}
+
+.search-container button {
+  background: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.search-results {
+  margin-top: 20px;
+}
+
+.search-result {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-result:hover {
+  background-color: #f0f0f0;
+}
+
+.result-reference {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #3f51b5;
+}
+
+.highlight-verse {
+  background-color: rgba(255, 255, 0, 0.5);
+  animation: fadeHighlight 3s;
+}
+
+@keyframes fadeHighlight {
+  from {
+    background-color: rgba(255, 255, 0, 0.5);
+  }
+
+  to {
+    background-color: transparent;
+  }
+}
+
+.verses-container {
+  margin-top: 1rem;
+}
+
+.verse {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.verse-number {
+  font-weight: bold;
+  font-size: 0.8rem;
+  vertical-align: super;
+  color: #666;
+  margin-right: 0.2rem;
+}
+
+.verse-text {
+  font-size: 1rem;
+}
+
+.chapter-content {
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+/* Verse Actions Menu */
+.verse-actions {
+  position: absolute;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  z-index: 900;
+  min-width: 150px;
+}
+
+.verse-actions button {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.verse-actions button:hover {
+  background-color: #f0f0f0;
+}
+
+.verse-actions button i {
+  margin-right: 8px;
+  width: 16px;
+}

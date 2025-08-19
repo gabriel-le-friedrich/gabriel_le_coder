@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <meta name="google-signin-client_id" content="263927496043-99v5f45bje732hsi99661vssvgtf3moe.apps.googleusercontent.com">
+    <title>API Demo with Google Login</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .google-btn {
+            background-color: white;
+            color: #757575;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 220px;
+            transition: background-color 0.3s;
+        }
+        .google-btn:hover {
+            background-color: #f5f5f5;
+        }
+        .google-icon {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        .response {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        .error {
+            background-color: #f8e8e8;
+            border-left: 4px solid #e74c3c;
+        }
+        .hidden {
+            display: none;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .user-name {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .user-email {
+            color: #666;
+            font-size: 14px;
+        }
+        .api-selector {
+            margin-bottom: 15px;
+        }
+        .api-selector select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Demo with Google Authentication</h1>
+    
+    <div class="container">
+        <div class="card" id="loginCard">
+            <h2>Login with Google</h2>
+            <p>Click the button below to sign in with your Google account:</p>
+            <button id="googleLoginBtn" class="google-btn">
+                <svg class="google-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                    <path fill="none" d="M0 0h48v48H0z"/>
+                </svg>
+                Sign in with Google
+            </button>
+            <div id="loginResponse" class="response hidden"></div>
+        </div>
+
+        <div class="card hidden" id="apiCard">
+            <h2>Protected API Access</h2>
+            <div id="userInfo" class="user-info">
+                <img id="userAvatar" class="user-avatar" src="/api/placeholder/50/50" alt="User avatar">
+                <div>
+                    <div id="userName" class="user-name">User Name</div>
+                    <div id="userEmail" class="user-email">user@example.com</div>
+                </div>
+            </div>
+
+            <div class="api-selector">
+                <select id="apiEndpoint">
+                    <option value="profile">User Profile</option>
+                    <option value="calendar">Google Calendar Events</option>
+                    <option value="drive">Google Drive Files</option>
+                    <option value="people">Google Contacts</option>
+                </select>
+                <button id="getDataBtn">Access Google API</button>
+            </div>
+
+            <div id="apiResponse" class="response hidden"></div>
+            <button id="logoutBtn" style="margin-top: 20px; background-color: #e74c3c;">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Constants for Google OAuth
+        const CLIENT_ID = "643548334417-kust847pdev1pl8n1s311n3srgv3fsgk.apps.googleusercontent.com";
+        // Define API scopes - add the ones you need
+        const API_SCOPES = {
+            profile: 'profile email',
+            calendar: 'https://www.googleapis.com/auth/calendar.readonly',
+            drive: 'https://www.googleapis.com/auth/drive.metadata.readonly',
+            people: 'https://www.googleapis.com/auth/contacts.readonly'
+        };
+
+        // DOM Elements
+        const loginCard = document.getElementById('loginCard');
+        const apiCard = document.getElementById('apiCard');
+        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const getDataBtn = document.getElementById('getDataBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginResponse = document.getElementById('loginResponse');
+        const apiResponse = document.getElementById('apiResponse');
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const userEmail = document.getElementById('userEmail');
+        const apiEndpoint = document.getElementById('apiEndpoint');
+
+        // Google API libraries we'll need
+        const DISCOVERY_DOCS = [
+            "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+            "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
+            "https://www.googleapis.com/discovery/v1/apis/people/v1/rest"
+        ];
+
+        // Event Listeners
+        googleLoginBtn.addEventListener('click', initiateGoogleLogin);
+        getDataBtn.addEventListener('click', fetchGoogleApiData);
+        logoutBtn.addEventListener('click', handleLogout);
+
+        // Check if user is already logged in
+        checkAuthStatus();
+
+        function loadGoogleAPIs() {
+            console.log("Loading Google APIs");
+            gapi.load('client:auth2', initClient);
+        }
+
+        function initClient() {
+            gapi.client.init({
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: Object.values(API_SCOPES).join(' ')
+            }).then(function() {
+                // Listen for sign-in state changes
+                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+                // Handle the initial sign-in state
+                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+            });
+        }
+
+        function updateSigninStatus(isSignedIn) {
+            if (isSignedIn) {
+                const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+                handleSignedInUser(googleUser);
+            }
+        }
+
+        // Load Google API when page loads
+        document.addEventListener('DOMContentLoaded', loadGoogleAPIs);
+
+        function initiateGoogleLogin() {
+            loginResponse.classList.remove('hidden', 'error');
+            loginResponse.textContent = 'Connecting to Google...';
+
+            gapi.auth2.getAuthInstance().signIn({
+                scope: Object.values(API_SCOPES).join(' ')
+            }).then(onSignIn, function(error) {
+                loginResponse.textContent = 'Error signing in: ' + error.error;
+                loginResponse.classList.add('error');
+            });
+        }
+
+        function onSignIn(googleUser) {
+            handleSignedInUser(googleUser);
+        }
+
+        function handleSignedInUser(googleUser) {
+            // Get user profile information
+            const profile = googleUser.getBasicProfile();
+            const id = profile.getId();
+            const name = profile.getName();
+            const email = profile.getEmail();
+            const picture = profile.getImageUrl();
+            
+            // Get the token response
+            const authResponse = googleUser.getAuthResponse(true);
+            const id_token = authResponse.id_token;
+            const access_token = authResponse.access_token;
+            
+            // Store tokens and user info
+            localStorage.setItem('googleAccessToken', access_token);
+            localStorage.setItem('googleIdToken', id_token);
+            localStorage.setItem('googleUser', JSON.stringify({
+                id: id,
+                name: name,
+                email: email,
+                picture: picture
+            }));
+            
+            // Display success and user info
+            if (loginResponse) {
+                loginResponse.textContent = 'Google authentication successful!';
+            }
+            displayUserInfo({
+                id: id,
+                name: name,
+                email: email,
+                picture: picture
+            });
+            setTimeout(showApiCard, 500);
+        }
+
+        function checkAuthStatus() {
+            const token = localStorage.getItem('googleAccessToken');
+            const userJson = localStorage.getItem('googleUser');
+            
+            if (token && userJson) {
+                try {
+                    const user = JSON.parse(userJson);
+                    displayUserInfo(user);
+                    showApiCard();
+                } catch(e) {
+                    handleLogout();
+                }
+            }
+        }
+
+        function displayUserInfo(user) {
+            userAvatar.src = user.picture || '/api/placeholder/50/50';
+            userName.textContent = user.name;
+            userEmail.textContent = user.email;
+        }
+
+        function fetchGoogleApiData() {
+            const selectedApi = apiEndpoint.value;
+            
+            apiResponse.classList.remove('hidden', 'error');
+            apiResponse.textContent = `Fetching data from Google ${selectedApi} API...`;
+
+            switch(selectedApi) {
+                case 'profile':
+                    displayProfileData();
+                    break;
+                case 'calendar':
+                    fetchCalendarData();
+                    break;
+                case 'drive':
+                    fetchDriveFiles();
+                    break;
+                case 'people':
+                    fetchContacts();
+                    break;
+                default:
+                    apiResponse.textContent = 'Please select a valid API endpoint.';
+            }
+        }
+
+        function displayProfileData() {
+            try {
+                const user = JSON.parse(localStorage.getItem('googleUser'));
+                const profile = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    picture: user.picture
+                };
+                
+                apiResponse.innerHTML = `
+                    <h3>Google Profile Data</h3>
+                    <table>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>ID</td>
+                            <td>${profile.id}</td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>${profile.name}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>${profile.email}</td>
+                        </tr>
+                        <tr>
+                            <td>Picture</td>
+                            <td><img src="${profile.picture || '/api/placeholder/50/50'}" alt="Profile picture" height="50"></td>
+                        </tr>
+                    </table>
+                `;
+            } catch(e) {
+                apiResponse.textContent = 'Error: Could not fetch profile data.';
+                apiResponse.classList.add('error');
+            }
+        }
+
+        function fetchCalendarData() {
+            if (!gapi.client.calendar) {
+                gapi.client.load('calendar', 'v3', () => {
+                    getCalendarEvents();
+                });
+            } else {
+                getCalendarEvents();
+            }
+        }
+
+        function getCalendarEvents() {
+            gapi.client.calendar.events.list({
+                'calendarId': 'primary',
+                'timeMin': (new Date()).toISOString(),
+                'showDeleted': false,
+                'singleEvents': true,
+                'maxResults': 10,
+                'orderBy': 'startTime'
+            }).then(function(response) {
+                const events = response.result.items;
+                
+                if (events && events.length > 0) {
+                    let tableHtml = `
+                        <h3>Upcoming Calendar Events</h3>
+                        <table>
+                            <tr>
+                                <th>Event</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                            </tr>
+                    `;
+                    
+                    events.forEach(event => {
+                        const start = event.start.dateTime || event.start.date;
+                        const end = event.end.dateTime || event.end.date;
+                        tableHtml += `
+                            <tr>
+                                <td>${event.summary}</td>
+                                <td>${new Date(start).toLocaleString()}</td>
+                                <td>${new Date(end).toLocaleString()}</td>
+                            </tr>
+                        `;
+                    });
+                    
+                    tableHtml += '</table>';
+                    apiResponse.innerHTML = tableHtml;
+                } else {
+                    apiResponse.textContent = 'No upcoming events found.';
+                }
+            }).catch(function(error) {
+                apiResponse.textContent = 'Error fetching calendar events: ' + error.result.error.message;
+                apiResponse.classList.add('error');
+            });
+        }
+
+        function fetchDriveFiles() {
+            if (!gapi.client.drive) {
+                gapi.client.load('drive', 'v3', () => {
+                    getDriveFiles();
+                });
+            } else {
+                getDriveFiles();
+            }
+        }
+
+        function getDriveFiles() {
+            gapi.client.drive.files.list({
+                'pageSize': 10,
+                'fields': "files(id, name, mimeType, modifiedTime, webViewLink)"
+            }).then(function(response) {
+                const files = response.result.files;
+                
+                if (files && files.length > 0) {
+                    let tableHtml = `
+                        <h3>Google Drive Files</h3>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Last Modified</th>
+                            </tr>
+                    `;
+                    
+                    files.forEach(file => {
+                        tableHtml += `
+                            <tr>
+                                <td>${file.name}</td>
+                                <td>${file.mimeType}</td>
+                                <td>${new Date(file.modifiedTime).toLocaleString()}</td>
+                            </tr>
+                        `;
+                    });
+                    
+                    tableHtml += '</table>';
+                    apiResponse.innerHTML = tableHtml;
+                } else {
+                    apiResponse.textContent = 'No files found.';
+                }
+            }).catch(function(error) {
+                apiResponse.textContent = 'Error fetching drive files: ' + error.result.error.message;
+                apiResponse.classList.add('error');
+            });
+        }
+
+        function fetchContacts() {
+            if (!gapi.client.people) {
+                gapi.client.load('people', 'v1', () => {
+                    getContacts();
+                });
+            } else {
+                getContacts();
+            }
+        }
+
+        function getContacts() {
+            gapi.client.people.people.connections.list({
+                'resourceName': 'people/me',
+                'pageSize': 10,
+                'personFields': 'names,emailAddresses,phoneNumbers'
+            }).then(function(response) {
+                const connections = response.result.connections;
+                
+                if (connections && connections.length > 0) {
+                    let tableHtml = `
+                        <h3>Google Contacts</h3>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                            </tr>
+                    `;
+                    
+                    connections.forEach(person => {
+                        const name = person.names && person.names.length > 0 ? 
+                            person.names[0].displayName : 'Unknown';
+                        const email = person.emailAddresses && person.emailAddresses.length > 0 ? 
+                            person.emailAddresses[0].value : 'N/A';
+                        const phone = person.phoneNumbers && person.phoneNumbers.length > 0 ? 
+                            person.phoneNumbers[0].value : 'N/A';
+                            
+                        tableHtml += `
+                            <tr>
+                                <td>${name}</td>
+                                <td>${email}</td>
+                                <td>${phone}</td>
+                            </tr>
+                        `;
+                    });
+                    
+                    tableHtml += '</table>';
+                    apiResponse.innerHTML = tableHtml;
+                } else {
+                    apiResponse.textContent = 'No contacts found.';
+                }
+            }).catch(function(error) {
+                apiResponse.textContent = 'Error fetching contacts: ' + (error.result ? error.result.error.message : error.message);
+                apiResponse.classList.add('error');
+            });
+        }
+
+        function handleLogout() {
+            if (gapi.auth2) {
+                const auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function() {
+                    localStorage.removeItem('googleAccessToken');
+                    localStorage.removeItem('googleIdToken');
+                    localStorage.removeItem('googleUser');
+                    showLoginCard();
+                    
+                    loginResponse.classList.remove('hidden');
+                    loginResponse.textContent = 'You have been logged out.';
+                });
+            } else {
+                localStorage.removeItem('googleAccessToken');
+                localStorage.removeItem('googleIdToken');
+                localStorage.removeItem('googleUser');
+                showLoginCard();
+                
+                loginResponse.classList.remove('hidden');
+                loginResponse.textContent = 'You have been logged out.';
+            }
+        }
+
+        function showApiCard() {
+            loginCard.classList.add('hidden');
+            apiCard.classList.remove('hidden');
+            apiResponse.classList.add('hidden');
+        }
+
+        function showLoginCard() {
+            apiCard.classList.add('hidden');
+            loginCard.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

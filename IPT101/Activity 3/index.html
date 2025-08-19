@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity 3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+    <div class="carousel">
+        <div class="slides">
+            <div class="page1">
+                <div class="container">
+                    <h1 class="title">✨ User Gacha ✨</h1>
+                    
+                    <div class="card" id="card">
+                        <div class="empty-state">
+                            <div class="empty-icon">🎮</div>
+                            <h3>Welcome to User Gacha!</h3>
+                            <p>Click the button below to pull a random user profile.</p>
+                        </div>
+                    </div>
+                    
+                    <button id="pullButton" class="pull-button">Pull Random User!</button>
+                    
+                    <p class="card-footer">Data provided by randomuser.me API</p>
+                </div>
+            </div>
+        </div>
+        <div class="slides">
+            <div class="page2">
+                <div id="web"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="arrow-carousel"></div>
+
+    <div class="dot-carousel">
+        <div id="dot-carousel"></div>
+    </div>
+
+    <script src="JS/script.js"></script>
+    <script src="JS/carousel.js"></script>
+    <script src="JS/data.js"></script>
+</body>
+</html>

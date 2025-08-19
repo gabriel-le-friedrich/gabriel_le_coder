@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniStream - Anime Streaming Platform</title>
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --dark-color: #2d3436;
+            --light-color: #f5f6fa;
+            --danger-color: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1e272e;
+            color: #fff;
+        }
+
+        header {
+            background-color: var(--dark-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .search-box {
+            display: flex;
+            background: #34495e;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            width: 40%;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            flex: 1;
+            padding: 0 0.5rem;
+        }
+
+        .search-box button {
+            background: transparent;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #dfe6e9;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .login-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .banner {
+            height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/400') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .banner-content {
+            max-width: 600px;
+        }
+
+        .banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .banner p {
+            margin-bottom: 1.5rem;
+            color: #dfe6e9;
+        }
+
+        .watch-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .watch-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .section-title {
+            margin: 2rem 0 1rem;
+            font-size: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .anime-card {
+            background-color: #2d3436;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .anime-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .anime-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .anime-info {
+            padding: 1rem;
+        }
+
+        .anime-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .anime-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #b2bec3;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: #dfe6e9;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            color: #b2bec3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: #2d3436;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 10px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #dfe6e9;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: 1px solid #34495e;
+            background-color: #34495e;
+            color: #fff;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .video-player {
+            width: 80%;
+            max-width: 1000px;
+            background-color: #2d3436;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #b2bec3;
+        }
+
+        .video-description {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .episode-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .episode-btn {
+            background-color: #34495e;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .episode-btn:hover, .episode-btn.active {
+            background-color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .search-box {
+                width: 60%;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .anime-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .banner h1 {
+                font-size: 2rem;
+            }
+            
+            .video-player {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">AniStream</div>
+                <div class="search-box">
+                    <input type="text" placeholder="Search anime...">
+                    <button>🔍</button>
+                </div>
+                <div class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">Genres</a>
+                    <a href="#">New Releases</a>
+                    <a href="#">My List</a>
+                </div>
+                <button class="login-btn" id="loginBtn">Log In</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="banner">
+        <div class="banner-content">
+            <h1>Demon Slayer: Kimetsu no Yaiba</h1>
+            <p>Follow Tanjiro Kamado's journey to become a demon slayer and avenge his family while searching for a cure for his sister.</p>
+            <a href="#" class="watch-btn" id="watchBtn">Watch Now</a>
+        </div>
+    </section>
+
+    <main class="container">
+        <h2 class="section-title">Popular Anime</h2>
+        <div class="anime-grid" id="popularAnime">
+            <!-- Content will be loaded dynamically -->
+        </div>
+
+        <h2 class="section-title">New Releases</h2>
+        <div class="anime-grid" id="newReleases">
+            <!-- Content will be loaded dynamically -->
+        </div>
+
+        <h2 class="section-title">Continue Watching</h2>
+        <div class="anime-grid" id="continueWatching">
+            <!-- Content will be loaded dynamically -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">AniStream</div>
+                <div class="footer-links">
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy</a>
+                </div>
+                <div class="copyright">© 2025 AniStream. All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username or Email</label>
+                    <input type="text" id="username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="api-key">API Key</label>
+                    <input type="password" id="api-key" class="form-control">
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">Don't have an account? <a href="#" style="color: var(--primary-color);">Sign up</a></p>
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div class="modal" id="videoModal">
+        <div class="video-player">
+            <div class="video-container">
+                <iframe id="videoFrame" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <h2 id="videoTitle">Demon Slayer: Season 1 Episode 1</h2>
+                <div class="video-meta">
+                    <span>TV-14</span>
+                    <span>•</span>
+                    <span>Sub | Dub</span>
+                    <span>•</span>
+                    <span>24m</span>
+                </div>
+                <p class="video-description" id="videoDescription">
+                    Tanjiro's peaceful life is shattered when his family is slaughtered by a demon. His sister Nezuko is the only survivor, but she has been transformed into a demon herself!
+                </p>
+                <h3>Episodes</h3>
+                <div class="episode-list" id="episodeList">
+                    <!-- Episode buttons will be added dynamically -->
+                </div>
+            </div>
+            <button class="close-btn">&times;</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Sample data - in a real application, this would come from an API
+        const animeData = {
+            popular: [
+                { id: 1, title: "Attack on Titan: Final Season", episodes: 16, rating: "4.9", image: "/api/placeholder/200/280" },
+                { id: 2, title: "Jujutsu Kaisen", episodes: 24, rating: "4.8", image: "/api/placeholder/200/280" },
+                { id: 3, title: "My Hero Academia", episodes: 25, rating: "4.7", image: "/api/placeholder/200/280" },
+                { id: 4, title: "One Piece", episodes: 1015, rating: "4.9", image: "/api/placeholder/200/280" },
+                { id: 5, title: "Tokyo Revengers", episodes: 24, rating: "4.6", image: "/api/placeholder/200/280" }
+            ],
+            newReleases: [
+                { id: 6, title: "Chainsaw Man", episodes: 12, rating: "4.8", image: "/api/placeholder/200/280" },
+                { id: 7, title: "Spy x Family Part 2", episodes: 13, rating: "4.7", image: "/api/placeholder/200/280" },
+                { id: 8, title: "Bleach: Thousand-Year Blood War", episodes: 13, rating: "4.9", image: "/api/placeholder/200/280" },
+                { id: 9, title: "Mob Psycho 100 III", episodes: 12, rating: "4.8", image: "/api/placeholder/200/280" },
+                { id: 10, title: "Blue Lock", episodes: 24, rating: "4.7", image: "/api/placeholder/200/280" }
+            ],
+            continueWatching: [
+                { id: 11, title: "Demon Slayer", episode: 5, progress: 67, image: "/api/placeholder/200/280" },
+                { id: 12, title: "One Punch Man", episode: 8, progress: 45, image: "/api/placeholder/200/280" },
+                { id: 13, title: "Fullmetal Alchemist: Brotherhood", episode: 12, progress: 89, image: "/api/placeholder/200/280" }
+            ]
+        };
+
+        // Sample API token (would be securely stored in a real application)
+        let apiToken = null;
+
+        // Function to create anime cards
+        function createAnimeCard(anime, container, isContinueWatching = false) {
+            const card = document.createElement('div');
+            card.className = 'anime-card';
+            card.dataset.id = anime.id;
+            
+            let cardContent = `
+                <img src="${anime.image}" alt="${anime.title}" class="anime-img">
+                <div class="anime-info">
+                    <h3 class="anime-title">${anime.title}</h3>
+                    <div class="anime-meta">
+            `;
+            
+            if (isContinueWatching) {
+                cardContent += `
+                    <span>EP ${anime.episode}</span>
+                    <span>${anime.progress}%</span>
+                `;
+            } else {
+                cardContent += `
+                    <span>${anime.episodes} Episodes</span>
+                    <span>⭐ ${anime.rating}</span>
+                `;
+            }
+            
+            cardContent += `
+                    </div>
+                </div>
+            `;
+            
+            card.innerHTML = cardContent;
+            document.getElementById(container).appendChild(card);
+            
+            // Add click event to open the video player
+            card.addEventListener('click', () => openVideoPlayer(anime));
+        }
+
+        // Function to load anime data
+        function loadAnimeData() {
+            // In a real application, we would fetch this data from an API using the token
+            // For demo purposes, we'll use the sample data directly
+            
+            // Clear existing content
+            document.getElementById('popularAnime').innerHTML = '';
+            document.getElementById('newReleases').innerHTML = '';
+            document.getElementById('continueWatching').innerHTML = '';
+            
+            // Load popular anime
+            animeData.popular.forEach(anime => {
+                createAnimeCard(anime, 'popularAnime');
+            });
+            
+            // Load new releases
+            animeData.newReleases.forEach(anime => {
+                createAnimeCard(anime, 'newReleases');
+            });
+            
+            // Load continue watching
+            animeData.continueWatching.forEach(anime => {
+                createAnimeCard(anime, 'continueWatching', true);
+            });
+        }
+
+        // Function to open video player
+        function openVideoPlayer(anime) {
+            // In a real application, we would fetch the video URL from an API using the token
+            
+            const videoModal = document.getElementById('videoModal');
+            const videoFrame = document.getElementById('videoFrame');
+            const videoTitle = document.getElementById('videoTitle');
+            const videoDescription = document.getElementById('videoDescription');
+            const episodeList = document.getElementById('episodeList');
+            
+            // For demo, we'll use a placeholder
+            videoFrame.src = "about:blank"; // In a real app, this would be the streaming URL
+            
+            // Set title based on whether it's continue watching or not
+            if (anime.episode) {
+                videoTitle.textContent = `${anime.title}: Episode ${anime.episode}`;
+            } else {
+                videoTitle.textContent = `${anime.title}: Episode 1`;
+            }
+            
+            // Generic description
+            videoDescription.textContent = `Watch ${anime.title} with HD quality streaming. Subscribe for ad-free experience and access to the latest episodes as they air in Japan.`;
+            
+            // Create episode buttons
+            episodeList.innerHTML = '';
+            const episodeCount = anime.episodes || 12; // Default to 12 if not specified
+            
+            for (let i = 1; i <= episodeCount; i++) {
+                const epBtn = document.createElement('button');
+                epBtn.className = 'episode-btn';
+                if (anime.episode === i) epBtn.classList.add('active');
+                epBtn.textContent = i;
+                epBtn.addEventListener('click', () => {
+                    // In a real app, this would change the video source
+                    document.querySelectorAll('.episode-btn').forEach(btn => btn.classList.remove('active'));
+                    epBtn.classList.add('active');
+                    videoTitle.textContent = `${anime.title}: Episode ${i}`;
+                });
+                episodeList.appendChild(epBtn);
+            }
+            
+            // Show the modal
+            videoModal.style.display = 'flex';
+        }
+
+        // Function to handle login
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const apiKey = document.getElementById('api-key').value;
+            
+            if (!username || !password || !apiKey) {
+                alert('Please fill all fields');
+                return;
+            }
+            
+            // In a real application, we would send these credentials to an authentication API
+            // For demo purposes, we'll just set the token directly
+            apiToken = apiKey;
+            
+            // Close the modal
+            document.getElementById('loginModal').style.display = 'none';
+            
+            // Update UI to show logged in state
+            document.getElementById('loginBtn').textContent = 'Account';
+            
+            // Load anime data with the token
+            loadAnimeData();
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up modal buttons
+            document.getElementById('loginBtn').addEventListener('click', () => {
+                document.getElementById('loginModal').style.display = 'flex';
+            });
+            
+            document.getElementById('watchBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                openVideoPlayer(animeData.popular[0]); // Open first anime
+            });
+            
+            // Set up close buttons for modals
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.closest('.modal').style.display = 'none';
+                    
+                    // If it's the video modal, stop the video
+                    if (btn.closest('.modal').id === 'videoModal') {
+                        document.getElementById('videoFrame').src = 'about:blank';
+                    }
+                });
+            });
+            
+            // Set up login form
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            
+            // Load initial anime data
+            loadAnimeData();
+            
+            // Add event listener to close modals when clicking outside
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                        
+                        // If it's the video modal, stop the video
+                        if (modal.id === 'videoModal') {
+                            document.getElementById('videoFrame').src = 'about:blank';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

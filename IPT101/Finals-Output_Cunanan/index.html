@@ -1,0 +1,171 @@
+<!-- 
+
+Good Day! I am Frederick Gabrielle Cunanan.
+Here is my Bible App/Website wherein it uses the API: API.Bible (https://docs.api.bible/).
+
+Its key features are:
+1. Access to a large collection of Bible translations
+2. Bible text reading
+3. Search functionality
+4. Bible navigation (Next/Previous Chapter)
+5. Store users in Local Storage (Login/Signup/Logout)
+
+References:
+API: https://docs.api.bible/
+JQuery Libraries: https://cdnjs.com/libraries/jquery
+Font Awesome Libraries: https://cdnjs.com/libraries/font-awesome
+Simple Bible Web App Tutorial: https://www.youtube.com/watch?v=b-VcJdk5T2k
+DOM Manipulation: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model
+Local Storage: https://web.dev/articles/storage-for-the-web & https://www.youtube.com/watch?v=k8yJCeuP6I8
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bible App</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/bible.css">
+  <link rel="stylesheet" href="css/modal.css">
+  <link rel="stylesheet" href="css/search.css">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <i class="fas fa-book-open"></i> Bible App
+      </div>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search the Bible...">
+        <button id="search-button"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="user-actions">
+        <button id="login-button">Login</button>
+        <button id="signup-button">Sign Up</button>
+        <div class="logged-in-actions" style="display: none;">
+          <button id="profile-button" class="profile-button">
+            <i class="fas fa-user"></i>
+          </button>
+          <button id="logout-button" class="logout-button">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="sidebar">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="#" class="active"><i class="fas fa-book"></i> Bible</a></li>
+        <!-- <li><a href="#"><i class="fas fa-bookmark"></i> Bookmarks</a></li>
+        <li><a href="#"><i class="fas fa-highlighter"></i> Highlights</a></li>
+        <li><a href="#"><i class="fas fa-sticky-note"></i> Notes</a></li> -->
+      </ul>
+      
+      <h3>Old Testament</h3>
+      <ul id="old-testament" class="book-list">
+        <!-- Books will be added using API -->
+      </ul>
+      
+      <h3>New Testament</h3>
+      <ul id="new-testament" class="book-list">
+        <!-- Books will be added using API -->
+      </ul>
+    </div>
+
+    <div class="content">
+      <div class="bible-controls">
+        <div>
+          <select id="translation-select">
+            <!-- Translations will be added using API -->
+          </select>
+          <select id="book-select">
+            <!-- Books will be added using API -->
+          </select>
+          <select id="chapter-select">
+            <!-- Chapters will be added using API -->
+          </select>
+        </div>
+        <div class="bible-navigation">
+          <button id="prev-chapter"><i class="fas fa-chevron-left"></i> Previous</button>
+          <button id="next-chapter">Next &nbsp;<i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+
+      <div id="bible-content">
+        <div class="loader">
+          <i class="fas fa-circle-notch"></i>
+        </div>
+        <div class="chapter-content" id="chapter-text">
+          <!-- Bible text will be inserted here -->
+          <p>Please select a passage or log in to view the Bible text.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Login to Bible App</h2>
+      <div class="alert alert-danger" id="login-error"></div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <div class="form-footer">
+        Don't have an account? <span class="toggle-form" data-show="signup-modal">Sign up</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sign Up Modal -->
+  <div id="signup-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Create an Account</h2>
+      <div class="alert alert-danger" id="signup-error"></div>
+      <form id="signup-form">
+        <div class="form-group">
+          <label for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-email">Email</label>
+          <input type="email" id="signup-email" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-confirm">Confirm Password</label>
+          <input type="password" id="signup-confirm" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Account</button>
+      </form>
+      <div class="form-footer">
+        Already have an account? <span class="toggle-form" data-show="login-modal">Login</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

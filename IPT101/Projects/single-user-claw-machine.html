@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single User Claw Machine</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .game-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .header {
+            background-color: #4a6fa5;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        .machine-container {
+            position: relative;
+            height: 300px;
+            background-color: #e0f7fa;
+            border: 8px solid #333;
+            border-top: none;
+            overflow: hidden;
+        }
+        .claw-area {
+            position: relative;
+            height: 80px;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        .claw {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 60px;
+            background-color: #ddd;
+            border-radius: 20px 20px 0 0;
+            transform-origin: bottom center;
+            transition: transform 0.3s, height 0.5s;
+            z-index: 10;
+        }
+        .claw::before, .claw::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 10px;
+            height: 20px;
+            background-color: #999;
+        }
+        .claw::before {
+            left: 5px;
+            border-radius: 5px 0 0 5px;
+        }
+        .claw::after {
+            right: 5px;
+            border-radius: 0 5px 5px 0;
+        }
+        .claw-string {
+            position: absolute;
+            width: 2px;
+            height: 80px;
+            background-color: #999;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .prize-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            position: relative;
+        }
+        .prize {
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .prize:hover {
+            transform: scale(1.05);
+        }
+        .prize img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .controls {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #4a6fa5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #3a5a8c;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .prize-info {
+            padding: 20px;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .prize-info img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat h3 {
+            margin: 0 0 5px 0;
+            color: #4a6fa5;
+        }
+        .stat p {
+            margin: 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .collection {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .collection h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+        }
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .collection-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .collection-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5em;
+            z-index: 100;
+        }
+        .hidden {
+            display: none;
+        }
+        .shake {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .success-animation {
+            animation: success-pulse 0.5s;
+        }
+        @keyframes success-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>Random User Claw Machine</h1>
+            <p>Click on the profile to try your luck!</p>
+        </div>
+        <div class="machine-container">
+            <div id="loading" class="loading">
+                <p>Loading user...</p>
+            </div>
+            <div class="claw-area">
+                <div class="claw" id="claw">
+                    <div class="claw-string"></div>
+                </div>
+            </div>
+            <div class="prize-container" id="prize-container">
+                <!-- Single user prize will be added here -->
+            </div>
+        </div>
+        <div class="controls">
+            <button id="play-btn">New User (2 Tokens)</button>
+            <button id="grab-btn" disabled>Grab User</button>
+            <button id="reset-btn">Refill Tokens</button>
+        </div>
+        <div class="prize-info" id="prize-info">
+            <h2>Click 'New User' to start!</h2>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <h3>Tokens</h3>
+                <p id="tokens">10</p>
+            </div>
+            <div class="stat">
+                <h3>Attempts</h3>
+                <p id="attempts">0</p>
+            </div>
+            <div class="stat">
+                <h3>Captures</h3>
+                <p id="captures">0</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="collection">
+        <h2>Your User Collection</h2>
+        <div class="collection-grid" id="collection-grid">
+            <!-- Collected users will appear here -->
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        const gameState = {
+            tokens: 10,
+            attempts: 0,
+            captures: 0,
+            isPlaying: false,
+            collectedUsers: [],
+            currentUser: null
+        };
+
+        // DOM Elements
+        const claw = document.getElementById('claw');
+        const prizeContainer = document.getElementById('prize-container');
+        const playBtn = document.getElementById('play-btn');
+        const grabBtn = document.getElementById('grab-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const prizeInfo = document.getElementById('prize-info');
+        const tokensElement = document.getElementById('tokens');
+        const attemptsElement = document.getElementById('attempts');
+        const capturesElement = document.getElementById('captures');
+        const collectionGrid = document.getElementById('collection-grid');
+        const loadingElement = document.getElementById('loading');
+
+        // Initialize the game
+        updateStats();
+        playBtn.addEventListener('click', loadNewUser);
+        grabBtn.addEventListener('click', grabUser);
+        resetBtn.addEventListener('click', resetTokens);
+
+        // Load a new random user
+        async function loadNewUser() {
+            if (gameState.tokens < 2) {
+                alert("Not enough tokens! Click 'Refill Tokens' to continue playing.");
+                return;
+            }
+
+            // Deduct tokens
+            gameState.tokens -= 2;
+            updateStats();
+            
+            // Reset UI
+            prizeContainer.innerHTML = '';
+            prizeInfo.innerHTML = '<h2>Loading new user...</h2>';
+            playBtn.disabled = true;
+            grabBtn.disabled = true;
+            
+            // Show loading
+            loadingElement.classList.remove('hidden');
+            
+            try {
+                // Fetch one random user from the API
+                const response = await fetch('https://randomuser.me/api/');
+                const data = await response.json();
+                gameState.currentUser = data.results[0];
+                
+                // Hide loading
+                loadingElement.classList.add('hidden');
+                
+                // Display the user
+                displayUser(gameState.currentUser);
+                
+                playBtn.disabled = false;
+                grabBtn.disabled = false;
+                
+                // Show user preview info
+                prizeInfo.innerHTML = `
+                    <h2>User Available!</h2>
+                    <p>Click "Grab User" to try and catch them!</p>
+                `;
+                
+                gameState.isPlaying = true;
+                
+            } catch (error) {
+                console.error('Error fetching user:', error);
+                prizeInfo.innerHTML = '<h2>Error loading user. Please try again.</h2>';
+                playBtn.disabled = false;
+                loadingElement.classList.add('hidden');
+            }
+        }
+
+        // Display user in the machine
+        function displayUser(user) {
+            const prize = document.createElement('div');
+            prize.className = 'prize';
+            prize.id = 'current-prize';
+            
+            // Add user image
+            const img = document.createElement('img');
+            img.src = user.picture.large;
+            img.alt = `${user.name.first} ${user.name.last}`;
+            prize.appendChild(img);
+            
+            prizeContainer.appendChild(prize);
+        }
+
+        // Grab the current user
+        function grabUser() {
+            if (!gameState.isPlaying || !gameState.currentUser) return;
+            
+            // Disable further grabs
+            gameState.isPlaying = false;
+            grabBtn.disabled = true;
+            playBtn.disabled = true;
+            
+            // Increment attempts
+            gameState.attempts++;
+            updateStats();
+            
+            // Get the prize element
+            const prizeElement = document.getElementById('current-prize');
+            
+            // Animate the claw down
+            claw.style.height = '200px';
+            
+            // After claw reaches the prize
+            setTimeout(() => {
+                prizeElement.classList.add('shake');
+                
+                // Determine success (60% chance)
+                const success = Math.random() < 0.6;
+                
+                setTimeout(() => {
+                    if (success) {
+                        // Success animation
+                        prizeElement.classList.remove('shake');
+                        prizeElement.classList.add('success-animation');
+                        
+                        // Increment captures
+                        gameState.captures++;
+                        gameState.collectedUsers.push(gameState.currentUser);
+                        updateStats();
+                        
+                        // Add to collection
+                        addToCollection(gameState.currentUser);
+                        
+                        // Display success info
+                        displayUserInfo(gameState.currentUser, true);
+                        
+                        // Remove prize after animation
+                        setTimeout(() => {
+                            prizeElement.remove();
+                        }, 500);
+                    } else {
+                        // Failed capture
+                        prizeElement.classList.remove('shake');
+                        
+                        // Display failure message
+                        displayUserInfo(gameState.currentUser, false);
+                    }
+                    
+                    // Reset claw
+                    setTimeout(() => {
+                        claw.style.height = '60px';
+                        
+                        // Enable play button after animation
+                        setTimeout(() => {
+                            playBtn.disabled = false;
+                        }, 500);
+                    }, 1000);
+                }, 800);
+            }, 600);
+        }
+
+        // Display user information based on grab result
+        function displayUserInfo(user, success) {
+            if (success) {
+                prizeInfo.innerHTML = `
+                    <img src="${user.picture.large}" alt="${user.name.first} ${user.name.last}">
+                    <h2>Success! You caught ${user.name.first} ${user.name.last}!</h2>
+                    <p>Email: ${user.email}</p>
+                    <p>Location: ${user.location.city}, ${user.location.country}</p>
+                    <p>Added to your collection!</p>
+                `;
+            } else {
+                prizeInfo.innerHTML = `
+                    <h2>Oops! The claw slipped!</h2>
+                    <p>You missed ${user.name.first} ${user.name.last}.</p>
+                    <p>Better luck next time!</p>
+                `;
+            }
+        }
+
+        // Add user to collection
+        function addToCollection(user) {
+            const collectionItem = document.createElement('div');
+            collectionItem.className = 'collection-item';
+            
+            collectionItem.innerHTML = `
+                <img src="${user.picture.medium}" alt="${user.name.first} ${user.name.last}">
+                <h3>${user.name.first} ${user.name.last}</h3>
+                <p>${user.location.country}</p>
+            `;
+            
+            collectionGrid.appendChild(collectionItem);
+        }
+
+        // Reset tokens
+        function resetTokens() {
+            gameState.tokens = 10;
+            updateStats();
+        }
+
+        // Update game statistics
+        function updateStats() {
+            tokensElement.textContent = gameState.tokens;
+            attemptsElement.textContent = gameState.attempts;
+            capturesElement.textContent = gameState.captures;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!--
+Good Day! I am Frederick Gabrielle Cunanan.
+
+I used The Movie Database (TMDB) API: https://www.themoviedb.org/
+It is an API with free API keys that gives TV/Movie information.
+So there's no limit (I think).
+
+You don't have to forcibly log in to search for movies but if you want
+to save or add movies in your favorite lists, then you need to register
+or log in.
+
+The website will fetch data in its JSON or local storage to check if the
+user already exists. There is no back-end or databases, the data would
+be stored in the local storage.
+
+References:
+Movies App - React Project: https://www.youtube.com/watch?v=sZ0bZGfg_m4
+10 JavaScript Projects in 10 Hours - Coding Challenge 🔥: https://www.youtube.com/watch?v=dtKciwk_si4
+Login Validation & Authentication, Javascript Tutorial - #74: http://youtube.com/watch?v=Rrbwrk79WTw
+What Is JWT and Why Should You Use JWT: https://www.youtube.com/watch?v=7Q17ubqLfaM
+Fetch API Introduction: https://www.youtube.com/watch?v=Oive66jrwBs
+How to Use Local Storage in JavaScript: https://www.youtube.com/watch?v=k8yJCeuP6I8
+Build a Popup With JavaScript: https://www.youtube.com/watch?v=MBaw_6cPmAw
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMDB Movie Browser</title>
+    <link rel="stylesheet" href="CSS/style.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <!-- Navigation bar onload -->
+        <div class="nav">
+          <h1>TMDB Movie Browser</h1>
+          <div class="nav-right" id="nav-right">
+            <button id="login-btn" class="secondary">Login</button>
+            <button id="register-btn" class="secondary">Register</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- When the user successfully logged in -->
+      <div id="success-message" class="success-message"></div>
+
+      <!-- When the user tries to log in or register -->
+      <div id="auth-section" style="display: none">
+        <div class="tab-buttons">
+          <button class="tab-btn active" data-tab="login">Login</button>
+          <button class="tab-btn" data-tab="register">Register</button>
+        </div>
+
+        <!--Login Form  -->
+        <div class="tab-content active" id="login-tab">
+          <div class="auth-container">
+            <h2>Login</h2>
+            <form id="login-form">
+              <div class="form-group">
+                <label for="login-email">Email</label>
+                <input
+                  type="email"
+                  id="login-email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="login-password">Password</label>
+                <input
+                  type="password"
+                  id="login-password"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              <div class="form-actions">
+                <button type="button" id="login-cancel" class="secondary">
+                  Cancel
+                </button>
+                <button type="submit">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Register Form -->
+        <div class="tab-content" id="register-tab">
+          <div class="auth-container">
+            <h2>Register</h2>
+            <form id="register-form">
+              <div class="form-group">
+                <label for="register-name">Name</label>
+                <input
+                  type="text"
+                  id="register-name"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="register-email">Email</label>
+                <input
+                  type="email"
+                  id="register-email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="register-password">Password</label>
+                <input
+                  type="password"
+                  id="register-password"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="register-confirm-password">Confirm Password</label>
+                <input
+                  type="password"
+                  id="register-confirm-password"
+                  placeholder="Confirm your password"
+                  required
+                />
+              </div>
+              <div class="form-actions">
+                <button type="button" id="register-cancel" class="secondary">
+                  Cancel
+                </button>
+                <button type="submit">Register</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Tab (Favorites Tab will be added after the user logged in) -->
+      <div id="content-section">
+        <div class="tab-buttons" id="content-tabs">
+          <button class="tab-btn active" data-tab="search">Search</button>
+          <button
+            class="tab-btn favorites-tab"
+            data-tab="favorites"
+            style="display: none"
+          >
+            Favorites
+          </button>
+        </div>
+
+        <!-- Movie Container -->
+        <div class="tab-content active" id="search-tab">
+          <div class="search-container">
+            <input
+              type="text"
+              id="search"
+              placeholder="Search for a movie..."
+            />
+            <button id="search-button">Search</button>
+          </div>
+
+          <div class="loading" id="loading">Loading...</div>
+          <div class="error" id="error"></div>
+
+          <div class="movies" id="movies">
+            <div class="empty-state">Search for a movie to get started</div>
+          </div>
+        </div>
+
+        <!-- Favorite Movie Container -->
+        <div class="tab-content" id="favorites-tab">
+          <h2>Your Favorite Movies</h2>
+          <div class="loading" id="favorites-loading">Loading...</div>
+          <div class="error" id="favorites-error"></div>
+          <div class="movies" id="favorites-container">
+            <div class="empty-state">
+              You don't have any favorite movies yet
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A pop-up window for movie information -->
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <span class="close" id="close-modal">&times;</span>
+        <div id="movie-details"></div>
+      </div>
+    </div>
+
+    <!-- JS source (API Caller and  Token Generator) -->
+    <script src="JS/script.js"></script>
+  </body>
+</html>

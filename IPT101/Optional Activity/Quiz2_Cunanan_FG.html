@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Odd or Even Calculator</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    textarea {
+      width: 96%;
+      height: 100px;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px grey solid;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 4px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .even {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .odd {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .info {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Odd or Even Calculator</h1>
+    
+    <label for="numbers">Enter numbers (separated by spaces, commas, or new lines):</label>
+    <textarea id="numbers" class="textarea" placeholder="Example: 5, 10, 15&#10;20 25 30"></textarea>
+    <!-- &#10; is the new/next line in html -->
+    
+    <button onclick="calculateSum()">Calculate</button>
+    
+    <div id="result" class="hidden"></div>
+    
+    <div class="info">
+      <p>This calculator adds all numbers you input and determines if the sum is odd or even.</p>
+    </div>
+  </div>
+
+  <script>
+    function calculateSum() {
+      // Get the input text
+      const inputText = document.getElementById('numbers').value.trim();
+      
+      if (!inputText) {
+        alert('Please enter some numbers.');
+        return;
+      }
+      
+      // Split the input by commas, spaces, and new lines
+      const numbersStr = inputText.split(/[\s,\n]+/);
+      
+      // Convert strings to numbers and filter out non-numbers
+      const numbers = [];
+      let invalidInput = false;
+      
+      for (const numStr of numbersStr) {
+        if (numStr === '') continue;
+        
+        const num = parseFloat(numStr);
+        if (isNaN(num)) {
+          invalidInput = true;
+          break;
+        }
+        numbers.push(num);
+      }
+      
+      if (invalidInput || numbers.length === 0) {
+        alert('Please enter valid numbers only.');
+        return;
+      }
+      
+      // Calculate the sum
+      const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+      
+      // Determine if the sum is odd or even
+      const isEven = sum % 2 === 0;
+
+      // Determine if the sum is positive or negative
+      const isNegative = sum < 0;
+      
+      // Display the result
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = `Sum: ${sum} is ${isEven ? 'EVEN' : 'ODD'} and ${isNegative ? 'NEGATIVE' : 'POSITIVE'}`;
+      resultDiv.className = isEven ? 'even' : 'odd';
+      resultDiv.classList.remove('hidden');
+    }
+  </script>
+</body>
+

@@ -1,0 +1,484 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background-color: #f0f2f5;
+    min-height: 100vh;
+}
+
+.page1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 24px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.card {
+    width: 100%;
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.5s ease;
+}
+
+.user-info.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.avatar-container {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.avatar-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    border-radius: 50%;
+    filter: blur(8px);
+    opacity: 0.7;
+}
+
+.avatar {
+    position: relative;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    border: 4px solid white;
+    z-index: 1;
+    object-fit: cover;
+}
+
+.user-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.user-email {
+    color: #666;
+    margin-bottom: 16px;
+    text-align: center;
+    word-break: break-all;
+}
+
+.user-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    font-size: 14px;
+}
+
+.detail-item {
+    background-color: #f3f4f6;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.detail-label {
+    font-weight: 600;
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    width: 64px;
+    height: 64px;
+    border: 4px solid rgba(99, 102, 241, 0.3);
+    border-top: 4px solid #6366f1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+
+.error-message {
+    color: #ef4444;
+    text-align: center;
+    padding: 16px;
+}
+
+.empty-state {
+    text-align: center;
+    color: #6b7280;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    color: #d1d5db;
+}
+
+.pull-button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #ec4899, #f97316);
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pull-button:hover {
+    background: linear-gradient(135deg, #db2777, #ea580c);
+}
+
+.pull-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.card-footer {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 16px;
+}
+
+.sparkle {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.sparkle-1 {
+    background-color: rgba(252, 211, 77, 0.7);
+}
+
+.sparkle-2 {
+    background-color: rgba(167, 139, 250, 0.7);
+    animation-delay: 0.2s;
+    width: 24px;
+    height: 24px;
+}
+
+.sparkle-3 {
+    background-color: rgba(236, 72, 153, 0.7);
+    animation-delay: 0.4s;
+    width: 20px;
+    height: 20px;
+}
+
+.sparkle-4 {
+    background-color: rgba(96, 165, 250, 0.7);
+    animation-delay: 0.6s;
+    width: 12px;
+    height: 12px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes ping {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.page2 {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(39, 39, 39);
+    width: 100%;
+    min-height: 100vh;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgb(0, 0, 0);
+    }
+
+.nav {
+    width: 60%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.nav a, .user p {
+    color: white;
+    text-decoration: none;
+    font-size: 175%;
+}
+
+.nav a:hover {
+    color: gray;
+}
+
+.user {
+    width: 40%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 1%;
+}
+
+.web-avatar {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid white;
+    z-index: 1;
+    object-fit: cover;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.data {
+    height: 200px;
+    width: auto;
+    padding: 20px;
+    background-color: #111;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+}
+
+.exit {
+    width: auto;
+    height: auto;
+    padding: 0 7px 5px 7px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    border: 1px red solid;
+    color: white;
+    cursor: pointer;
+}
+
+.greetings {
+    margin-right: 5%;
+}
+
+.logout-btn {
+    border: 2px white solid;
+    border-radius: 10%;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    border: 2px black solid;
+    background-color: white;
+    color: black;
+    transition: 0.5s;
+}
+
+#HOME p,#GAMES p,#ABOUT p {
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 250%;
+    display: flex;
+    justify-content: center;
+}
+
+.apps {
+    background-color: rgba(0, 0, 0, 0.562);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.game {
+    background-color: rgb(87, 87, 87);
+    height: 400px;
+    width: 300px;
+    border-radius: 5%;
+    margin: 2.5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.game img {
+    height: 250px;
+    width: 250px;
+    border-radius: 15%;
+    display: flex;
+    justify-content: center;
+}
+
+#ABOUT, #GAMES {
+    margin: 5% 0 5% 0;
+}
+
+/* .foot {
+    margin: 10% 0 0 0;
+} */
+
+footer {
+    height: 10%;
+    width: 100%;
+}
+
+.footer {
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    padding: 1% 5% 1% 5%;
+}
+
+.socialIcons {
+    display: flex;
+    justify-content: center;
+}
+
+.socialIcons a {
+    text-decoration: none;
+    padding: 5%;
+    background-color: white;
+    margin: 5%;
+    border-radius: 50%;
+}
+
+.socialIcons a i {
+    font-size: 200%;
+    color: black;
+    opacity: 0.9;
+}
+
+.socialIcons a:hover {
+    background-color: #111;
+    transition: 0.5s;
+}
+
+.socialIcons a:hover i {
+    color: white;
+    transition: 0.5s;
+}
+
+.footerBottom {
+    height: 40%;
+    background-color: black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prev, .next {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 20%;
+    width: 7%;
+    height: 50%;
+    padding: 16px;
+    color: rgb(85, 85, 85);
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    z-index: 0;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(201, 201, 201, 0.8);
+    color: rgb(100, 100, 100);
+}
+
+.dot-carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 1% 0 0 0;
+    background-color: #bbb;
+    border-radius: 50%; 
+    display: inline-block;
+    transition: 0.6s ease;
+}
+
+.dot:hover {
+    background-color: rgb(63, 63, 63);
+}
+
+span.active {
+    background-color: rgb(32, 32, 32);
+}

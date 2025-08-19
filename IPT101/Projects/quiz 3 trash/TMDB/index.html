@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TMDB Movie Browser</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #58a6ff;
+            margin-bottom: 10px;
+        }
+
+        .search-container {
+            display: flex;
+            margin-bottom: 30px;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        input {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+            background: #0d1117;
+            color: #c9d1d9;
+            width: 60%;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #2ea043;
+        }
+
+        .movies {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .movie {
+            background: #161b22;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .movie:hover {
+            transform: translateY(-5px);
+        }
+
+        .movie img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .movie-info {
+            padding: 15px;
+        }
+
+        .movie-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .movie-date {
+            color: #8b949e;
+            font-size: 14px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #0d1117;
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 800px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .movie-details {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .movie-poster {
+            flex: 0 0 300px;
+        }
+
+        .movie-poster img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .movie-info-detailed {
+            flex: 1;
+        }
+
+        .movie-title-large {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #58a6ff;
+        }
+
+        .movie-meta {
+            margin-bottom: 15px;
+            color: #8b949e;
+        }
+
+        .movie-overview {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #238636;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            display: none;
+        }
+
+        .error {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            color: #f85149;
+            display: none;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #8b949e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>TMDB Movie Browser</h1>
+            <p>Search for your favorite movies</p>
+        </header>
+
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Search for a movie..." />
+            <button id="search-button">Search</button>
+        </div>
+
+        <div class="loading" id="loading">Loading...</div>
+        <div class="error" id="error"></div>
+
+        <div class="movies" id="movies">
+            <div class="empty-state">Search for a movie to get started</div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close" id="close-modal">&times;</span>
+            <div id="movie-details"></div>
+        </div>
+    </div>
+
+    <script>
+        // NOTE: In a real application, you would never include the API key directly in client-side code.
+        // This is just for demonstration purposes. In production, you would use a backend service to handle API requests.
+        const API_KEY = "3e398def588c26eccfdb9b0c03e8113a";
+        const BASE_URL = "https://api.themoviedb.org/3";
+        const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+
+        const searchInput = document.getElementById("search");
+        const searchButton = document.getElementById("search-button");
+        const moviesContainer = document.getElementById("movies");
+        const loadingElement = document.getElementById("loading");
+        const errorElement = document.getElementById("error");
+        const modal = document.getElementById("modal");
+        const closeModal = document.getElementById("close-modal");
+        const movieDetails = document.getElementById("movie-details");
+
+        // Event listeners
+        searchButton.addEventListener("click", searchMovies);
+        searchInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                searchMovies();
+            }
+        });
+
+        closeModal.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Fetch popular movies on load
+        window.addEventListener("DOMContentLoaded", () => {
+            fetchPopularMovies();
+        });
+
+        async function fetchPopularMovies() {
+            try {
+                showLoading();
+                const response = await fetch(
+                    `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
+                );
+                const data = await response.json();
+
+                if (data.results && data.results.length > 0) {
+                    displayMovies(data.results);
+                } else {
+                    showError("No movies found");
+                }
+            } catch (error) {
+                showError("Error fetching popular movies");
+                console.error(error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function searchMovies() {
+            const query = searchInput.value.trim();
+
+            if (!query) {
+                fetchPopularMovies();
+                return;
+            }
+
+            try {
+                showLoading();
+                const response = await fetch(
+                    `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${encodeURIComponent(
+                        query
+                    )}&page=1&include_adult=false`
+                );
+                const data = await response.json();
+
+                if (data.results && data.results.length > 0) {
+                    displayMovies(data.results);
+                } else {
+                    moviesContainer.innerHTML =
+                        '<div class="empty-state">No movies found. Try a different search.</div>';
+                }
+            } catch (error) {
+                showError("Error searching for movies");
+                console.error(error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function displayMovies(movies) {
+            moviesContainer.innerHTML = "";
+
+            movies.forEach((movie) => {
+                const movieElement = document.createElement("div");
+                movieElement.classList.add("movie");
+                movieElement.addEventListener("click", () =>
+                    showMovieDetails(movie.id)
+                );
+
+                const posterPath = movie.poster_path
+                    ? `${IMAGE_BASE_URL}${movie.poster_path}`
+                    : "/api/placeholder/200/300";
+
+                movieElement.innerHTML = `
+          <img src="${posterPath}" alt="${movie.title
+                    }" onerror="this.src='/api/placeholder/200/300'">
+          <div class="movie-info">
+            <div class="movie-title">${movie.title}</div>
+            <div class="movie-date">${movie.release_date || "Unknown date"
+                    }</div>
+          </div>
+        `;
+
+                moviesContainer.appendChild(movieElement);
+            });
+        }
+
+        async function showMovieDetails(movieId) {
+            try {
+                showLoading();
+                const response = await fetch(
+                    `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US`
+                );
+                const movie = await response.json();
+
+                const posterPath = movie.poster_path
+                    ? `${IMAGE_BASE_URL}${movie.poster_path}`
+                    : "/api/placeholder/300/450";
+
+                let genresHTML = "";
+                if (movie.genres && movie.genres.length > 0) {
+                    genresHTML = movie.genres
+                        .map((genre) => `<span class="badge">${genre.name}</span>`)
+                        .join("");
+                }
+
+                movieDetails.innerHTML = `
+          <div class="movie-details">
+            <div class="movie-poster">
+              <img src="${posterPath}" alt="${movie.title
+                    }" onerror="this.src='/api/placeholder/300/450'">
+            </div>
+            <div class="movie-info-detailed">
+              <h2 class="movie-title-large">${movie.title}</h2>
+              <div class="movie-meta">
+                ${movie.release_date
+                        ? `<div>Release Date: ${movie.release_date}</div>`
+                        : ""
+                    }
+                ${movie.runtime
+                        ? `<div>Runtime: ${movie.runtime} minutes</div>`
+                        : ""
+                    }
+                ${movie.vote_average
+                        ? `<div>Rating: ${movie.vote_average.toFixed(1)}/10</div>`
+                        : ""
+                    }
+              </div>
+              <div class="movie-overview">${movie.overview || "No overview available"
+                    }</div>
+              <div class="movie-genres">
+                ${genresHTML || "No genres available"}
+              </div>
+            </div>
+          </div>
+        `;
+
+                modal.style.display = "block";
+            } catch (error) {
+                showError("Error fetching movie details");
+                console.error(error);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function showLoading() {
+            loadingElement.style.display = "block";
+            errorElement.style.display = "none";
+        }
+
+        function hideLoading() {
+            loadingElement.style.display = "none";
+        }
+
+        function showError(message) {
+            errorElement.textContent = message;
+            errorElement.style.display = "block";
+            moviesContainer.innerHTML = "";
+        }
+    </script>
+</body>
+
+</html>

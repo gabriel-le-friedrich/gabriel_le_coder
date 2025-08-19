@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frederick Gabrielle Cunanan's Midterm Program</title>
+    <link rel="stylesheet" href="CSS/reset.css">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/name.css">
+    <link rel="stylesheet" href="CSS/leap.css">
+    <link rel="stylesheet" href="CSS/sci-cal.css">
+</head>
+<body>
+
+    <div class="carousel">
+        <div class="slides">
+            <div class="page1">
+                <div class="greet">
+                    <h1 id="Greetings"></h1>
+                    <script src="JS/user.js"></script>
+                </div>
+                <p class="msg">This is a website wherein activities and additional javascript functions were compiled.</p>
+            </div>
+        </div>
+
+        <div class="slides">
+            <div class="page2">
+                <h1 id="programmer"></h1>
+                <button class="p2-btn" onclick="ActionListener()">Click Me</button>
+                <script src="JS/name.js"></script>
+            </div>
+        </div>
+
+        <div class="slides">
+            <div class="page3">
+                <div class="ver1">
+                    <!-- Version 1 -->
+                    <div class="header1">
+                        <h1>Leap Year Identifier 1</h1>
+                    </div>
+            
+                    <div class="content1">
+                        <p>Enter a Year:</p>
+                        <input type="number" id="year1" placeholder=" Year">
+                        <button onclick="checkLeapYear1()">Check</button>
+                        <!-- Empty paragraph tag to show the results -->
+                        <p id="result1"></p>
+                    </div>
+                </div>
+                
+                <div class="ver2">
+                    <!-- Version 2 -->
+                    <div class="header2">
+                        <h1>Leap Year Identifier 2</h1>
+                    </div>
+            
+                    <div class="content2">
+                        <p>Enter a Year:</p>
+                        <input type="number" id="year2" placeholder=" Year">
+                        <button onclick="checkLeapYear2()">Check</button>
+                        <!-- Empty paragraph tag to show the results -->
+                        <p id="result2"></p>
+                    </div>
+                </div>
+                <script src="JS/ver1.js"></script>
+                <script src="JS/ver2.js"></script>
+            </div>
+        </div>
+
+        <div class="slides">
+            <div class="page4">
+                <h1>Scientific Calculator</h1>
+                <div class="calculator">
+                    <div class="display" id="display">0</div>
+                    <div class="scientific-buttons">
+                        <button class="cal-btn scientific" onclick="calculate('sin')">sin</button>
+                        <button class="cal-btn scientific" onclick="calculate('cos')">cos</button>
+                        <button class="cal-btn scientific" onclick="calculate('tan')">tan</button>
+                        <button class="cal-btn scientific" onclick="calculate('sqrt')">√</button>
+                        <button class="cal-btn scientific" onclick="calculate('log')">log</button>
+                        <button class="cal-btn scientific" onclick="calculate('ln')">ln</button>
+                        <button class="cal-btn scientific" onclick="calculate('pi')">π</button>
+                        <button class="cal-btn scientific" onclick="calculate('e')">e</button>
+                        <button class="cal-btn scientific" onclick="calculate('pow2')">x²</button>
+                        <button class="cal-btn scientific" onclick="calculate('pow3')">x³</button>
+                        <button class="cal-btn scientific" onclick="calculate('powY')">x^y</button>
+                        <button class="cal-btn scientific" onclick="calculate('fact')">x!</button>
+                    </div>
+                    <div class="buttons">
+                        <button class="cal-btn clear" onclick="clearDisplay()">C</button>
+                        <button class="cal-btn backspace" onclick="backspace()">⌫</button>
+                        <button class="cal-btn operator" onclick="addToDisplay('%')">%</button>
+                        <button class="cal-btn operator" onclick="addToDisplay('/')">/</button>
+                        <button class="cal-btn" onclick="addToDisplay('7')">7</button>
+                        <button class="cal-btn" onclick="addToDisplay('8')">8</button>
+                        <button class="cal-btn" onclick="addToDisplay('9')">9</button>
+                        <button class="cal-btn operator" onclick="addToDisplay('*')">×</button>
+                        <button class="cal-btn" onclick="addToDisplay('4')">4</button>
+                        <button class="cal-btn" onclick="addToDisplay('5')">5</button>
+                        <button class="cal-btn" onclick="addToDisplay('6')">6</button>
+                        <button class="cal-btn operator" onclick="addToDisplay('-')">-</button>
+                        <button class="cal-btn" onclick="addToDisplay('1')">1</button>
+                        <button class="cal-btn" onclick="addToDisplay('2')">2</button>
+                        <button class="cal-btn" onclick="addToDisplay('3')">3</button>
+                        <button class="cal-btn operator" onclick="addToDisplay('+')">+</button>
+                        <button class="cal-btn" onclick="addToDisplay('0')">0</button>
+                        <button class="cal-btn" onclick="addToDisplay('.')">.</button>
+                        <button class="cal-btn equals" onclick="evaluateExpression()">=</button>
+                    </div>
+                </div>
+                <script src="JS/sci-cal.js"></script>
+            </div>
+        </div>
+            <a class="prev" onclick="plusSlides(-1)">❮</a>
+            <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
+    <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span> 
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+    </div>
+
+    <script src="JS/carousel.js"></script>
+
+
+</body>
+</html>

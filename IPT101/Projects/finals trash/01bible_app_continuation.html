@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bible App (Continued)</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <!-- The CSS would be the same as in the previous file -->
+</head>
+<body>
+  <!-- This is the continuation of the JavaScript from the previous file -->
+  <script>
+    // Simulated sample Bible content (for demonstration purposes)
+    function getSimulatedBibleContent(book, chapter) {
+      // These are sample verses for demonstration
+      const sampleVerses = {
+        'GEN.1': [
+          "In the beginning God created the heaven and the earth.",
+          "And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.",
+          "And God said, Let there be light: and there was light.",
+          "And God saw the light, that it was good: and God divided the light from the darkness.",
+          "And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day.",
+          "And God said, Let there be a firmament in the midst of the waters, and let it divide the waters from the waters.",
+          "And God made the firmament, and divided the waters which were under the firmament from the waters which were above the firmament: and it was so.",
+          "And God called the firmament Heaven. And the evening and the morning were the second day."
+        ],
+        'JHN.3': [
+          "There was a man of the Pharisees, named Nicodemus, a ruler of the Jews:",
+          "The same came to Jesus by night, and said unto him, Rabbi, we know that thou art a teacher come from God: for no man can do these miracles that thou doest, except God be with him.",
+          "Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God.",
+          "Nicodemus saith unto him, How can a man be born when he is old? can he enter the second time into his mother's womb, and be born?",
+          "Jesus answered, Verily, verily, I say unto thee, Except a man be born of water and of the Spirit, he cannot enter into the kingdom of God.",
+          "That which is born of the flesh is flesh; and that which is born of the Spirit is spirit.",
+          "Marvel not that I said unto thee, Ye must be born again.",
+          "The wind bloweth where it listeth, and thou hearest the sound thereof, but canst not tell whence it cometh, and whither it goeth: so is every one that is born of the Spirit.",
+          "Nicodemus answered and said unto him, How can these things be?",
+          "Jesus answered and said unto him, Art thou a master of Israel, and knowest not these things?",
+          "Verily, verily, I say unto thee, We speak that we do know, and testify that we have seen; and ye receive not our witness.",
+          "If I have told you earthly things, and ye believe not, how shall ye believe, if I tell you of heavenly things?",
+          "And no man hath ascended up to heaven, but he that came down from heaven, even the Son of man which is in heaven.",
+          "And as Moses lifted up the serpent in the wilderness, even so must the Son of man be lifted up:",
+          "That whosoever believeth in him should not perish, but have eternal life.",
+          "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
+        ],
+        'PSA.23': [
+          "The LORD is my shepherd; I shall not want.",
+          "He maketh me to lie down in green pastures: he leadeth me beside the still waters.",
+          "He restoreth my soul: he leadeth me in the paths of righteousness for his name's sake.",
+          "Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me.",
+          "Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over.",
+          "Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever."
+        ],
+        'ROM.8': [
+          "There is therefore now no condemnation to them which are in Christ Jesus, who walk not after the flesh, but after the Spirit.",
+          "For the law of the Spirit of life in Christ Jesus hath made me free from the law of sin and death.",
+          "For what the law could not do, in that it was weak through the flesh, God sending his own Son in the likeness of sinful flesh, and for sin, condemned sin in the flesh:",
+          "That the righteousness of the law might be fulfilled in us, who walk not after the flesh, but after the Spirit."
+        ]
+      };
+      
+      // Default to Genesis 1 if the requested passage isn't in our sample
+      const key = `${book}.${chapter}`;
+      const verses = sampleVerses[key] || sampleVerses['GEN.1'];
+      
+      return verses;
+    }
+
+    // Display Bible content
+    function displayBibleContent(verses) {
+      // Clear existing content
+      chapterText.innerHTML = '';
+      
+      // Get current book name
+      let bookName = '';
+      for (const testament in bibleBooks) {
+        const foundBook = bibleBooks[testament].find(b => b.id === state.currentBook);
+        if (foundBook) {
+          bookName = foundBook.name;
+          break;
+        }
+      }
+      
+      // Add heading
+      const heading = document.createElement('h2');
+      heading.textContent = `${bookName} ${state.currentChapter}`;
+      chapterText.appendChild(heading);
+      
+      // Add verses
+      verses.forEach((verse, index) => {
+        const verseElement = document.createElement('div');
+        verseElement.className = 'verse';
+        
+        const verseNumber = document.createElement('span');
+        verseNumber.className = 'verse-number';
+        verseNumber.textContent = index + 1;
+        
+        const verseText = document.createElement('span');
+        verseText.className = 'verse-text';
+        verseText.textContent = verse;
+        
+        verseElement.appendChild(verseNumber);
+        verseElement.appendChild(verseText);
+        chapterText.appendChild(verseElement);
+      });
+      
+      // Hide loader, show content
+      loader.style.display = 'none';
+      chapterText.style.display = 'block';
+    }
+
+    // Navigate to previous chapter
+    function navigateToPreviousChapter() {
+      if (state.currentChapter > 1) {
+        // Previous chapter in same book
+        state.currentChapter--;
+      } else {
+        // Last chapter of previous book
+        const allBooks = [...bibleBooks.oldTestament, ...bibleBooks.newTestament];
+        const currentBookIndex = allBooks.findIndex(book => book.id === state.currentBook);
+        
+        if (currentBookIndex > 0) {
+          const previousBook = allBooks[currentBookIndex - 1];
+          state.currentBook = previousBook.id;
+          state.currentChapter = previousBook.chapters;
+        }
+      }
+      
+      // Update UI and load content
+      bookSelect.value = state.currentBook;
+      updateChapterSelect();
+      loadBibleContent();
+    }
+
+    // Navigate to next chapter
+    function navigateToNextChapter() {
+      const allBooks = [...bibleBooks.oldTestament, ...bibleBooks.newTestament];
+      const currentBook = allBooks.find(book => book.id === state.currentBook);
+      
+      if (state.currentChapter < currentBook.chapters) {
+        // Next chapter in same book
+        state.currentChapter++;
+      } else {
+        // First chapter of next book
+        const currentBookIndex = allBooks.findIndex(book => book.id === state.currentBook);
+        
+        if (currentBookIndex < allBooks.length - 1) {
+          const nextBook = allBooks[currentBookIndex + 1];
+          state.currentBook = nextBook.id;
+          state.currentChapter = 1;
+        }
+      }
+      
+      // Update UI and load content
+      bookSelect.value = state.currentBook;
+      updateChapterSelect();
+      loadBibleContent();
+    }
+
+    // Open modal
+    function openModal(modal) {
+      modal.style.display = 'block';
+    }
+
+    // Close modal
+    function closeModal(modal) {
+      modal.style.display = 'none';
+      // Clear form fields and errors
+      const forms = modal.querySelectorAll('form');
+      forms.forEach(form => form.reset());
+      const alerts = modal.querySelectorAll('.alert');
+      alerts.forEach(alert => alert.style.display = 'none');
+    }
+
+    // Handle login form submission
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      
+      // Show loader
+      loginForm.style.display = 'none';
+      loader.style.display = 'block';
+      
+      // Validate fields
+      if (!email || !password) {
+        showError(loginError, 'Please fill in all fields');
+        loginForm.style.display = 'block';
+        loader.style.display = 'none';
+        return;
+      }
+      
+      // In a real app, you would make an API call to authenticate
+      // For this demo, we'll simulate a successful login after a delay
+      setTimeout(() => {
+        // Simulate successful login
+        state.user = {
+          name: email.split('@')[0], // Use part of email as name for demo
+          email: email,
+          apiKey: API_KEY
+        };
+        
+        // Save user to localStorage (in a real app, you'd store a token)
+        localStorage.setItem('bibleAppUser', JSON.stringify(state.user));
+        
+        // Update UI
+        updateAuthUI();
+        
+        // Close modal
+        closeModal(loginModal);
+      }, 1000);
+    }
+
+    // Handle signup form submission
+    function handleSignup(e) {
+      e.preventDefault();
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirm').value;
+      
+      // Show loader
+      signupForm.style.display = 'none';
+      loader.style.display = 'block';
+      
+      // Validate fields
+      if (!name || !email || !password || !confirmPassword) {
+        showError(signupError, 'Please fill in all fields');
+        signupForm.style.display = 'block';
+        loader.style.display = 'none';
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        showError(signupError, 'Passwords do not match');
+        signupForm.style.display = 'block';
+        loader.style.display = 'none';
+        return;
+      }
+      
+      // In a real app, you would make an API call to create account
+      // For this demo, we'll simulate a successful signup after a delay
+      setTimeout(() => {
+        // Simulate successful signup and login
+        state.user = {
+          name: name,
+          email: email,
+          apiKey: API_KEY
+        };
+        
+        // Save user to localStorage (in a real app, you'd store a token)
+        localStorage.setItem('bibleAppUser', JSON.stringify(state.user));
+        
+        // Update UI
+        updateAuthUI();
+        
+        // Close modal
+        closeModal(signupModal);
+      }, 1000);
+    }
+
+    // Show error message
+    function showError(element, message) {
+      element.textContent = message;
+      element.style.display = 'block';
+      
+      // Hide error after 3 seconds
+      setTimeout(() => {
+        element.style.display = 'none';
+      }, 3000);
+    }
+
+    // Check if user is already logged in
+    function checkAuth() {
+      const savedUser = localStorage.getItem('bibleAppUser');
+      if (savedUser) {
+        state.user = JSON.parse(savedUser);
+        updateAuthUI();
+      }
+    }
+
+    // Update UI based on authentication state
+    function updateAuthUI() {
+      if (state.user) {
+        // User is logged in
+        loginButton.style.display = 'none';
+        signupButton.style.display = 'none';
+        profileButton.style.display = 'inline-block';
+        
+        // Load user data
+        loadUserData();
+      } else {
+        // User is not logged in
+        loginButton.style.display = 'inline-block';
+        signupButton.style.display = 'inline-block';
+        profileButton.style.display = 'none';
+      }
+    }
+
+    // Load user-specific data
+    function loadUserData() {
+      // In a real app, you would fetch bookmarks, highlights, notes, etc.
+      // For this demo, we'll simulate some user data
+      state.bookmarks = [
+        { book: 'JHN', chapter: 3, verse: 16 },
+        { book: 'PSA', chapter: 23, verse: 1 },
+        { book: 'ROM', chapter: 8, verse: 1 }
+      ];
+      
+      state.highlights = [
+        { book: 'JHN', chapter: 3, verse: 16, color: '#fbbc05' },
+        { book: 'ROM', chapter: 8, verse: 1, color: '#34a853' }
+      ];
+      
+      state.notes = [
+        { 
+          book: 'PSA', 
+          chapter: 23, 
+          verse: 1, 
+          text: 'This is my favorite Psalm. It reminds me that God provides for all my needs.' 
+        }
+      ];
+    }
+
+    // API Integration Functions
+
+    // In a real application, you would replace these functions with actual API calls
+    // using the API.Bible service. Below are examples of how you might implement them.
+
+    // Get available Bible versions
+    function getBibleVersions() {
+      const url = 'https://api.scripture.api.bible/v1/bibles';
+      
+      // In a real implementation:
+      /*
+      return fetch(url, {
+        headers: {
+          'api-key': API_KEY
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Process and return the Bible versions
+        return data.data.map(bible => ({
+          id: bible.id,
+          name: bible.name,
+          description: bible.description,
+          language: bible.language.name
+        }));
+      });
+      */
+      
+      // For demo purposes, we're using hardcoded translations
+      return Promise.resolve([
+        { id: 'de4e12af7f28f599-01', name: 'King James Version (KJV)', language: 'English' },
+        { id: '06125adad2d5898a-01', name: 'English Standard Version (ESV)', language: 'English' },
+        { id: '5799d561cf7d71f2-01', name: 'New International Version (NIV)', language: 'English' },
+        { id: '01b29f4b342acc35-01', name: 'New Living Translation (NLT)', language: 'English' }
+      ]);
+    }
+
+    // Get books for a specific Bible version
+    function getBibleBooks(bibleId) {
+      const url = `https://api.scripture.api.bible/v1/bibles/${bibleId}/books`;
+      
+      // In a real implementation:
+      /*
+      return fetch(url, {
+        headers: {
+          'api-key': API_KEY
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Process and return the books
+        return data.data.map(book => ({
+          id: book.id,
+          name: book.name,
+          nameLong: book.nameLong,
+          abbreviation: book.abbreviation
+        }));
+      });
+      */
+      
+      // For demo purposes, we're using our predefined book data
+      return Promise.resolve([...bibleBooks.oldTestament, ...bibleBooks.newTestament]);
+    }
+
+    // Get chapters for a specific book
+    function getBookChapters(bibleId, bookId) {
+      const url = `https://api.scripture.api.bible/v1/bibles/${bibleId}/books/${bookId}/chapters`;
+      
+      // In a real implementation:
+      /*
+      return fetch(url, {
+        headers: {
+          'api-key': API_KEY
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Process and return the chapters
+        return data.data.map(chapter => ({
+          id: chapter.id,
+          number: chapter.number,
+          reference: chapter.reference
+        }));
+      });
+      */
+      
+      // For demo purposes, we'll find the book and return its chapters
+      const book = [...bibleBooks.oldTestament, ...bibleBooks.newTestament].find(b => b.id === bookId);
+      if (!book) return Promise.resolve([]);
+      
+      // Create chapter array
+      const chapters = [];
+      for (let i = 1; i <= book.chapters; i++) {
+        chapters.push({
+          id: `${bookId}.${i}`,
+          number: i.toString(),
+          reference: `${book.name} ${i}`
+        });
+      }
+      
+      return Promise.resolve(chapters);
+    }
+
+    // Get verses for a specific chapter
+    function getChapterVerses(bibleId, chapterId) {
+      const url = `https://api.scripture.api.bible/v1/bibles/${bibleId}/chapters/${chapterId}/verses`;
+      
+      // In a real implementation:
+      /*
+      return fetch(url, {
+        headers: {
+          'api-key': API_KEY
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Process and return the verses
+        return data.data.map(verse => ({
+          id: verse.id,
+          number: verse.number,
+          reference: verse.reference
+        }));
+      });
+      */
+      
+      // For demo purposes, we'll use our simulated content
+      const [book, chapter] = chapterId.split('.');
+      const verses = getSimulatedBibleContent(book, chapter);
+      
+      // Create verse array
+      const verseData = verses.map((text, index) => ({
+        id: `${chapterId}.${index + 1}`,
+        number: (index + 1).toString(),
+        reference: `${book} ${chapter}:${index + 1}`
+      }));
+      
+      return Promise.resolve(verseData);
+    }
+
+    // Get full text for a chapter
+    function getChapterText(bibleId, chapterId) {
+      const url = `https://api.scripture.api.bible/v1/bibles/${bibleId}/chapters/${chapterId}?content-type=text&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true`;
+      
+      // In a real implementation:
+      /*
+      return fetch(url, {
+        headers: {
+          'api-key': API_KEY
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        return data.data.content;
+      });
+      */
+      
+      // For demo purposes, we'll use our simulated content
+      const [book, chapter] = chapterId.split('.');
+      return Promise.resolve(getSimulatedBibleContent(book, chapter));
+    }
+
+    // User Data Management (for real app, these would interact with a backend)
+
+    function saveBookmark(book, chapter, verse) {
+      if (!state.user) return Promise.reject('User not logged in');
+      
+      const bookmark = { book, chapter, verse };
+      state.bookmarks.push(bookmark);
+      
+      // In a real app, you would save to a backend here
+      localStorage.setItem('bibleAppBookmarks', JSON.stringify(state.bookmarks));
+      
+      return Promise.resolve(bookmark);
+    }
+
+    function removeBookmark(book, chapter, verse) {
+      if (!state.user) return Promise.reject('User not logged in');
+      
+      state.bookmarks = state.bookmarks.filter(
+        b => !(b.book === book && b.chapter === chapter && b.verse === verse)
+      );
+      
+      // In a real app, you would update a backend here
+      localStorage.setItem('bibleAppBookmarks', JSON.stringify(state.bookmarks));
+      
+      return Promise.resolve({ success: true });
+    }
+
+    function saveHighlight(book, chapter, verse, color) {
+      if (!state.user) return Promise.reject('User not logged in');
+      
+      const highlight = { book, chapter, verse, color };
+      
+      // Check if verse is already highlighted
+      const existingIndex = state.highlights.findIndex(
+        h => h.book === book && h.chapter === chapter && h.verse === verse
+      );
+      
+      if (existingIndex >= 0) {
+        // Update existing highlight
+        state.highlights[existingIndex] = highlight;
+      } else {
+        // Add new highlight
+        state.highlights.push(highlight);
+      }
+      
+      // In a real app, you would save to a backend here
+      localStorage.setItem('bibleAppHighlights', JSON.stringify(state.highlights));
+      
+      return Promise.resolve(highlight);
+    }
+
+    function saveNote(book, chapter, verse, text) {
+      if (!state.user) return Promise.reject('User not logged in');
+      
+      const note = { book, chapter, verse, text };
+      
+      // Check if note already exists
+      const existingIndex = state.notes.findIndex(
+        n => n.book === book && n.chapter === chapter && n.verse === verse
+      );
+      
+      if (existingIndex >= 0) {
+        // Update existing note
+        state.notes[existingIndex] = note;
+      } else {
+        // Add new note
+        state.notes.push(note);
+      }
+      
+      // In a real app, you would save to a backend here
+      localStorage.setItem('bibleAppNotes', JSON.stringify(state.notes));
+      
+      return Promise.resolve(note);
+    }
+
+    // Additional features that could be implemented:
+    // - Search functionality
+    // - Reading plans
+    // - Social sharing
+    // - Community features
+    // - Offline access
+    // - Multiple language support
+    // - Audio Bible
+
+    // This completes the JavaScript code needed for the basic functionality
+    // of our YouVersion-style Bible app using API.Bible
+  </script>
+</body>
+</html>

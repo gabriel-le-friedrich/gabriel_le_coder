@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsplash Photo Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Unsplash Photo Gallery</h1>
+            <p class="subtitle">Search and explore high-quality, royalty-free images from Unsplash</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="search-section">
+            <form id="search-form">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search for photos..." required>
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+            
+            <nav class="gallery-nav">
+                <button id="random-btn" class="nav-button active">Random</button>
+                <button id="popular-btn" class="nav-button">Popular</button>
+            </nav>
+        </section>
+        
+        <div id="error-message" class="error-message"></div>
+        
+        <div id="loader" class="loader">
+            <div class="spinner"></div>
+            <p>Loading photos...</p>
+        </div>
+        
+        <section id="photo-gallery" class="photo-gallery">
+            <!-- Photos will be displayed here -->
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>Photos provided by <a href="https://unsplash.com" target="_blank">Unsplash</a></p>
+            <p>Created with Unsplash API</p>
+        </div>
+    </footer>
+    
+    <div class="api-info">
+        <h3>How This Implementation Works:</h3>
+        <ol>
+            <li>The app uses the Unsplash API with a free access token (Client-ID) for authentication.</li>
+            <li>When the page loads, it fetches and displays random photos from Unsplash.</li>
+            <li>Users can search for specific photos using the search bar.</li>
+            <li>The "Random" button fetches random photos, while the "Popular" button shows trending images.</li>
+            <li>All API calls are handled client-side using JavaScript's fetch API.</li>
+            <li>Images are displayed in a responsive grid layout.</li>
+            <li>Clicking on an image opens the full Unsplash page for that photo.</li>
+        </ol>
+        <p><strong>Note:</strong> To use this app, replace <code>YOUR_UNSPLASH_ACCESS_KEY</code> in the JavaScript file with your actual Unsplash API key. You can get a free API key by creating an account at <a href="https://unsplash.com/developers" target="_blank">Unsplash Developers</a>.</p>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

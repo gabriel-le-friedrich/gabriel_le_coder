@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leap Year Identifier</title>
+    <link rel="stylesheet" href="./CSS/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="ver1">
+            <!-- Version 1 -->
+            <div class="header1">
+                <h1>Leap Year Identifier 1</h1>
+            </div>
+
+            <div class="content1">
+                <label for="year1">Enter a Year:</label>
+                <input type="number" id="year1" name="year1" placeholder="Year" min="0" required>
+                <button onclick="checkLeapYear1()">Check</button>
+                <p id="result1" aria-live="polite"></p>
+            </div>
+        </div>
+    
+        <div class="ver2">
+            <!-- Version 2 -->
+            <div class="header2">
+                <h1>Leap Year Identifier 2</h1>
+            </div>
+
+            <div class="content2">
+                <label for="year2">Enter a Year:</label>
+                <input type="number" id="year2" name="year2" placeholder="Year" min="0" required>
+                <button onclick="checkLeapYear2()">Check</button>
+                <p id="result2" aria-live="polite"></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- External Scripts -->
+    <script src="./JS/ver1.js"></script>
+    <script src="./JS/ver2.js"></script>
+</body>
+</html>

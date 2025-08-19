@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Astronomy Picture of the Day</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0c0c2a;
+            color: #f0f0f0;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nasa-logo {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: #00b4ff;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+        .date-picker {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .date-picker input {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: none;
+            margin-right: 10px;
+        }
+        .date-picker button {
+            padding: 8px 20px;
+            background-color: #0067b1;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .date-picker button:hover {
+            background-color: #0089e8;
+        }
+        .content {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .apod-image {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 10px;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        .apod-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #00b4ff;
+        }
+        .apod-date {
+            font-size: 1rem;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+        .apod-explanation {
+            line-height: 1.6;
+        }
+        .apod-copyright {
+            font-style: italic;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: #b0b0b0;
+        }
+        .error {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: #ff6b6b;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+        .api-key-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .api-key-section input {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: none;
+            margin-right: 10px;
+            width: 300px;
+        }
+        .api-key-section button {
+            padding: 8px 20px;
+            background-color: #0067b1;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .info-text {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            color: #b0b0b0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <svg class="nasa-logo" viewBox="0 0 508.204 508.204">
+            <path fill="#fff" d="M254.102 0C113.763 0 0 113.763 0 254.102s113.763 254.102 254.102 254.102 254.102-113.763 254.102-254.102S394.44 0 254.102 0zm170.88 255.102c0 7.896-1.12 15.526-3.087 22.746-2.358 8.638-6.922 16.455-13.106 22.726l-145.27.36-4.795-12.414 153.95-.072c3.774-7.192 5.907-15.384 5.907-24.034 0-28.435-23.056-51.492-51.491-51.492-11.57 0-22.95 3.966-32.014 11.179l-9.45-9.645c11.736-10.426 27.094-16.753 43.545-16.753 36.61 0 66.285 29.676 66.285 66.285l-10.474 1.114zm-125.578-173.74c79.155 10.93 140.048 78.928 140.048 161.338 0 7.684-7.066 10.976-2.146 13.042l-4.52 11.633c-3.4.304-86.036-.007-88.29.083l-4.798-12.415 77.94.072c-7.432-72.535-62.374-130.934-130.934-144.97v127.927l-12.798 5.557V95.09c-3.373-.44-6.798-.672-10.269-.672-41.038 0-74.913 31.729-77.938 72.025l78.14.073 4.768 12.343h-82.848c-1.593-3.91-2.455-8.174-2.455-12.416 0-53.18 43.138-96.317 96.318-96.317 6.474-.001 12.85.633 19.022 1.895l-1.24-5.559zm-93.34 121.427c10.788-44.908 50.95-78.404 99.207-78.404 7.519 0 14.835.817 21.87 2.358v44.92l-12.798 5.557v-42.99c-52.96 6.578-94.276 51.392-94.276 106.19 0 10.835 1.612 21.288 4.601 31.14h-13.85c-3.375-10.028-5.198-20.787-5.198-31.959 0-16.77 3.96-32.624 10.982-46.686l-10.538-1.126zm-29.318 120.42a35.406 35.406 0 0 1-10.28-25.022c0-19.576 15.873-35.448 35.45-35.448 10.414 0 20.242 4.561 27.023 12.51l9.44-9.652c-9.464-10.51-23.07-16.643-37.644-16.643-27.75 0-50.264 22.512-50.264 50.262a50.162 50.162 0 0 0 12.088 32.747l14.187-8.754zm27.554 26.318c-2.55-.41-5.046-1.115-7.44-2.073l-14.177 8.745a50.144 50.144 0 0 0 22.798 5.473c9.114 0 17.8-2.44 25.322-6.9l-9.54-9.55a35.305 35.305 0 0 1-16.963 4.305zm44.6-15.46a35.39 35.39 0 0 1-7.714 11.155l9.54 9.55a50.081 50.081 0 0 0 12.184-18.28l-14.01-2.425zm106.81 27.552c-44.158 0-80.65-34.103-84.21-77.348l-12.8 5.558c3.63 19.94 13.57 38.057 28.587 51.677 15.819 14.326 36.391 22.218 57.834 22.218 47.36 0 85.748-38.387 85.748-85.746 0-5.8-.582-11.472-1.688-16.95l14.014 2.425c1.387 6.522 2.122 13.295 2.122 20.234.001 56.02-45.587 101.608-101.607 101.608v-23.676zm77.877-71.666l-2.122-14.224-2.19 12.425-164.433-.072-4.767-12.353h92.89v-46.18l12.8-5.558v51.737h66.486c.428 4.64.651 9.355.651 14.14 0 .031-.315.085-.315.085zm-77.879-156.44c-83.148 0-150.708 67.561-150.708 150.708 0 7.07.492 14.027 1.442 20.828h14.097a150.116 150.116 0 0 1-1.09-17.944c0-74.973 60.997-135.97 135.97-135.97.06 0 .114.004.173.004l.116-17.626zm-17.335 346.29c-104.548 0-189.47-84.922-189.47-189.47 0-5.758.264-11.445.767-17.056l-14.087.83a204.893 204.893 0 0 0-.122 16.227c0 112.721 91.605 204.328 204.328 204.328 72.685 0 136.61-38.04 173.055-95.292l-12.324-7.6c-33.57 52.151-92.202 87.033-159.147 87.033l-3-1zM106.758 219.343l12.787-5.559-13.104-33.896 71.208 26.36c9.23-16.96 25.234-29.689 44.194-34.344v-21.78a96.901 96.901 0 0 0-52.356 27.034l-75.335-27.886 12.606 70.071z"/>
+        </svg>
+        <h1>NASA Astronomy Picture of the Day</h1>
+        <div class="subtitle">Explore the cosmos, one day at a time</div>
+    </header>
+
+    <div class="api-key-section">
+        <h3>Enter your NASA API Key</h3>
+        <input type="text" id="api-key" placeholder="Enter your NASA API Key">
+        <button id="save-key">Save Key</button>
+        <p class="info-text">Don't have an API key? Get one for free at <a href="https://api.nasa.gov/" target="_blank" style="color: #00b4ff;">https://api.nasa.gov/</a></p>
+        <p class="info-text">If you don't want to register, you can use the demo key: DEMO_KEY (with limited requests)</p>
+    </div>
+
+    <div class="date-picker">
+        <input type="date" id="date-picker" max="">
+        <button id="fetch-button">View This Day</button>
+        <button id="today-button">Today's Image</button>
+        <button id="random-button">Random Date</button>
+    </div>
+
+    <div class="content" id="apod-content">
+        <div class="loading">Enter your NASA API Key and select a date to begin exploring!</div>
+    </div>
+
+    <footer>
+        <p>Images and data provided by NASA's Astronomy Picture of the Day API</p>
+        <p>Created by Claude | &copy; 2025</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set max date to today
+            const today = new Date();
+            const dateString = today.toISOString().split('T')[0];
+            document.getElementById('date-picker').max = dateString;
+            document.getElementById('date-picker').value = dateString;
+            
+            // Check for saved API key
+            const savedApiKey = localStorage.getItem('nasa-api-key');
+            if (savedApiKey) {
+                document.getElementById('api-key').value = savedApiKey;
+            }
+            
+            // Save API key to local storage
+            document.getElementById('save-key').addEventListener('click', function() {
+                const apiKey = document.getElementById('api-key').value.trim();
+                if (apiKey) {
+                    localStorage.setItem('nasa-api-key', apiKey);
+                    alert('API Key saved!');
+                    fetchAPOD(dateString);
+                } else {
+                    alert('Please enter a valid API Key');
+                }
+            });
+            
+            // Fetch APOD for selected date
+            document.getElementById('fetch-button').addEventListener('click', function() {
+                const selectedDate = document.getElementById('date-picker').value;
+                fetchAPOD(selectedDate);
+            });
+            
+            // Fetch today's APOD
+            document.getElementById('today-button').addEventListener('click', function() {
+                document.getElementById('date-picker').value = dateString;
+                fetchAPOD(dateString);
+            });
+            
+            // Fetch random date APOD
+            document.getElementById('random-button').addEventListener('click', function() {
+                // APOD started on June 16, 1995
+                const start = new Date('1995-06-16');
+                const end = new Date();
+                const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+                const randomDateString = randomDate.toISOString().split('T')[0];
+                document.getElementById('date-picker').value = randomDateString;
+                fetchAPOD(randomDateString);
+            });
+            
+            // If API key exists, fetch today's image on load
+            if (savedApiKey) {
+                fetchAPOD(dateString);
+            }
+            
+            function fetchAPOD(date) {
+                const apiKey = document.getElementById('api-key').value.trim();
+                if (!apiKey) {
+                    alert('Please enter your NASA API Key');
+                    return;
+                }
+                
+                const content = document.getElementById('apod-content');
+                content.innerHTML = '<div class="loading">Loading today\'s cosmic wonder...</div>';
+                
+                fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        let mediaContent = '';
+                        
+                        if (data.media_type === 'image') {
+                            mediaContent = `
+                                <div class="image-container">
+                                    <img src="${data.url}" alt="${data.title}" class="apod-image">
+                                </div>
+                            `;
+                        } else if (data.media_type === 'video') {
+                            mediaContent = `
+                                <div class="video-container">
+                                    <iframe src="${data.url}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            `;
+                        }
+                        
+                        const copyrightInfo = data.copyright ? 
+                            `<div class="apod-copyright">© ${data.copyright}</div>` : '';
+                        
+                        content.innerHTML = `
+                            ${mediaContent}
+                            <h2 class="apod-title">${data.title}</h2>
+                            <div class="apod-date">${formatDate(data.date)}</div>
+                            <div class="apod-explanation">${data.explanation}</div>
+                            ${copyrightInfo}
+                        `;
+                    })
+                    .catch(error => {
+                        content.innerHTML = `<div class="error">
+                            <p>Error fetching data: ${error.message}</p>
+                            <p>Possible causes:</p>
+                            <ul>
+                                <li>Invalid API key</li>
+                                <li>Too many requests with DEMO_KEY</li>
+                                <li>No image available for the selected date</li>
+                                <li>Network issue</li>
+                            </ul>
+                        </div>`;
+                        console.error('Error fetching APOD data:', error);
+                    });
+            }
+            
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric'
+                });
+            }
+        });
+    </script>
+</body>
+</html>

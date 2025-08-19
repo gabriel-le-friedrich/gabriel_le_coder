@@ -1,0 +1,140 @@
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.ver1, .ver2 {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Common content styles */
+.content1, .content2 {
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+/* Version 1 Specific Styles */
+.ver1 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: white;
+    color: #4cb050;
+}
+
+.header1 {
+    background-color: #4cb050;
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.content1 input {
+    height: 50px;
+    background-color: white;
+    border: 2px #4cb050 solid;
+    border-radius: 50px;
+    font-family: inherit;
+    font-size: 1.5rem;
+    padding: 0 15px;
+    width: 250px;
+}
+
+.content1 button {
+    height: 50px;
+    width: 150px;
+    background-color: #4cb050;
+    border: 2px white solid;
+    color: white;
+    font-family: inherit;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.content1 button:hover {
+    background-color: white;
+    border: 2px #4cb050 solid;
+    color: #4cb050;
+    transition: all 0.5s ease;
+}
+
+/* Version 2 Specific Styles */
+.ver2 {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+    color: chartreuse;
+}
+
+.header2 {
+    background-color: chartreuse;
+    width: 100%;
+    color: black;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.content2 input {
+    height: 50px;
+    background-color: chartreuse;
+    border: 2px white solid;
+    border-radius: 50px;
+    font-family: inherit;
+    font-size: 1.5rem;
+    padding: 0 15px;
+    width: 250px;
+}
+
+.content2 button {
+    height: 50px;
+    width: 150px;
+    background-color: black;
+    border: 2px chartreuse solid;
+    color: chartreuse;
+    font-family: inherit;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.content2 button:hover {
+    background-color: chartreuse;
+    border: 2px black solid;
+    color: black;
+    transition: all 0.5s ease;
+}
+
+/* Error state */
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    
+    .ver1, .ver2 {
+        width: 100%;
+        height: 50%;
+    }
+}

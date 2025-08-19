@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripture Connect - Your Online Bible</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #5d8cc2;
+            --secondary-color: #3b5998;
+            --accent-color: #f7b731;
+            --text-color: #333;
+            --light-bg: #f5f7fa;
+            --white: #ffffff;
+            --gray: #6c757d;
+            --sidebar-width: 280px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--white);
+            border-right: 1px solid #e6e6e6;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-collapsed {
+            transform: translateX(-100%);
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: all 0.3s ease;
+            padding: 20px;
+            padding-top: 70px;
+        }
+        
+        .main-content-full {
+            margin-left: 0;
+        }
+        
+        .logo {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        .nav-menu {
+            padding: 10px 0;
+        }
+        
+        .nav-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+        }
+        
+        .nav-item:hover {
+            background-color: rgba(93, 140, 194, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .nav-item.active {
+            background-color: rgba(93, 140, 194, 0.2);
+            color: var(--primary-color);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .nav-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .topbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: var(--sidebar-width);
+            height: 60px;
+            background-color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 5;
+            transition: all 0.3s ease;
+        }
+        
+        .topbar-full {
+            left: 0;
+        }
+        
+        .toggle-sidebar {
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--gray);
+        }
+        
+        .search-bar {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            max-width: 400px;
+            position: relative;
+            margin: 0 20px;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #e6e6e6;
+            outline: none;
+            padding-left: 35px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(93, 140, 194, 0.3);
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-actions button {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .login-btn:hover {
+            background-color: rgba(93, 140, 194, 0.1);
+        }
+        
+        .signup-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .signup-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .user-profile {
+            display: none;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .user-profile img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .bible-content {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .bible-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        
+        .passage-selector {
+            display: flex;
+            align-items: center;
+        }
+        
+        .passage-selector select {
+            padding: 8px 12px;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+            margin-right: 10px;
+            outline: none;
+            background-color: var(--white);
+            cursor: pointer;
+        }
+        
+        .passage-selector select:focus {
+            border-color: var(--primary-color);
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 24px;
+            margin: 0 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: rgba(93, 140, 194, 0.1);
+        }
+        
+        .nav-btn.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .bible-verse {
+            margin-bottom: 10px;
+        }
+        
+        .verse-number {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 12px;
+            vertical-align: super;
+            margin-right: 2px;
+        }
+        
+        .passage-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+        
+        .passage-text {
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        
+        .passage-text p {
+            margin-bottom: 15px;
+        }
+        
+        .tools-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e6e6e6;
+        }
+        
+        .tool-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            margin: 0 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        
+        .tool-btn:hover {
+            color: var(--primary-color);
+        }
+        
+        .tool-btn i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .tool-btn span {
+            font-size: 12px;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+            outline: none;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(93, 140, 194, 0.3);
+        }
+        
+        .form-buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .form-buttons button {
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: 500;
+        }
+        
+        .cancel-btn {
+            background-color: #e6e6e6;
+            color: var(--text-color);
+        }
+        
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .auth-toggle {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .auth-toggle a {
+            color: var(--primary-color);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .auth-toggle a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Bible versions dropdown */
+        .bible-versions {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .versions-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            width: 200px;
+            z-index: 5;
+            display: none;
+        }
+        
+        .versions-dropdown.show {
+            display: block;
+        }
+        
+        .version-item {
+            padding: 8px 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+        }
+        
+        .version-item:hover {
+            background-color: rgba(93, 140, 194, 0.1);
+        }
+        
+        .current-version {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .current-version i {
+            margin-left: 5px;
+        }
+        
+        /* Responsive styles */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 240px;
+            }
+            
+            .sidebar-visible {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .topbar {
+                left: 0;
+            }
+            
+            .bible-content {
+                padding: 20px;
+            }
+            
+            .passage-selector {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .passage-selector select {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+            
+            .search-bar {
+                max-width: 200px;
+            }
+        }
+
+        /* Icon font */
+        .icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            stroke-width: 0;
+            stroke: currentColor;
+            fill: currentColor;
+        }
+
+        /* Highlight feature */
+        .highlighted {
+            background-color: rgba(247, 183, 49, 0.3);
+            padding: 2px 0;
+        }
+
+        /* Notes feature */
+        .note-icon {
+            color: var(--accent-color);
+            font-size: 12px;
+            vertical-align: super;
+            cursor: pointer;
+        }
+
+        .notes-sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 320px;
+            height: 100%;
+            background-color: var(--white);
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 20;
+            padding: 20px;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
+        .notes-sidebar.show {
+            right: 0;
+        }
+
+        .notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        .notes-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .close-notes {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .note-item {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .note-reference {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .note-text {
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        .note-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .note-action {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .note-action:hover {
+            color: var(--primary-color);
+        }
+
+        /* Bible reading plan */
+        .reading-plan {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .plan-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #e6e6e6;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 35%;
+        }
+
+        .plan-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        /* Settings panel */
+        .settings-panel {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .settings-header {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        .settings-group {
+            margin-bottom: 20px;
+        }
+
+        .settings-group-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .setting-label {
+            flex: 1;
+        }
+
+        .setting-control {
+            flex: 1;
+            text-align: right;
+        }
+
+        .setting-control select,
+        .setting-control input {
+            padding: 5px;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+        }
+
+        /* Font size controls */
+        .font-size-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .font-control {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 18px;
+            margin: 0 5px;
+        }
+
+        .font-control:hover {
+            color: var(--primary-color);
+        }
+
+        .current-font-size {
+            margin: 0 5px;
+        }
+
+        /* Audio player */
+        .audio-player {
+            display: none;
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .audio-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 18px;
+            margin: 0 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .audio-btn:hover {
+            background-color: rgba(93, 140, 194, 0.1);
+            color: var(--primary-color);
+        }
+
+        .audio-btn.play-pause {
+            background-color: var(--primary-color);
+            color: var(--white);
+            font-size: 22px;
+        }
+
+        .audio-progress {
+            flex: 1;
+            margin: 0 15px;
+        }
+
+        .progress-bar-audio {
+            height: 4px;
+            background-color: #e6e6e6;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill-audio {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 30%;
+            border-radius: 2px;
+        }
+
+        .audio-timing {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        /* Bookmarks */
+        .bookmark-icon {
+            color: var(--accent-color);
+        }
+        
+        /* Verse actions */
+        .verse-wrapper {
+            position: relative;
+            display: inline;
+        }
+        
+        .verse-actions {
+            position: absolute;
+            left: 100%;
+            top: -10px;
+            background-color: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 5px;
+            display: none;
+            z-index: 5;
+        }
+        
+        .verse-wrapper:hover .verse-actions {
+            display: flex;
+        }
+        
+        .verse-action-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .verse-action-btn:hover {
+            background-color: rgba(93, 140, 194, 0.1);
+            color: var(--primary-color);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <div class="logo">
+                <h1>Scripture<span>Connect</span></h1>
+            </div>
+            <div class="nav-menu">
+                <div class="nav-item active">
+                    <i class="fas fa-book"></i> Bible
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-book-reader"></i> Reading Plans
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-search"></i> Search
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-bookmark"></i> Bookmarks
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-sticky-note"></i> Notes
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-highlighter"></i> Highlights
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-cog"></i> Settings
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content" id="mainContent">
+            <div class="topbar" id="topbar">
+                <div class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search the Bible...">
+                </div>
+                <div class="user-actions" id="userActions">
+                    <button class="login-btn" id="loginBtn">Log In</button>
+                    <button class="signup-btn" id="signupBtn">Sign Up</button>
+                </div>
+                <div class="user-profile" id="userProfile">
+                    <img src="/api/placeholder/32/32" alt="User Profile">
+                    <span id="username">Username</span>
+                </div>
+            </div>
+            
+            <div class="bible-content" id="bibleContent">
+                <div class="bible-header">
+                    <div class="passage-selector">
+                        <select id="booksDropdown">
+                            <option value="GEN">Genesis</option>
+                            <option value="EXO">Exodus</option>
+                            <option value="LEV">Leviticus</option>
+                            <option value="NUM">Numbers</option>
+                            <option value="DEU">Deuteronomy</option>
+                            <option value="JOS">Joshua</option>
+                            <option value="JDG">Judges</option>
+                            <option value="RUT">Ruth</option>
+                            <option value="1SA">1 Samuel</option>
+                            <option value="2SA">2 Samuel</option>
+                            <option value="1KI">1 Kings</option>
+                            <option value="2KI">2 Kings</option>
+                            <option value="1CH">1 Chronicles</option>
+                            <option value="2CH">2 Chronicles</option>
+                            <option value="EZR">Ezra</option>
+                            <option value="NEH">Nehemiah</option>
+                            <option value="EST">Esther</option>
+                            <option value="JOB">Job</option>
+                            <option value="PSA">Psalms</option>
+                            <option value="PRO">Proverbs</option>
+                            <option value="ECC">Ecclesiastes</option>
+                            <option value="SNG">Song of Solomon</option>
+                            <option value="ISA">Isaiah</option>
+                            <option value="JER">Jeremiah</option>
+                            <option value="LAM">Lamentations</option>
+                            <option value="EZK">Ezekiel</option>
+                            <option value="DAN">Daniel</option>
+                            <option value="HOS">Hosea</option>
+                            <option value="JOL">Joel</option>
+                            <option value="AMO">Amos</option>
+                            <option value="OBA">Obadiah</option>
+                            <option value="JON">Jonah</option>
+                            <option value="MIC">Micah</option>
+                            <option value="NAM">Nahum</option>
+                            <option value="HAB">Habakkuk</option>
+                            <option value="ZEP">Zephaniah</option>
+                            <option value="HAG">Haggai</option>
+                            <option value="ZEC">Zechariah</option>
+                            <option value="MAL">Malachi</option>
+                            <option value="MAT">Matthew</option>
+                            <option value="MRK">Mark</option>
+                            <option value="LUK">Luke</option>
+                            <option value="JHN">John</option>
+                            <option value="ACT">Acts</option>
+                            <option value="ROM">Romans</option>
+                            <option value="1CO">1 Corinthians</option>
+                            <option value="2CO">2 Corinthians</option>
+                            <option value="GAL">Galatians</option>
+                            <option value="EPH">Ephesians</option>
+                            <option value="PHP">Philippians</option>
+                            <option value="COL">Colossians</option>
+                            <option value="1TH">1 Thessalonians</option>
+                            <option value="2TH">2 Thessalonians</option>
+                            <option value="1TI">1 Timothy</option>
+                            <option value="2TI">2 Timothy</option>
+                            <option value="TIT">Titus</option>
+                            <option value="PHM">Philemon</option>
+                            <option value="HEB">Hebrews</option>
+                            <option value="JAS">James</option>
+                            <option value="1PE">1 Peter</option>
+                            <option value="2PE">2 Peter</option>
+                            <option value="1JN">1 John</option>
+                            <option value="2JN">2 John</option>
+                            <option value="3JN">3 John</option>
+                            <option value="JUD">Jude</option>
+                            <option value="REV">Revelation</option>
+                        </select>
+                        <select id="chapterDropdown">
+                            <option value="1">Chapter 1</option>
+                        </select>
+                    </div>
+                    <div class="navigation-buttons">
+                        <button class="nav-btn" id="prevChapter">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="current-version" id="currentVersion">
+                            KJV <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="versions-dropdown" id="versionsDropdown">
+                            <div class="version-item" data-version="KJV">King James (KJV)</div>
+                            <div class="version-item" data-version="NIV">New International (NIV)</div>
+                            <div class="version-item" data-version="ESV">English Standard (ESV)</div>
+                            <div class="version-item" data-version="NLT">New Living Translation (NLT)</div>
+                            <div class="version-item" data-version="NASB">New American Standard (NASB)</div>
+                        </div>
+                        <button class="nav-btn" id="nextChapter">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <h2 class="passage-title">Genesis 1</h2>
+                
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                </div>
+                
+                <div class="passage-text" id="passageText">
+                    <!-- Bible text will be loaded here -->
+                </div>
+                
+                <div class="tools-container">
+                    <button class="tool-btn" id="audioBtn">
+                        <i class="fas fa-volume-up"></i>
+                        <span>Listen</span>
+                    </button>
+                    <button class="tool-btn" id="shareBtn">
+                        <i class="fas fa-share-alt"></i>
+                        <span>Share</span>
+                    </button>
+                    <button class="tool-btn" id="fontSizeBtn">
+                        <i class="fas fa-font"></i>
+                        <span>Font Size</span>
+                    </button>
+                    <button class="tool-btn" id="notesBtn">
+                        <i class="fas fa-sticky-note"></i>
+                        <span>Notes</span>
+                    </button>
+                </div>
+                
+                <div class="audio-player" id="audioPlayer">
+                    <div class="audio-controls">
+                        <button class="audio-btn">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        <button class="audio-btn">
+                            <i class="fas fa-backward"></i>
+                        </button>
+                        <button class="audio-btn play-pause">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="audio-btn">
+                            <i class="fas fa-forward"></i>
+                        </button>
+                        <button class="audio-btn">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                    </div>
+                    <div class="audio-progress">
+                        <div class="progress-bar-audio">
+                            <div class="progress-fill-audio"></div>
+                        </div>
+                        <div class="audio-timing">
+                            <span>0:00</span>
+                            <span>3:45</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="notes-sidebar" id="notesSidebar">
+            <div class="notes-header">
+                <div class="notes-title">My Notes</div>
+                <button class="close-notes" id="closeNotes">&times;</button>
+            </div>
+            <div class="note-item">
+                <div class="note-reference">Genesis 1:1</div>
+                <div class="note-text">This verse describes the beginning of creation. It's amazing to think about how God created everything from nothing.</div>
+                <div class="note-actions">
+                    <button class="note-action">Edit</button>
+                    <button class="note-action">Delete</button>
+                </div>
+            </div>
+            <div class="note-item">
+                <div class="note-reference">John 3:16</div>
+                <div class="note-text">One of the most important verses in the Bible about God's love for humanity.</div>
+                <div class="note-actions">
+                    <button class="note-action">Edit</button>
+                    <button class="note-action">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Log In</div>
+                <button class="close-modal" id="closeLoginModal">&times;</button>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                    <div class="error-message" id="loginEmailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                    <div class="error-message" id="loginPasswordError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="apiKey">API.Bible Access Token</label>
+                    <input type="password" id="apiKey" placeholder="Enter your API.Bible access token">
+                    <div class="error-message" id="apiKeyError"></div>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="cancel-btn" id="cancelLogin">Cancel</button>
+                    <button type="submit" class="submit-btn">Log In</button>
+                </div>
+            </form>
+            <div class="auth-toggle">
+                Don't have an account? <a id="switchToSignup">Sign Up</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Sign Up</div>
+                <button class="close-modal" id="closeSignupModal">&times;</button>
+            </div>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Name</label>
+                    <input type="text" id="signupName" required>
+                    <div class="error-message" id="signupNameError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                    <div class="error-message" id="signupEmailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                    <div class="error-message" id="signupPasswordError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                    <div class="error-message" id="confirmPasswordError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="apiKeySignup">API.Bible Access Token</label>
+                    <input type="password" id="apiKeySignup" placeholder="Enter your API.Bible access token">
+                    <div class="error-message" id="apiKeySignupError"></div>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="cancel-btn" id="cancelSignup">Cancel</button>
+                    <button type="submit" class="submit-btn">Sign Up</button>
+                </div>
+            </form>
+            <div class="auth-toggle">
+                Already have an account? <a id="switchToLogin">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Global variables
+            let currentBook = 'GEN';
+            let currentChapter = 1;
+            let currentVersion = 'KJV';
+            let apiKey = ''; // Will be set when user logs in
+            let isLoggedIn = false;
+            let userData = null;
+            
+            // Function to toggle sidebar
+            $("#toggleSidebar").click(function() {
+                $("#sidebar").toggleClass("sidebar-collapsed");
+                $("#mainContent").toggleClass("main-content-full");
+                $("#topbar").toggleClass("topbar-full");
+            });
+            
+            // Mobile responsiveness for sidebar
+            if ($(window).width() < 768) {
+                $("#sidebar").addClass("sidebar-collapsed");
+                $("#mainContent").addClass("main-content-full");
+                $("#topbar").addClass("topbar-full");
+            }
+            
+            // Handle navigation menu clicks
+            $(".nav-item").click(function() {
+                $(".nav-item").removeClass("active");
+                $(this).addClass("active");
+            });
+            
+            // Bible version dropdown
+            $("#currentVersion").click(function(e) {
+                e.stopPropagation();
+                $("#versionsDropdown").toggleClass("show");
+            });
+            
+            // Close dropdown when clicking elsewhere
+            $(document).click(function() {
+                $("#versionsDropdown").removeClass("show");
+            });
+            
+            // Change Bible version
+            $(".version-item").click(function() {
+                const version = $(this).data("version");
+                currentVersion = version;
+                $("#currentVersion").html(version + ' <i class="fas fa-chevron-down"></i>');
+                loadBiblePassage(currentBook, currentChapter, currentVersion);
+            });
+            
+            // Handle book dropdown change
+            $("#booksDropdown").change(function() {
+                currentBook = $(this).val();
+                currentChapter = 1;
+                updateChapterDropdown(currentBook);
+                loadBiblePassage(currentBook, currentChapter, currentVersion);
+            });
+            
+            // Handle chapter dropdown change
+            $("#chapterDropdown").change(function() {
+                currentChapter = parseInt($(this).val());
+                loadBiblePassage(currentBook, currentChapter, currentVersion);
+            });
+            
+            // Next chapter button
+            $("#nextChapter").click(function() {
+                const chaptersInBook = getChaptersInBook(currentBook);
+                if (currentChapter < chaptersInBook) {
+                    currentChapter++;
+                    $("#chapterDropdown").val(currentChapter);
+                    loadBiblePassage(currentBook, currentChapter, currentVersion);
+                } else {
+                    // Move to next book
+                    const bookIndex = getBookIndex(currentBook);
+                    if (bookIndex < bibleBooks.length - 1) {
+                        currentBook = bibleBooks[bookIndex + 1].id;
+                        currentChapter = 1;
+                        $("#booksDropdown").val(currentBook);
+                        updateChapterDropdown(currentBook);
+                        loadBiblePassage(currentBook, currentChapter, currentVersion);
+                    }
+                }
+            });
+            
+            // Previous chapter button
+            $("#prevChapter").click(function() {
+                if (currentChapter > 1) {
+                    currentChapter--;
+                    $("#chapterDropdown").val(currentChapter);
+                    loadBiblePassage(currentBook, currentChapter, currentVersion);
+                } else {
+                    // Move to previous book
+                    const bookIndex = getBookIndex(currentBook);
+                    if (bookIndex > 0) {
+                        currentBook = bibleBooks[bookIndex - 1].id;
+                        currentChapter = getChaptersInBook(currentBook);
+                        $("#booksDropdown").val(currentBook);
+                        updateChapterDropdown(currentBook);
+                        $("#chapterDropdown").val(currentChapter);
+                        loadBiblePassage(currentBook, currentChapter, currentVersion);
+                    }
+                }
+            });
+            
+            // Tool buttons actions
+            $("#audioBtn").click(function() {
+                $("#audioPlayer").toggle();
+            });
+            
+            $("#notesBtn").click(function() {
+                $("#notesSidebar").toggleClass("show");
+            });
+            
+            $("#closeNotes").click(function() {
+                $("#notesSidebar").removeClass("show");
+            });
+
+            // Login modal
+            $("#loginBtn").click(function() {
+                $("#loginModal").css("display", "flex");
+            });
+            
+            $("#closeLoginModal, #cancelLogin").click(function() {
+                $("#loginModal").hide();
+            });
+            
+            // Signup modal
+            $("#signupBtn").click(function() {
+                $("#signupModal").css("display", "flex");
+            });
+            
+            $("#closeSignupModal, #cancelSignup").click(function() {
+                $("#signupModal").hide();
+            });
+            
+            // Switch between auth modals
+            $("#switchToSignup").click(function() {
+                $("#loginModal").hide();
+                $("#signupModal").css("display", "flex");
+            });
+            
+            $("#switchToLogin").click(function() {
+                $("#signupModal").hide();
+                $("#loginModal").css("display", "flex");
+            });
+            
+            // Handle login form submission
+            $("#loginForm").submit(function(e) {
+                e.preventDefault();
+                
+                // Clear previous errors
+                $(".error-message").hide();
+                
+                const email = $("#loginEmail").val().trim();
+                const password = $("#loginPassword").val().trim();
+                apiKey = $("#apiKey").val().trim();
+                
+                // Simple validation
+                let isValid = true;
+                
+                if (!email) {
+                    $("#loginEmailError").text("Email is required").show();
+                    isValid = false;
+                }
+                
+                if (!password) {
+                    $("#loginPasswordError").text("Password is required").show();
+                    isValid = false;
+                }
+                
+                if (!apiKey) {
+                    $("#apiKeyError").text("API.Bible access token is required").show();
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // In a real application, you would send this data to your server
+                    // For demo purposes, we'll just simulate a successful login
+                    loginUser(email, password, apiKey);
+                }
+            });
+            
+            // Handle signup form submission
+            $("#signupForm").submit(function(e) {
+                e.preventDefault();
+                
+                // Clear previous errors
+                $(".error-message").hide();
+                
+                const name = $("#signupName").val().trim();
+                const email = $("#signupEmail").val().trim();
+                const password = $("#signupPassword").val().trim();
+                const confirmPassword = $("#confirmPassword").val().trim();
+                apiKey = $("#apiKeySignup").val().trim();
+                
+                // Simple validation
+                let isValid = true;
+                
+                if (!name) {
+                    $("#signupNameError").text("Name is required").show();
+                    isValid = false;
+                }
+                
+                if (!email) {
+                    $("#signupEmailError").text("Email is required").show();
+                    isValid = false;
+                }
+                
+                if (!password) {
+                    $("#signupPasswordError").text("Password is required").show();
+                    isValid = false;
+                }
+                
+                if (password !== confirmPassword) {
+                    $("#confirmPasswordError").text("Passwords do not match").show();
+                    isValid = false;
+                }
+                
+                if (!apiKey) {
+                    $("#apiKeySignupError").text("API.Bible access token is required").show();
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // In a real application, you would send this data to your server
+                    // For demo purposes, we'll just simulate a successful signup
+                    registerUser(name, email, password, apiKey);
+                }
+            });
+            
+            // ===== Bible API Functions =====
+            
+            // Function to load Bible passage
+            function loadBiblePassage(book, chapter, version) {
+                // Check if API key is available
+                if (!apiKey) {
+                    $("#passageText").html('<p>Please log in with your API.Bible access token to view Bible content.</p>');
+                    return;
+                }
+                
+                // Show loading spinner
+                $("#passageText").hide();
+                $("#loading").css("display", "flex");
+                
+                // Update passage title
+                const bookName = getBookName(book);
+                $(".passage-title").text(`${bookName} ${chapter}`);
+                
+                // In a real application, you would make an API call to API.Bible
+                // For demo purposes, we'll simulate the API response
+                setTimeout(function() {
+                    // API.Bible endpoint would be something like:
+                    // https://api.scripture.api.bible/v1/bibles/{bibleId}/passages/{book}.{chapter}
+                    
+                    const apiUrl = `https://api.scripture.api.bible/v1/bibles/${getBibleId(version)}/chapters/${book}.${chapter}`;
+                    
+                    // Make API call
+                    $.ajax({
+                        url: apiUrl,
+                        headers: {
+                            'api-key': apiKey
+                        },
+                        success: function(response) {
+                            // Process and display the content
+                            const content = response.data.content;
+                            displayBibleContent(content);
+                        },
+                        error: function(error) {
+                            // If API call fails, show sample content
+                            console.error("API call failed:", error);
+                            displaySampleContent(book, chapter);
+                        },
+                        complete: function() {
+                            // Hide loading spinner
+                            $("#loading").hide();
+                            $("#passageText").show();
+                        }
+                    });
+                }, 1000);
+            }
+            
+            // Function to display Bible content
+            function displayBibleContent(content) {
+                // In a real application, you would parse the HTML content from the API
+                // For demo purposes, we'll just display it
+                $("#passageText").html(content);
+                
+                // Add verse wrappers and actions
+                $("#passageText span.verse").each(function() {
+                    $(this).wrap('<div class="verse-wrapper"></div>');
+                    $(this).after(`
+                        <div class="verse-actions">
+                            <button class="verse-action-btn highlight-btn" title="Highlight">
+                                <i class="fas fa-highlighter"></i>
+                            </button>
+                            <button class="verse-action-btn note-btn" title="Add Note">
+                                <i class="fas fa-sticky-note"></i>
+                            </button>
+                            <button class="verse-action-btn bookmark-btn" title="Bookmark">
+                                <i class="fas fa-bookmark"></i>
+                            </button>
+                            <button class="verse-action-btn share-btn" title="Share">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                        </div>
+                    `);
+                });
+            }
+            
+            // Function to display sample content when API is not available
+            function displaySampleContent(book, chapter) {
+                if (book === 'GEN' && chapter === 1) {
+                    $("#passageText").html(`
+                        <p><span class="verse-number">1</span>In the beginning God created the heaven and the earth.</p>
+                        <p><span class="verse-number">2</span>And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.</p>
+                        <p><span class="verse-number">3</span>And God said, Let there be light: and there was light.</p>
+                        <p><span class="verse-number">4</span>And God saw the light, that it was good: and God divided the light from the darkness.</p>
+                        <p><span class="verse-number">5</span>And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day.</p>
+                        <!-- Add more verses as needed -->
+                    `);
+                } else if (book === 'JHN' && chapter === 3) {
+                    $("#passageText").html(`
+                        <p><span class="verse-number">16</span>For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</p>
+                        <p><span class="verse-number">17</span>For God sent not his Son into the world to condemn the world; but that the world through him might be saved.</p>
+                    `);
+                } else {
+                    $("#passageText").html(`
+                        <p>Sample text for ${getBookName(book)} ${chapter}.</p>
+                        <p>To view actual Bible content, please ensure your API.Bible access token is valid.</p>
+                    `);
+                }
+                
+                // Add verse wrappers for interactions
+                $("#passageText span.verse-number").each(function() {
+                    $(this).parent().wrap('<div class="verse-wrapper"></div>');
+                    $(this).parent().parent().append(`
+                        <div class="verse-actions">
+                            <button class="verse-action-btn highlight-btn" title="Highlight">
+                                <i class="fas fa-highlighter"></i>
+                            </button>
+                            <button class="verse-action-btn note-btn" title="Add Note">
+                                <i class="fas fa-sticky-note"></i>
+                            </button>
+                            <button class="verse-action-btn bookmark-btn" title="Bookmark">
+                                <i class="fas fa-bookmark"></i>
+                            </button>
+                            <button class="verse-action-btn share-btn" title="Share">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                        </div>
+                    `);
+                });
+            }
+            
+            // ===== Helper Functions =====
+            
+            // Bible books data with chapter counts
+            const bibleBooks = [
+                { id: 'GEN', name: 'Genesis', chapters: 50 },
+                { id: 'EXO', name: 'Exodus', chapters: 40 },
+                { id: 'LEV', name: 'Leviticus', chapters: 27 },
+                { id: 'NUM', name: 'Numbers', chapters: 36 },
+                { id: 'DEU', name: 'Deuteronomy', chapters: 34 },
+                { id: 'JOS', name: 'Joshua', chapters: 24 },
+                { id: 'JDG', name: 'Judges', chapters: 21 },
+                { id: 'RUT', name: 'Ruth', chapters: 4 },
+                { id: '1SA', name: '1 Samuel', chapters: 31 },
+                { id: '2SA', name: '2 Samuel', chapters: 24 },
+                { id: '1KI', name: '1 Kings', chapters: 22 },
+                { id: '2KI', name: '2 Kings', chapters: 25 },
+                { id: '1CH', name: '1 Chronicles', chapters: 29 },
+                { id: '2CH', name: '2 Chronicles', chapters: 36 },
+                { id: 'EZR', name: 'Ezra', chapters: 10 },
+                { id: 'NEH', name: 'Nehemiah', chapters: 13 },
+                { id: 'EST', name: 'Esther', chapters: 10 },
+                { id: 'JOB', name: 'Job', chapters: 42 },
+                { id: 'PSA', name: 'Psalms', chapters: 150 },
+                { id: 'PRO', name: 'Proverbs', chapters: 31 },
+                { id: 'ECC', name: 'Ecclesiastes', chapters: 12 },
+                { id: 'SNG', name: 'Song of Solomon', chapters: 8 },
+                { id: 'ISA', name: 'Isaiah', chapters: 66 },
+                { id: 'JER', name: 'Jeremiah', chapters: 52 },
+                { id: 'LAM', name: 'Lamentations', chapters: 5 },
+                { id: 'EZK', name: 'Ezekiel', chapters: 48 },
+                { id: 'DAN', name: 'Daniel', chapters: 12 },
+                { id: 'HOS', name: 'Hosea', chapters: 14 },
+                { id: 'JOL', name: 'Joel', chapters: 3 },
+                { id: 'AMO', name: 'Amos', chapters: 9 },
+                { id: 'OBA', name: 'Obadiah', chapters: 1 },
+                { id: 'JON', name: 'Jonah', chapters: 4 },
+                { id: 'MIC', name: 'Micah', chapters: 7 },
+                { id: 'NAM', name: 'Nahum', chapters: 3 },
+                { id: 'HAB', name: 'Habakkuk', chapters: 3 },
+                { id: 'ZEP', name: 'Zephaniah', chapters: 3 },
+                { id: 'HAG', name: 'Haggai', chapters: 2 },
+                { id: 'ZEC', name: 'Zechariah', chapters: 14 },
+                { id: 'MAL', name: 'Malachi', chapters: 4 },
+                { id: 'MAT', name: 'Matthew', chapters: 28 },
+                { id: 'MRK', name: 'Mark', chapters: 16 },
+                { id: 'LUK', name: 'Luke', chapters: 24 },
+                { id: 'JHN', name: 'John', chapters: 21 },
+                { id: 'ACT', name: 'Acts', chapters: 28 },
+                { id: 'ROM', name: 'Romans', chapters: 16 },
+                { id: '1CO', name: '1 Corinthians', chapters: 16 },
+                { id: '2CO', name: '2 Corinthians', chapters: 13 },
+                { id: 'GAL', name: 'Galatians', chapters: 6 },
+                { id: 'EPH', name: 'Ephesians', chapters: 6 },
+                { id: 'PHP', name: 'Philippians', chapters: 4 },
+                { id: 'COL', name: 'Colossians', chapters: 4 },
+                { id: '1TH', name: '1 Thessalonians', chapters: 5 },
+                { id: '2TH', name: '2 Thessalonians', chapters: 3 },
+                { id: '1TI', name: '1 Timothy', chapters: 6 },
+                { id: '2TI', name: '2 Timothy', chapters: 4 },
+                { id: 'TIT', name: 'Titus', chapters: 3 },
+                { id: 'PHM', name: 'Philemon', chapters: 1 },
+                { id: 'HEB', name: 'Hebrews', chapters: 13 },
+                { id: 'JAS', name: 'James', chapters: 5 },
+                { id: '1PE', name: '1 Peter', chapters: 5 },
+                { id: '2PE', name: '2 Peter', chapters: 3 },
+                { id: '1JN', name: '1 John', chapters: 5 },
+                { id: '2JN', name: '2 John', chapters: 1 },
+                { id: '3JN', name: '3 John', chapters: 1 },
+                { id: 'JUD', name: 'Jude', chapters: 1 },
+                { id: 'REV', name: 'Revelation', chapters: 22 }
+            ];
+            
+            // Function to get book name from ID
+            function getBookName(bookId) {
+                const book = bibleBooks.find(b => b.id === bookId);
+                return book ? book.name : bookId;
+            }
+            
+            // Function to get number of chapters in a book
+            function getChaptersInBook(bookId) {
+                const book = bibleBooks.find(b => b.id === bookId);
+                return book ? book.chapters : 1;
+            }
+            
+            // Function to get book index in array
+            function getBookIndex(bookId) {
+                return bibleBooks.findIndex(b => b.id === bookId);
+            }
+            
+            // Function to update chapter dropdown based on book
+            function updateChapterDropdown(bookId) {
+                const chaptersCount = getChaptersInBook(bookId);
+                let options = '';
+                
+                for (let i = 1; i <= chaptersCount; i++) {
+                    options += `<option value="${i}">Chapter ${i}</option>`;
+                }
+                
+                $("#chapterDropdown").html(options);
+            }
+            
+            // Function to get Bible ID based on version
+            function getBibleId(version) {
+                const bibleIds = {
+                    'KJV': '9879dbb7cfe39e4d-01',
+                    'NIV': '78a9f6124f344018-01',
+                    'ESV': '178e3bba56679164-01',
+                    'NLT': '5e542c84e6f2d2e0-01',
+                    'NASB': '97c3130b95f3d9dd-01'
+                };
+                
+                return bibleIds[version] || bibleIds['KJV'];
+            }
+            
+            // ===== Authentication Functions =====
+            
+            // Function to simulate user login
+            function loginUser(email, password, token) {
+                // In a real application, this would be an API call to your auth system
+                
+                // Simulate successful login
+                userData = {
+                    name: email.split('@')[0],
+                    email: email,
+                    apiKey: token
+                };
+                
+                apiKey = token;
+                isLoggedIn = true;
+                
+                // Update UI
+                $("#userActions").hide();
+                $("#userProfile").show();
+                $("#username").text(userData.name);
+                
+                // Close modal
+                $("#loginModal").hide();
+                
+                // Load Bible content
+                loadBiblePassage(currentBook, currentChapter, currentVersion);
+            }
+            
+            // Function to simulate user registration
+            function registerUser(name, email, passwor

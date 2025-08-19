@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Reader</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .search-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+        .search-box {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        select, button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .bible-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .verse {
+            margin-bottom: 15px;
+        }
+        .verse-num {
+            font-weight: bold;
+            color: #3498db;
+            margin-right: 5px;
+        }
+        .error {
+            color: #e74c3c;
+            padding: 10px;
+            background-color: #fadbd8;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #7f8c8d;
+        }
+        .favorites-container {
+            margin-top: 30px;
+        }
+        .favorite-item {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .remove-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bible Reader</h1>
+        <p>Read, search, and explore the Bible with YouVersion API</p>
+    </header>
+
+    <div class="error" id="error-message"></div>
+    
+    <div class="controls">
+        <select id="version-select">
+            <option value="kjv">King James Version (KJV)</option>
+            <option value="niv">New International Version (NIV)</option>
+            <option value="esv">English Standard Version (ESV)</option>
+            <option value="nlt">New Living Translation (NLT)</option>
+            <option value="msg">The Message (MSG)</option>
+        </select>
+        
+        <select id="book-select">
+            <!-- Will be populated with JavaScript -->
+        </select>
+        
+        <select id="chapter-select">
+            <!-- Will be populated with JavaScript -->
+        </select>
+        
+        <button id="read-btn">Read Chapter</button>
+    </div>
+    
+    <div class="search-container">
+        <input type="text" id="search-input" class="search-box" placeholder="Search the Bible...">
+        <button id="search-btn">Search</button>
+    </div>
+    
+    <div class="loading" id="loading">Loading...</div>
+    
+    <div class="bible-content" id="bible-content">
+        <p>Welcome to the Bible Reader. Select a book and chapter to start reading, or search for specific verses.</p>
+    </div>
+    
+    <button id="add-favorite-btn">Add Current Passage to Favorites</button>
+    
+    <div class="favorites-container">
+        <h2>Favorite Passages</h2>
+        <div id="favorites-list">
+            <!-- Favorites will be added here -->
+        </div>
+    </div>
+
+    <footer>
+        <p>Powered by YouVersion Bible API | Created with ❤️</p>
+    </footer>
+
+    <script>
+        // You should replace this with your actual YouVersion API access token
+        const API_TOKEN = "YOUR_ACCESS_TOKEN_HERE";
+        
+        // Bible Books Array
+        const bibleBooks = [
+            "Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy",
+            "Joshua", "Judges", "Ruth", "1 Samuel", "2 Samuel",
+            "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles",
+            "Ezra", "Nehemiah", "Esther", "Job", "Psalms", "Proverbs",
+            "Ecclesiastes", "Song of Solomon", "Isaiah", "Jeremiah", "Lamentations",
+            "Ezekiel", "Daniel", "Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah",
+            "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi",
+            "Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1 Corinthians", "2 Corinthians",
+            "Galatians", "Ephesians", "Philippians", "Colossians", "1 Thessalonians", "2 Thessalonians",
+            "1 Timothy", "2 Timothy", "Titus", "Philemon", "Hebrews", "James", "1 Peter", "2 Peter",
+            "1 John", "2 John", "3 John", "Jude", "Revelation"
+        ];
+        
+        // Chapters per book (approximate)
+        const chaptersPerBook = {
+            "Genesis": 50, "Exodus": 40, "Leviticus": 27, "Numbers": 36, "Deuteronomy": 34,
+            "Joshua": 24, "Judges": 21, "Ruth": 4, "1 Samuel": 31, "2 Samuel": 24,
+            "1 Kings": 22, "2 Kings": 25, "1 Chronicles": 29, "2 Chronicles": 36,
+            "Ezra": 10, "Nehemiah": 13, "Esther": 10, "Job": 42, "Psalms": 150, "Proverbs": 31,
+            "Ecclesiastes": 12, "Song of Solomon": 8, "Isaiah": 66, "Jeremiah": 52, "Lamentations": 5,
+            "Ezekiel": 48, "Daniel": 12, "Hosea": 14, "Joel": 3, "Amos": 9, "Obadiah": 1, "Jonah": 4, "Micah": 7,
+            "Nahum": 3, "Habakkuk": 3, "Zephaniah": 3, "Haggai": 2, "Zechariah": 14, "Malachi": 4,
+            "Matthew": 28, "Mark": 16, "Luke": 24, "John": 21, "Acts": 28, "Romans": 16, "1 Corinthians": 16, "2 Corinthians": 13,
+            "Galatians": 6, "Ephesians": 6, "Philippians": 4, "Colossians": 4, "1 Thessalonians": 5, "2 Thessalonians": 3,
+            "1 Timothy": 6, "2 Timothy": 4, "Titus": 3, "Philemon": 1, "Hebrews": 13, "James": 5, "1 Peter": 5, "2 Peter": 3,
+            "1 John": 5, "2 John": 1, "3 John": 1, "Jude": 1, "Revelation": 22
+        };
+
+        // DOM Elements
+        const bookSelect = document.getElementById('book-select');
+        const chapterSelect = document.getElementById('chapter-select');
+        const versionSelect = document.getElementById('version-select');
+        const readBtn = document.getElementById('read-btn');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const bibleContent = document.getElementById('bible-content');
+        const errorMessage = document.getElementById('error-message');
+        const loading = document.getElementById('loading');
+        const addFavoriteBtn = document.getElementById('add-favorite-btn');
+        const favoritesList = document.getElementById('favorites-list');
+        
+        // Current state
+        let currentPassage = {
+            book: '',
+            chapter: 1,
+            version: 'kjv'
+        };
+        
+        // Initialize favorites from localStorage
+        let favorites = JSON.parse(localStorage.getItem('bibleReaderFavorites')) || [];
+        
+        // Populate book select
+        function populateBookSelect() {
+            bibleBooks.forEach(book => {
+                const option = document.createElement('option');
+                option.value = book;
+                option.textContent = book;
+                bookSelect.appendChild(option);
+            });
+            
+            // Set default book
+            bookSelect.value = 'John';
+            currentPassage.book = 'John';
+            
+            // Populate chapters for default book
+            populateChapterSelect('John');
+        }
+        
+        // Populate chapter select based on selected book
+        function populateChapterSelect(book) {
+            chapterSelect.innerHTML = '';
+            const chapterCount = chaptersPerBook[book];
+            
+            for (let i = 1; i <= chapterCount; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `Chapter ${i}`;
+                chapterSelect.appendChild(option);
+            }
+            
+            // Set default chapter
+            chapterSelect.value = 1;
+            currentPassage.chapter = 1;
+        }
+        
+        // Fetch Bible content
+        async function fetchBibleContent(book, chapter, version) {
+            showLoading();
+            hideError();
+            
+            try {
+                // This is a mock API call since we don't have the actual API endpoint
+                // In a real implementation, you would call the YouVersion API here
+                
+                // Simulate API call with timeout
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // For demo purposes, we'll generate some sample verses
+                const verses = [];
+                const verseCount = getRandomVerseCount(book);
+                
+                for (let i = 1; i <= verseCount; i++) {
+                    verses.push({
+                        verse: i,
+                        text: `This is sample text for ${book} ${chapter}:${i} in ${version.toUpperCase()}. In a real implementation, this would be the actual verse text from the YouVersion API.`
+                    });
+                }
+                
+                return {
+                    book,
+                    chapter,
+                    version,
+                    verses
+                };
+            } catch (error) {
+                showError('Failed to fetch Bible content. Please check your API token and try again.');
+                console.error('Error fetching Bible content:', error);
+                return null;
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        // Search the Bible
+        async function searchBible(query, version) {
+            showLoading();
+            hideError();
+            
+            try {
+                // This is a mock API call since we don't have the actual API endpoint
+                // In a real implementation, you would call the YouVersion API search endpoint
+                
+                // Simulate API call with timeout
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // For demo purposes, we'll generate some sample search results
+                const results = [];
+                const resultCount = Math.floor(Math.random() * 5) + 1; // 1-5 results
+                
+                for (let i = 0; i < resultCount; i++) {
+                    const randomBook = bibleBooks[Math.floor(Math.random() * bibleBooks.length)];
+                    const randomChapter = Math.floor(Math.random() * chaptersPerBook[randomBook]) + 1;
+                    const randomVerse = Math.floor(Math.random() * 30) + 1;
+                    
+                    results.push({
+                        reference: `${randomBook} ${randomChapter}:${randomVerse}`,
+                        text: `This is a sample search result containing the term "${query}" from ${randomBook} ${randomChapter}:${randomVerse} in ${version.toUpperCase()}.`
+                    });
+                }
+                
+                return {
+                    query,
+                    version,
+                    results
+                };
+            } catch (error) {
+                showError('Failed to search the Bible. Please check your API token and try again.');
+                console.error('Error searching Bible:', error);
+                return null;
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        // Display Bible content
+        function displayBibleContent(data) {
+            if (!data) return;
+            
+            const {book, chapter, version, verses} = data;
+            currentPassage = {book, chapter, version};
+            
+            bibleContent.innerHTML = `
+                <h2>${book} ${chapter} (${version.toUpperCase()})</h2>
+                <div class="verses">
+                    ${verses.map(verse => `
+                        <div class="verse">
+                            <span class="verse-num">${verse.verse}</span> ${verse.text}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        // Display search results
+        function displaySearchResults(data) {
+            if (!data) return;
+            
+            const {query, version, results} = data;
+            
+            bibleContent.innerHTML = `
+                <h2>Search Results for "${query}" (${version.toUpperCase()})</h2>
+                ${results.length > 0 ? 
+                    `<div class="search-results">
+                        ${results.map(result => `
+                            <div class="verse">
+                                <strong>${result.reference}</strong>: ${result.text}
+                            </div>
+                        `).join('')}
+                    </div>` :
+                    `<p>No results found for "${query}"</p>`
+                }
+            `;
+        }
+        
+        // Add to favorites
+        function addToFavorites() {
+            const {book, chapter, version} = currentPassage;
+            const reference = `${book} ${chapter} (${version.toUpperCase()})`;
+            
+            // Check if already in favorites
+            if (!favorites.some(fav => fav.reference === reference)) {
+                favorites.push({
+                    book,
+                    chapter,
+                    version,
+                    reference
+                });
+                
+                // Save to localStorage
+                localStorage.setItem('bibleReaderFavorites', JSON.stringify(favorites));
+                
+                // Update UI
+                displayFavorites();
+            }
+        }
+        
+        // Remove from favorites
+        function removeFromFavorites(index) {
+            favorites.splice(index, 1);
+            
+            // Save to localStorage
+            localStorage.setItem('bibleReaderFavorites', JSON.stringify(favorites));
+            
+            // Update UI
+            displayFavorites();
+        }
+        
+        // Display favorites
+        function displayFavorites() {
+            favoritesList.innerHTML = favorites.length > 0 ? 
+                favorites.map((fav, index) => `
+                    <div class="favorite-item">
+                        <span>${fav.reference}</span>
+                        <div>
+                            <button onclick="loadFavorite(${index})">Read</button>
+                            <button class="remove-btn" onclick="removeFromFavorites(${index})">Remove</button>
+                        </div>
+                    </div>
+                `).join('') :
+                '<p>No favorites yet. Add some passages!</p>';
+        }
+        
+        // Load favorite
+        function loadFavorite(index) {
+            const favorite = favorites[index];
+            bookSelect.value = favorite.book;
+            populateChapterSelect(favorite.book);
+            chapterSelect.value = favorite.chapter;
+            versionSelect.value = favorite.version;
+            
+            fetchBibleContent(favorite.book, favorite.chapter, favorite.version)
+                .then(displayBibleContent);
+        }
+        
+        // Helper function to get random verse count for demo
+        function getRandomVerseCount(book) {
+            const counts = {
+                'Psalms': 25, // Psalms tend to have fewer verses per chapter
+                'Proverbs': 30,
+                'John': 40,
+                'Romans': 25,
+                'Genesis': 35
+            };
+            
+            return counts[book] || Math.floor(Math.random() * 25) + 15; // 15-40 verses
+        }
+        
+        // Show/hide loading spinner
+        function showLoading() {
+            loading.style.display = 'block';
+        }
+        
+        function hideLoading() {
+            loading.style.display = 'none';
+        }
+        
+        // Show/hide error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+        
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+        
+        // Event Listeners
+        bookSelect.addEventListener('change', (e) => {
+            const book = e.target.value;
+            currentPassage.book = book;
+            populateChapterSelect(book);
+        });
+        
+        chapterSelect.addEventListener('change', (e) => {
+            currentPassage.chapter = parseInt(e.target.value);
+        });
+        
+        versionSelect.addEventListener('change', (e) => {
+            currentPassage.version = e.target.value;
+        });
+        
+        readBtn.addEventListener('click', () => {
+            const {book, chapter, version} = currentPassage;
+            fetchBibleContent(book, chapter, version)
+                .then(displayBibleContent);
+        });
+        
+        searchBtn.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            const version = versionSelect.value;
+            
+            if (query) {
+                searchBible(query, version)
+                    .then(displaySearchResults);
+            } else {
+                showError('Please enter a search term.');
+            }
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+        
+        addFavoriteBtn.addEventListener('click', addToFavorites);
+        
+        // Expose functions to global scope for onclick handlers
+        window.loadFavorite = loadFavorite;
+        window.removeFromFavorites = removeFromFavorites;
+        
+        // Initialize
+        populateBookSelect();
+        displayFavorites();
+        
+        // Load default content
+        fetchBibleContent('John', 1, 'kjv')
+            .then(displayBibleContent);
+    </script>
+</body>
+</html>

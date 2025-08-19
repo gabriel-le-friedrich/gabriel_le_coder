@@ -1,0 +1,545 @@
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+background-color: #0f1923;
+color: #fff;
+line-height: 1.6;
+}
+
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 20px;
+}
+
+/* Header Styles */
+header {
+background-color: #0a1118;
+padding: 20px 0;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+position: sticky;
+top: 0;
+z-index: 100;
+}
+
+nav {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+font-size: 28px;
+font-weight: bold;
+color: #ff3860;
+text-decoration: none;
+display: flex;
+align-items: center;
+}
+
+.logo i {
+margin-right: 10px;
+font-size: 24px;
+}
+
+.nav-links {
+display: flex;
+gap: 20px;
+}
+
+.nav-links a {
+color: #fff;
+text-decoration: none;
+padding: 10px 15px;
+border-radius: 5px;
+transition: all 0.3s ease;
+font-weight: 500;
+}
+
+.nav-links a:hover {
+background-color: rgba(255, 56, 96, 0.1);
+color: #ff3860;
+}
+
+.btn-login {
+background-color: #ff3860;
+color: #fff;
+border: none;
+padding: 12px 24px;
+border-radius: 5px;
+cursor: pointer;
+font-weight: 600;
+transition: all 0.3s ease;
+text-decoration: none;
+}
+
+.btn-login:hover {
+background-color: #ff1f4b;
+transform: translateY(-2px);
+}
+
+/* Hero Section */
+.hero {
+padding: 100px 0;
+background: linear-gradient(135deg, #0f1923 0%, #1c2a35 100%);
+position: relative;
+overflow: hidden;
+}
+
+.hero::before {
+content: '';
+position: absolute;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+background: url('/api/placeholder/1200/600') no-repeat center center/cover;
+opacity: 0.1;
+z-index: 0;
+}
+
+.hero-content {
+position: relative;
+z-index: 1;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.hero-text {
+max-width: 600px;
+}
+
+.hero h1 {
+font-size: 48px;
+font-weight: 800;
+margin-bottom: 20px;
+color: #fff;
+line-height: 1.2;
+}
+
+.hero p {
+font-size: 18px;
+margin-bottom: 30px;
+color: #ccd6dd;
+}
+
+.hero-btns {
+display: flex;
+gap: 15px;
+}
+
+.btn-secondary {
+background-color: transparent;
+color: #fff;
+border: 2px solid #ff3860;
+padding: 12px 24px;
+border-radius: 5px;
+cursor: pointer;
+font-weight: 600;
+transition: all 0.3s ease;
+text-decoration: none;
+}
+
+.btn-secondary:hover {
+background-color: rgba(255, 56, 96, 0.1);
+}
+
+/* Login Modal */
+.modal {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.7);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1000;
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s ease;
+}
+
+.modal.active {
+opacity: 1;
+visibility: visible;
+}
+
+.modal-content {
+background-color: #1c2a35;
+border-radius: 10px;
+width: 90%;
+max-width: 400px;
+padding: 30px;
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+position: relative;
+transform: translateY(-20px);
+transition: all 0.3s ease;
+}
+
+.modal.active .modal-content {
+transform: translateY(0);
+}
+
+.close-modal {
+position: absolute;
+top: 15px;
+right: 15px;
+font-size: 24px;
+color: #ccd6dd;
+background: none;
+border: none;
+cursor: pointer;
+transition: color 0.3s;
+}
+
+.close-modal:hover {
+color: #ff3860;
+}
+
+.login-header {
+text-align: center;
+margin-bottom: 20px;
+}
+
+.login-header h2 {
+font-size: 24px;
+margin-bottom: 10px;
+}
+
+.login-form {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+.form-group {
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.form-group label {
+font-weight: 500;
+color: #ccd6dd;
+}
+
+.form-group input {
+padding: 12px 15px;
+border-radius: 5px;
+border: 1px solid #38444d;
+background-color: #0f1923;
+color: #fff;
+font-size: 16px;
+transition: all 0.3s;
+}
+
+.form-group input:focus {
+outline: none;
+border-color: #ff3860;
+box-shadow: 0 0 0 2px rgba(255, 56, 96, 0.2);
+}
+
+.remember-forgot {
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-size: 14px;
+}
+
+.remember-me {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.remember-me input {
+accent-color: #ff3860;
+}
+
+.forgot-password {
+color: #ff3860;
+text-decoration: none;
+}
+
+.forgot-password:hover {
+text-decoration: underline;
+}
+
+.login-btn {
+background-color: #ff3860;
+color: #fff;
+border: none;
+padding: 12px;
+border-radius: 5px;
+cursor: pointer;
+font-weight: 600;
+font-size: 16px;
+transition: all 0.3s;
+}
+
+.login-btn:hover {
+background-color: #ff1f4b;
+}
+
+.divider {
+display: flex;
+align-items: center;
+margin: 20px 0;
+color: #ccd6dd;
+}
+
+.divider::before,
+.divider::after {
+content: "";
+flex: 1;
+height: 1px;
+background-color: #38444d;
+}
+
+.divider span {
+padding: 0 10px;
+font-size: 14px;
+}
+
+.social-login {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.google-login {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+background-color: #fff;
+color: #242424;
+padding: 12px;
+border-radius: 5px;
+cursor: pointer;
+font-weight: 600;
+transition: all 0.3s;
+border: none;
+}
+
+.google-login:hover {
+background-color: #f1f1f1;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.signup-prompt {
+text-align: center;
+margin-top: 20px;
+font-size: 14px;
+color: #ccd6dd;
+}
+
+.signup-link {
+color: #ff3860;
+text-decoration: none;
+font-weight: 600;
+}
+
+.signup-link:hover {
+text-decoration: underline;
+}
+
+/* Featured Games Section */
+.featured-games {
+padding: 80px 0;
+}
+
+.section-header {
+text-align: center;
+margin-bottom: 50px;
+}
+
+.section-header h2 {
+font-size: 36px;
+font-weight: 700;
+color: #fff;
+margin-bottom: 15px;
+}
+
+.section-header p {
+color: #ccd6dd;
+font-size: 18px;
+max-width: 700px;
+margin: 0 auto;
+}
+
+.games-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 30px;
+}
+
+.game-card {
+background-color: #1c2a35;
+border-radius: 10px;
+overflow: hidden;
+transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.game-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.game-image {
+width: 100%;
+height: 200px;
+object-fit: cover;
+}
+
+.game-details {
+padding: 20px;
+}
+
+.game-details h3 {
+font-size: 20px;
+margin-bottom: 10px;
+color: #fff;
+}
+
+.game-details p {
+color: #ccd6dd;
+margin-bottom: 15px;
+font-size: 14px;
+}
+
+.game-meta {
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-size: 14px;
+color: #ccd6dd;
+}
+
+.game-category {
+padding: 5px 10px;
+background-color: rgba(255, 56, 96, 0.1);
+color: #ff3860;
+border-radius: 20px;
+font-weight: 500;
+}
+
+.game-rating {
+display: flex;
+align-items: center;
+gap: 5px;
+}
+
+.game-rating i {
+color: #ffc107;
+}
+
+/* Footer */
+footer {
+background-color: #0a1118;
+padding: 50px 0 20px;
+}
+
+.footer-content {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 40px;
+margin-bottom: 40px;
+}
+
+.footer-column h3 {
+font-size: 18px;
+font-weight: 600;
+margin-bottom: 20px;
+color: #fff;
+}
+
+.footer-links {
+list-style: none;
+}
+
+.footer-links li {
+margin-bottom: 12px;
+}
+
+.footer-links a {
+color: #ccd6dd;
+text-decoration: none;
+transition: color 0.3s;
+}
+
+.footer-links a:hover {
+color: #ff3860;
+}
+
+.social-icons {
+display: flex;
+gap: 15px;
+}
+
+.social-icons a {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background-color: #1c2a35;
+color: #fff;
+transition: all 0.3s;
+}
+
+.social-icons a:hover {
+background-color: #ff3860;
+transform: translateY(-3px);
+}
+
+.footer-bottom {
+text-align: center;
+padding-top: 20px;
+border-top: 1px solid #1c2a35;
+color: #ccd6dd;
+font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        margin-bottom: 40px;
+    }
+
+    .hero-btns {
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+    }
+
+    @media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .section-header h2 {
+        font-size: 28px;
+    }
+}
