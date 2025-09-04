@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity 3</title>
+    <script>
+        let rockstars = [];
+
+        for (var i = 0; i < 4; i++) {
+            rockstars[i] = prompt("Name a Rockstar " + (i+1) + "!", "");
+        }
+
+        function callRock(i) {
+            alert("You called: " + rockstars[i]);
+        }
+    </script>
+</head>
+<body>
+    <button onclick="callRock(0)">Rockstar 1</button>
+    <button onclick="callRock(1)">Rockstar 2</button>
+    <button onclick="callRock(2)">Rockstar 3</button>
+    <button onclick="callRock(3)">Rockstar 4</button>
+</body>
+</html>

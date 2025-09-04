@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity 5</title>
+    <style>
+        #square {
+            background-color: red;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="square"></div>
+    <button onclick="expand()">Expand</button>
+    <button onclick="shrink()">Shrink</button>
+    <!-- <button onclick="document.body.style.height='500px'">Expand</button>
+    <button onclick="document.body.style.height='10px'">Shrink</button> -->
+
+    <script>
+        const square = document.getElementById("square");
+
+        const maximize = "100px";
+        const minimize = "10px";
+
+        function expand() {
+            square.style.height = maximize;
+            square.style.width = maximize;
+        }
+
+        function shrink() {
+            square.style.height = minimize;
+            square.style.width = minimize;
+        }
+    </script>
+</body>
+</html>

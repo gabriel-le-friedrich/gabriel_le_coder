@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity 4</title>
+    <script>
+        let rockstar = [];
+        let songs = [];
+
+        for (let i = 0; i < 2; i++) {
+            rockstar[i] = prompt("Name your rockstar " + (i+1), "");
+            songs[i] = prompt("How many " + rockstar[i] + " do you have?", "");
+        }
+
+        let difsong = songs[0] - songs[1];
+    </script>
+</head>
+<body>
+    <script>
+        document.write("You have " + difsong + " songs of " + rockstar[0] + " than " + rockstar[1]);
+    </script>
+</body>
+</html>
