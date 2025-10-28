@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greet User</title>
+</head>
+<body>
+    <button onclick="greetUser()">Button</button>
+
+    <script>
+        let domHand;
+        let bool = true;
+
+        function greetUser() {
+            for (let i = 0; i < 2; i++) {
+                domHand = prompt("Are you left-handed or right-handed?", "").toLowerCase();
+                
+                if (domHand === "left" || domHand === "right") {
+
+                    switch (domHand) {
+                        case "left":
+                            getLastName();
+                            return domHand = "Lefty";
+                        case "right":
+                            getLastName();
+                            return domHand = "Righty";
+                        default:
+                            break;
+                    }
+                } else if (i === 1){
+                    alert(domHand + " is not a valid dominant hand!");
+                    break;
+                }
+            }
+        }
+
+        function getLastName() {
+            let lastName;
+
+            while(bool) {
+                lastName = prompt("Enter your Last Name:", "");
+
+                if (lastName[0] === lastName[0].toUpperCase() && isNaN(lastName) && lastName.length !== 0) {
+                    alert("Hello " + domHand + " " + lastName + "!");
+                    bool = false;
+                } else if (lastName.length === 0) {
+                    lastName = prompt("Last Name should not be empty. Enter Again:", "");
+
+                    if (lastName[0] === lastName[0].toUpperCase() && isNaN(lastName) && lastName.length !== 0) {
+                    alert("Hello " + domHand + " " + lastName + "!");
+                    bool = false;
+                    } else {
+
+                    }
+                } else if (lastName[0] !== lastName[0].toUpperCase()) {
+                    lastName = prompt("First Letter of Last Name should be Capital. Enter Again:", "");
+                    
+                    if (lastName[0] === lastName[0].toUpperCase() && isNaN(lastName) && lastName.length !== 0) {
+                    alert("Hello " + domHand + " " + lastName + "!");
+                    bool = false;
+                    } else {
+
+                    }
+                } else if (!isNaN(lastName)) {
+                    lastName = prompt("Numbers are Invalid in Last Name. Enter Again:", "");
+
+                    if (lastName[0] === lastName[0].toUpperCase() && isNaN(lastName) && lastName.length !== 0) {
+                    alert("Hello " + domHand + " " + lastName + "!");
+                    bool = false;
+                    } else {
+
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

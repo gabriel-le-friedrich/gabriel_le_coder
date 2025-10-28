@@ -1,0 +1,35 @@
+<!--
+    Code by Frederick Gabrielle Cunanan
+    BSIT 3 - A
+    PF102
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resize Box</title>
+
+</head>
+<body>
+    <div id="box" style="width: 100px; height: 100px; background-color: blue;"></div>
+    <button onclick="resizeBox(-10)">Shrink</button>
+    <button onclick="resizeBox(10)">Enlarge</button>
+
+    <script>        
+        function resizeBox(change = 10) {
+            var box = document.getElementById('box');
+            
+            var w = box.style.width;
+            var h = box.style.height;
+            
+            var wNew = parseInt(w) + change;
+            var hNew = parseInt(h) + change;
+
+            box.style.width = wNew + "px";
+            box.style.height = hNew + "px";
+        }
+    </script>
+</body>
+</html>
