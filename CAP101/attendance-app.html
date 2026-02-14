@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .nav-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        video, canvas {
+            width: 100%;
+            display: block;
+        }
+
+        .scan-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            border: 3px solid #4CAF50;
+            border-radius: 15px;
+            box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);
+        }
+
+        .scan-corners {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+        }
+
+        .corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 4px solid #4CAF50;
+        }
+
+        .corner.top-left {
+            top: 0;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner.top-right {
+            top: 0;
+            right: 0;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner.bottom-left {
+            bottom: 0;
+            left: 0;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner.bottom-right {
+            bottom: 0;
+            right: 0;
+            border-left: none;
+            border-top: none;
+        }
+
+        .button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .button-success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .button-success:hover {
+            background: #45a049;
+        }
+
+        .button-secondary {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .button-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .student-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .student-info h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .info-value {
+            color: #333;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .attendance-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .attendance-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .attendance-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #667eea;
+        }
+
+        .attendance-details {
+            flex: 1;
+        }
+
+        .attendance-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .attendance-meta {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .qr-generator {
+            text-align: center;
+        }
+
+        .qr-input-group {
+            margin-bottom: 20px;
+        }
+
+        .qr-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            text-align: left;
+        }
+
+        .qr-input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .qr-input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        #qrOutput {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #qrCanvas {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Student Attendance</h1>
+            <p>QR Code + Selfie Verification System</p>
+        </div>
+
+        <div class="card">
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="switchTab('scan')">Check-In</button>
+                <button class="nav-tab" onclick="switchTab('records')">Records</button>
+                <button class="nav-tab" onclick="switchTab('generate')">Generate QR</button>
+            </div>
+
+            <!-- Scan Tab -->
+            <div id="scanTab" class="tab-content active">
+                <div id="scanStep" class="step">
+                    <h2 style="margin-bottom: 20px; color: #333;">Step 1: Scan QR Code</h2>
+                    <div class="video-container">
+                        <video id="qrVideo" playsinline></video>
+                        <canvas id="qrCanvas" class="hidden"></canvas>
+                        <div class="scan-overlay"></div>
+                        <div class="scan-corners">
+                            <div class="corner top-left"></div>
+                            <div class="corner top-right"></div>
+                            <div class="corner bottom-left"></div>
+                            <div class="corner bottom-right"></div>
+                        </div>
+                    </div>
+                    <button id="startScanBtn" class="button button-primary" onclick="startQRScan()">Start Scanning</button>
+                    <button id="stopScanBtn" class="button button-secondary hidden" onclick="stopQRScan()">Stop Scanning</button>
+                </div>
+
+                <div id="selfieStep" class="step hidden">
+                    <h2 style="margin-bottom: 20px; color: #333;">Step 2: Take Selfie</h2>
+                    
+                    <div id="studentInfo" class="student-info"></div>
+
+                    <div class="video-container">
+                        <video id="selfieVideo" playsinline></video>
+                        <canvas id="selfieCanvas" class="hidden"></canvas>
+                    </div>
+
+                    <div id="selfiePreview" class="hidden">
+                        <h3 style="margin-bottom: 15px; color: #333;">Preview:</h3>
+                        <img id="selfieImage" style="width: 100%; border-radius: 10px; margin-bottom: 20px;">
+                    </div>
+
+                    <button id="startSelfieBtn" class="button button-primary" onclick="startSelfie()">Start Camera</button>
+                    <button id="captureSelfieBtn" class="button button-success hidden" onclick="captureSelfie()">📸 Capture Selfie</button>
+                    <button id="retakeSelfieBtn" class="button button-secondary hidden" onclick="retakeSelfie()">↺ Retake</button>
+                    <button id="confirmBtn" class="button button-success hidden" onclick="confirmAttendance()">✓ Confirm Attendance</button>
+                    <button class="button button-secondary" onclick="cancelCheckIn()">Cancel</button>
+                </div>
+
+                <div id="successStep" class="step hidden">
+                    <div class="status-message status-success">
+                        <h2 style="margin-bottom: 10px;">✓ Attendance Recorded!</h2>
+                        <p>Student has been successfully checked in.</p>
+                    </div>
+                    <button class="button button-primary" onclick="resetCheckIn()">Check In Another Student</button>
+                </div>
+            </div>
+
+            <!-- Records Tab -->
+            <div id="recordsTab" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #333;">Attendance Records</h2>
+                
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalCount">0</div>
+                        <div class="stat-label">Total Check-ins</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="todayCount">0</div>
+                        <div class="stat-label">Today</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <button class="button button-secondary" onclick="exportRecords()">📥 Export Records</button>
+                    <button class="button button-secondary" onclick="clearRecords()" style="background: #ff4444; color: white;">Clear All Records</button>
+                </div>
+
+                <div id="attendanceList" class="attendance-list"></div>
+            </div>
+
+            <!-- Generate QR Tab -->
+            <div id="generateTab" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #333;">Generate Student QR Code</h2>
+                
+                <div class="qr-generator">
+                    <div class="qr-input-group">
+                        <label for="studentId">Student ID:</label>
+                        <input type="text" id="studentId" placeholder="e.g., 2024-12345">
+                    </div>
+                    <div class="qr-input-group">
+                        <label for="studentName">Student Name:</label>
+                        <input type="text" id="studentName" placeholder="e.g., Juan Dela Cruz">
+                    </div>
+                    <div class="qr-input-group">
+                        <label for="studentGrade">Grade/Section:</label>
+                        <input type="text" id="studentGrade" placeholder="e.g., Grade 10-A">
+                    </div>
+
+                    <button class="button button-primary" onclick="generateQR()">Generate QR Code</button>
+
+                    <div id="qrOutput"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        let qrStream = null;
+        let selfieStream = null;
+        let currentStudent = null;
+        let capturedSelfie = null;
+        let scanInterval = null;
+
+        // Load attendance records from localStorage
+        function loadAttendance() {
+            const stored = localStorage.getItem('attendanceRecords');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        // Save attendance records to localStorage
+        function saveAttendance(records) {
+            localStorage.setItem('attendanceRecords', JSON.stringify(records));
+            updateRecordsDisplay();
+        }
+
+        // Switch between tabs
+        function switchTab(tabName) {
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName + 'Tab').classList.add('active');
+
+            if (tabName === 'records') {
+                updateRecordsDisplay();
+            }
+        }
+
+        // Start QR scanning
+        async function startQRScan() {
+            try {
+                const video = document.getElementById('qrVideo');
+                const canvas = document.getElementById('qrCanvas');
+                const context = canvas.getContext('2d');
+
+                qrStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' } 
+                });
+                video.srcObject = qrStream;
+                video.play();
+
+                document.getElementById('startScanBtn').classList.add('hidden');
+                document.getElementById('stopScanBtn').classList.remove('hidden');
+
+                // Scan for QR codes
+                scanInterval = setInterval(() => {
+                    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        
+                        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                        const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                        if (code) {
+                            try {
+                                const studentData = JSON.parse(code.data);
+                                if (studentData.id && studentData.name) {
+                                    currentStudent = studentData;
+                                    stopQRScan();
+                                    showSelfieStep();
+                                }
+                            } catch (e) {
+                                console.log('Invalid QR code format');
+                            }
+                        }
+                    }
+                }, 100);
+            } catch (err) {
+                alert('Error accessing camera: ' + err.message);
+            }
+        }
+
+        // Stop QR scanning
+        function stopQRScan() {
+            if (qrStream) {
+                qrStream.getTracks().forEach(track => track.stop());
+                qrStream = null;
+            }
+            if (scanInterval) {
+                clearInterval(scanInterval);
+                scanInterval = null;
+            }
+            document.getElementById('qrVideo').srcObject = null;
+            document.getElementById('startScanBtn').classList.remove('hidden');
+            document.getElementById('stopScanBtn').classList.add('hidden');
+        }
+
+        // Show selfie step
+        function showSelfieStep() {
+            document.getElementById('scanStep').classList.add('hidden');
+            document.getElementById('selfieStep').classList.remove('hidden');
+
+            // Display student info
+            const infoDiv = document.getElementById('studentInfo');
+            infoDiv.innerHTML = `
+                <h3>Student Information</h3>
+                <div class="info-row">
+                    <span class="info-label">Student ID:</span>
+                    <span class="info-value">${currentStudent.id}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Name:</span>
+                    <span class="info-value">${currentStudent.name}</span>
+                </div>
+                ${currentStudent.grade ? `
+                <div class="info-row">
+                    <span class="info-label">Grade/Section:</span>
+                    <span class="info-value">${currentStudent.grade}</span>
+                </div>
+                ` : ''}
+            `;
+        }
+
+        // Start selfie camera
+        async function startSelfie() {
+            try {
+                const video = document.getElementById('selfieVideo');
+                selfieStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'user' } 
+                });
+                video.srcObject = selfieStream;
+                video.play();
+
+                document.getElementById('startSelfieBtn').classList.add('hidden');
+                document.getElementById('captureSelfieBtn').classList.remove('hidden');
+            } catch (err) {
+                alert('Error accessing camera: ' + err.message);
+            }
+        }
+
+        // Capture selfie
+        function captureSelfie() {
+            const video = document.getElementById('selfieVideo');
+            const canvas = document.getElementById('selfieCanvas');
+            const context = canvas.getContext('2d');
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0);
+
+            capturedSelfie = canvas.toDataURL('image/jpeg', 0.8);
+            
+            // Stop video stream
+            if (selfieStream) {
+                selfieStream.getTracks().forEach(track => track.stop());
+                selfieStream = null;
+            }
+            video.srcObject = null;
+
+            // Show preview
+            document.getElementById('selfieImage').src = capturedSelfie;
+            document.getElementById('selfiePreview').classList.remove('hidden');
+            document.getElementById('captureSelfieBtn').classList.add('hidden');
+            document.getElementById('retakeSelfieBtn').classList.remove('hidden');
+            document.getElementById('confirmBtn').classList.remove('hidden');
+        }
+
+        // Retake selfie
+        function retakeSelfie() {
+            capturedSelfie = null;
+            document.getElementById('selfiePreview').classList.add('hidden');
+            document.getElementById('retakeSelfieBtn').classList.add('hidden');
+            document.getElementById('confirmBtn').classList.add('hidden');
+            startSelfie();
+        }
+
+        // Confirm attendance
+        function confirmAttendance() {
+            const records = loadAttendance();
+            
+            const attendance = {
+                ...currentStudent,
+                photo: capturedSelfie,
+                timestamp: new Date().toISOString(),
+                date: new Date().toLocaleDateString(),
+                time: new Date().toLocaleTimeString()
+            };
+
+            records.unshift(attendance);
+            saveAttendance(records);
+
+            // Show success
+            document.getElementById('selfieStep').classList.add('hidden');
+            document.getElementById('successStep').classList.remove('hidden');
+        }
+
+        // Cancel check-in
+        function cancelCheckIn() {
+            if (selfieStream) {
+                selfieStream.getTracks().forEach(track => track.stop());
+                selfieStream = null;
+            }
+            resetCheckIn();
+        }
+
+        // Reset check-in process
+        function resetCheckIn() {
+            currentStudent = null;
+            capturedSelfie = null;
+            
+            document.getElementById('scanStep').classList.remove('hidden');
+            document.getElementById('selfieStep').classList.add('hidden');
+            document.getElementById('successStep').classList.add('hidden');
+            document.getElementById('selfiePreview').classList.add('hidden');
+            
+            document.getElementById('startSelfieBtn').classList.remove('hidden');
+            document.getElementById('captureSelfieBtn').classList.add('hidden');
+            document.getElementById('retakeSelfieBtn').classList.add('hidden');
+            document.getElementById('confirmBtn').classList.add('hidden');
+        }
+
+        // Update records display
+        function updateRecordsDisplay() {
+            const records = loadAttendance();
+            const listDiv = document.getElementById('attendanceList');
+            
+            document.getElementById('totalCount').textContent = records.length;
+            
+            const today = new Date().toLocaleDateString();
+            const todayRecords = records.filter(r => r.date === today);
+            document.getElementById('todayCount').textContent = todayRecords.length;
+
+            if (records.length === 0) {
+                listDiv.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <p>No attendance records yet</p>
+                    </div>
+                `;
+                return;
+            }
+
+            listDiv.innerHTML = records.map(record => `
+                <div class="attendance-item">
+                    <img src="${record.photo}" alt="${record.name}" class="attendance-photo">
+                    <div class="attendance-details">
+                        <div class="attendance-name">${record.name}</div>
+                        <div class="attendance-meta">
+                            ID: ${record.id} ${record.grade ? `• ${record.grade}` : ''}
+                        </div>
+                        <div class="attendance-meta">
+                            ${record.date} at ${record.time}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Export records as JSON
+        function exportRecords() {
+            const records = loadAttendance();
+            const dataStr = JSON.stringify(records, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `attendance_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        // Clear all records
+        function clearRecords() {
+            if (confirm('Are you sure you want to clear all attendance records? This cannot be undone.')) {
+                localStorage.removeItem('attendanceRecords');
+                updateRecordsDisplay();
+            }
+        }
+
+        // Generate QR code
+        function generateQR() {
+            const id = document.getElementById('studentId').value.trim();
+            const name = document.getElementById('studentName').value.trim();
+            const grade = document.getElementById('studentGrade').value.trim();
+
+            if (!id || !name) {
+                alert('Please fill in Student ID and Name');
+                return;
+            }
+
+            const studentData = { id, name };
+            if (grade) studentData.grade = grade;
+
+            const qrOutput = document.getElementById('qrOutput');
+            qrOutput.innerHTML = '<canvas id="qrCanvas"></canvas>';
+
+            new QRCode(document.getElementById('qrCanvas'), {
+                text: JSON.stringify(studentData),
+                width: 256,
+                height: 256,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // Add download button
+            setTimeout(() => {
+                const canvas = document.querySelector('#qrCanvas canvas');
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'button button-primary';
+                downloadBtn.textContent = '📥 Download QR Code';
+                downloadBtn.style.marginTop = '20px';
+                downloadBtn.onclick = () => {
+                    const link = document.createElement('a');
+                    link.download = `qr_${id}_${name.replace(/\s+/g, '_')}.png`;
+                    link.href = canvas.toDataURL();
+                    link.click();
+                };
+                qrOutput.appendChild(downloadBtn);
+            }, 100);
+        }
+
+        // Initialize
+        updateRecordsDisplay();
+    </script>
+</body>
+</html>
