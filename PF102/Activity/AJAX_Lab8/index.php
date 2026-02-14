@@ -28,11 +28,11 @@
                     if (this.readyState == 4 && this.status == 200) {
                         const dataXML = xhttp.responseXML;
 
-                        const to = dataXML.getElementsByTagName("to")[0].childNodes[0].nodeValue;
+                        const to = dataXML.getElementsByTagName("to")[0].textContent;
                         const from = dataXML.getElementsByTagName("from")[0].textContent;
                         const heading = dataXML.getElementsByTagName("heading")[0].textContent;
                         const body = dataXML.getElementsByTagName("body")[0].textContent;
-
+                        
                         const output = document.getElementById("message");
                         output.innerHTML = 
                         `
