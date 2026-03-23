@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Your Name — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F0E8;
+    --ink: #1A1510;
+    --muted: #7A6F62;
+    --accent: #C8461B;
+    --card: #EDE8DF;
+    --border: #D4CBB8;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 5vw;
+    background: rgba(245, 240, 232, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    letter-spacing: .02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: .85rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 5vw;
+    padding-top: 80px;
+    gap: 4rem;
+  }
+  .hero-text { animation: fadeUp .9s ease both; }
+  .hero-eyebrow {
+    font-size: .78rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    line-height: 1.05;
+    margin-bottom: 1.2rem;
+  }
+  .hero-name em { font-style: italic; color: var(--accent); }
+  .hero-bio {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 420px;
+    margin-bottom: 2.2rem;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
+    padding: .85rem 2.2rem;
+    font-size: .85rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    transition: background .2s, transform .15s;
+  }
+  .hero-cta:hover { background: var(--accent); transform: translateY(-2px); }
+  .hero-cta + .hero-cta-ghost {
+    display: inline-block;
+    margin-left: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: .85rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border-bottom: 1.5px solid currentColor;
+    transition: color .2s;
+  }
+  .hero-cta-ghost:hover { color: var(--accent); }
+
+  .hero-image-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeUp .9s .2s ease both;
+  }
+  .hero-photo-frame {
+    width: min(380px, 45vw);
+    aspect-ratio: 3/4;
+    background: var(--card);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-photo-frame::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 6px,
+      rgba(26,21,16,.04) 6px,
+      rgba(26,21,16,.04) 7px
+    );
+  }
+  .hero-photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: .5rem;
+    color: var(--muted);
+    font-size: .8rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+  .hero-photo-placeholder svg { opacity: .3; }
+  /* Replace .hero-photo-frame with an <img> tag pointing to your photo */
+
+  /* ── SECTION SHARED ── */
+  section { padding: 7rem 5vw; }
+  .section-label {
+    font-size: .75rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .6rem;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.1;
+    margin-bottom: 3.5rem;
+  }
+  .divider { width: 60px; height: 2px; background: var(--accent); margin-bottom: 3.5rem; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--card); border-top: 1px solid var(--border); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-text p { color: var(--muted); margin-bottom: 1.1rem; font-size: 1rem; }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: 2rem; }
+  .skill-pill {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: .5rem 1rem;
+    font-size: .8rem;
+    letter-spacing: .04em;
+    text-align: center;
+    color: var(--ink);
+  }
+  .about-stats { display: flex; flex-direction: column; gap: 2.5rem; }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .stat-label { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: .2rem; }
+
+  /* ── WORK ── */
+  #work { border-top: 1px solid var(--border); }
+  .work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+  .work-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .work-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(26,21,16,.12); }
+  .work-thumb {
+    aspect-ratio: 16/10;
+    background: linear-gradient(135deg, #e8e0d0 0%, #d4c9b2 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+    position: relative;
+    overflow: hidden;
+  }
+  .work-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  .work-card:hover .work-thumb::after { opacity: .08; }
+  .work-body { padding: 1.5rem; }
+  .work-tag { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+  .work-title { font-family: var(--serif); font-size: 1.3rem; margin-bottom: .5rem; }
+  .work-desc { font-size: .88rem; color: var(--muted); line-height: 1.55; }
+  .work-link {
+    display: inline-block; margin-top: 1rem;
+    font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    transition: color .2s;
+  }
+  .work-link:hover { color: var(--accent); }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--card); border-top: 1px solid var(--border); }
+  .timeline { max-width: 700px; }
+  .timeline-item { display: grid; grid-template-columns: 140px 1fr; gap: 2rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; }
+  .timeline-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .timeline-date { font-size: .78rem; letter-spacing: .06em; color: var(--muted); padding-top: .25rem; }
+  .timeline-role { font-family: var(--serif); font-size: 1.2rem; margin-bottom: .2rem; }
+  .timeline-company { font-size: .88rem; color: var(--accent); margin-bottom: .6rem; letter-spacing: .03em; }
+  .timeline-desc { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── CONTACT ── */
+  #contact { border-top: 1px solid var(--border); text-align: center; }
+  #contact .section-title { margin-bottom: 1rem; }
+  #contact p { color: var(--muted); max-width: 460px; margin: 0 auto 2.5rem; }
+  .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+  .contact-link {
+    display: inline-block;
+    padding: .75rem 1.8rem;
+    border: 1px solid var(--border);
+    font-size: .82rem; letter-spacing: .08em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .contact-link:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .contact-link.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .contact-link.primary:hover { background: var(--ink); border-color: var(--ink); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 5vw;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: .78rem; color: var(--muted); letter-spacing: .05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    #hero { grid-template-columns: 1fr; min-height: auto; padding-top: 100px; padding-bottom: 4rem; }
+    .hero-image-wrap { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .timeline-item { grid-template-columns: 1fr; gap: .4rem; }
+    footer { flex-direction: column; gap: .5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Available for new projects</p>
+    <h1 class="hero-name">Your <em>Full</em><br>Name Here</h1>
+    <p class="hero-bio">
+      A short, punchy line about what you do — e.g. "Product designer crafting digital experiences that are both beautiful and functional."
+    </p>
+    <a href="#work" class="hero-cta">View My Work</a>
+    <a href="#contact" class="hero-cta-ghost">Get in Touch</a>
+  </div>
+  <div class="hero-image-wrap">
+    <div class="hero-photo-frame">
+      <div class="hero-photo-placeholder">
+        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Replace with your photo
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="section-label">About Me</p>
+      <h2 class="section-title">The person<br>behind the work</h2>
+      <p>Write 2–3 sentences about your background here. Where are you from? What drives you? What kind of problems do you love solving?</p>
+      <p>This second paragraph can go into more depth — your design philosophy, technical approach, or what makes your work distinctive.</p>
+      <div class="skills-grid">
+        <div class="skill-pill">Skill One</div>
+        <div class="skill-pill">Skill Two</div>
+        <div class="skill-pill">Skill Three</div>
+        <div class="skill-pill">Skill Four</div>
+        <div class="skill-pill">Skill Five</div>
+        <div class="skill-pill">Skill Six</div>
+      </div>
+    </div>
+    <div class="about-stats reveal">
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">30+</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div>
+        <div class="stat-num">12</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <p class="section-label">Selected Work</p>
+  <h2 class="section-title">Things I've built</h2>
+  <div class="work-grid">
+
+    <div class="work-card reveal">
+      <div class="work-thumb">Project Thumbnail</div>
+      <div class="work-body">
+        <p class="work-tag">Category / Type</p>
+        <h3 class="work-title">Project Title One</h3>
+        <p class="work-desc">Brief description of what the project is and what you accomplished. Keep it to 2 sentences.</p>
+        <a href="#" class="work-link">View Project →</a>
+      </div>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-thumb">Project Thumbnail</div>
+      <div class="work-body">
+        <p class="work-tag">Category / Type</p>
+        <h3 class="work-title">Project Title Two</h3>
+        <p class="work-desc">Brief description of what the project is and what you accomplished. Keep it to 2 sentences.</p>
+        <a href="#" class="work-link">View Project →</a>
+      </div>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-thumb">Project Thumbnail</div>
+      <div class="work-body">
+        <p class="work-tag">Category / Type</p>
+        <h3 class="work-title">Project Title Three</h3>
+        <p class="work-desc">Brief description of what the project is and what you accomplished. Keep it to 2 sentences.</p>
+        <a href="#" class="work-link">View Project →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">Experience</p>
+  <h2 class="section-title">Where I've worked</h2>
+  <div class="timeline">
+
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2022 — Present</div>
+      <div>
+        <div class="timeline-role">Job Title / Role</div>
+        <div class="timeline-company">Company Name</div>
+        <p class="timeline-desc">One or two sentences about your responsibilities and impact in this role.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2020 — 2022</div>
+      <div>
+        <div class="timeline-role">Job Title / Role</div>
+        <div class="timeline-company">Company Name</div>
+        <p class="timeline-desc">One or two sentences about your responsibilities and impact in this role.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2018 — 2020</div>
+      <div>
+        <div class="timeline-role">Job Title / Role</div>
+        <div class="timeline-company">Company Name</div>
+        <p class="timeline-desc">One or two sentences about your responsibilities and impact in this role.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Let's Talk</p>
+  <h2 class="section-title">Start a conversation</h2>
+  <p>Open to freelance opportunities, collaborations, and full-time roles. Don't hesitate to reach out!</p>
+  <div class="contact-links">
+    <a href="mailto:you@email.com" class="contact-link primary">you@email.com</a>
+    <a href="https://linkedin.com/in/yourprofile" class="contact-link" target="_blank">LinkedIn</a>
+    <a href="https://github.com/yourusername" class="contact-link" target="_blank">GitHub</a>
+    <a href="/your-resume.pdf" class="contact-link" target="_blank">Download CV</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Your Name. All rights reserved.</span>
+  <span>Built with care.</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
