@@ -1,0 +1,472 @@
+===== dart format (apply) ===== 
+Formatted lib\features\pigs\presentation\screens\pig_detail_screen.dart
+Formatted lib\features\pigs\presentation\screens\pig_list_screen.dart
+Formatted lib\features\settings\domain\settings_strings.dart
+Formatted 121 files (3 changed) in 0.64 seconds.
+FORMAT_EXIT=0 
+===== flutter analyze ===== 
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.59 (1.3.76 available)
+  app_links 7.0.0 (7.2.1 available)
+  app_links_platform_interface 2.0.2 (2.0.4 available)
+  cli_util 0.4.2 (0.5.2 available)
+  connectivity_plus 6.1.5 (7.3.1 available)
+  firebase_auth 5.7.0 (6.5.7 available)
+  firebase_auth_platform_interface 7.7.3 (9.0.6 available)
+  firebase_auth_web 5.15.3 (6.2.6 available)
+  firebase_core 3.15.2 (4.13.0 available)
+  firebase_core_platform_interface 6.0.3 (8.1.0 available)
+  firebase_core_web 2.24.1 (3.10.0 available)
+  firebase_crashlytics 4.3.10 (5.2.7 available)
+  firebase_crashlytics_platform_interface 3.8.10 (3.8.27 available)
+  firebase_messaging 15.2.10 (16.5.0 available)
+  firebase_messaging_platform_interface 4.6.10 (4.9.3 available)
+  firebase_messaging_web 3.10.10 (4.2.4 available)
+  fl_chart 0.69.2 (1.2.0 available)
+  flutter_image_compress 2.5.0 (2.5.1 available)
+  flutter_image_compress_common 1.1.0 (1.1.1 available)
+  flutter_launcher_icons 0.13.1 (0.14.4 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 18.0.1 (22.2.0 available)
+  flutter_local_notifications_linux 5.0.0 (8.0.1 available)
+  flutter_local_notifications_platform_interface 8.0.0 (12.1.0 available)
+  flutter_riverpod 2.6.1 (3.4.2 available)
+  functions_client 2.6.4 (2.7.1 available)
+  go_router 14.8.1 (17.4.0 available)
+  gotrue 2.26.0 (2.27.1 available)
+  hooks 2.0.2 (2.1.0 available)
+  image 4.8.0 (4.9.1 available)
+  image_picker_android 0.8.13+17 (0.8.13+19 available)
+  intl 0.19.0 (0.20.3 available)
+  jni 1.0.0 (1.0.3 available)
+  jni_flutter 1.0.1 (1.0.2 available)
+  lints 4.0.0 (6.1.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.19.0 available)
+  objective_c 9.4.1 (9.5.0 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 8.3.1 (10.2.1 available)
+  package_info_plus_platform_interface 3.2.1 (4.1.0 available)
+  pdf 3.12.0 (3.13.0 available)
+  posix 6.5.0 (6.5.2 available)
+  postgrest 2.8.0 (2.9.1 available)
+  qr 3.0.2 (4.0.0 available)
+  realtime_client 2.11.0 (2.13.0 available)
+  record_use 0.6.0 (1.0.0 available)
+  riverpod 2.6.1 (3.4.2 available)
+  share_plus 10.1.4 (13.3.0 available)
+  share_plus_platform_interface 5.0.2 (7.2.0 available)
+  shared_preferences_android 2.4.23 (2.4.27 available)
+  sqflite 2.4.2+1 (2.4.3 available)
+  sqflite_android 2.4.2+3 (2.4.3 available)
+  sqflite_common 2.5.8 (2.5.11 available)
+  sqflite_darwin 2.4.2 (2.4.3+1 available)
+  sqflite_platform_interface 2.4.0 (2.4.1 available)
+  storage_client 2.6.0 (2.8.0 available)
+  supabase 2.14.0 (2.16.0 available)
+  supabase_flutter 2.16.0 (2.17.1 available)
+  synchronized 3.4.0+1 (3.4.1+1 available)
+  test_api 0.7.10 (0.7.13 available)
+  timezone 0.9.4 (0.11.1 available)
+  url_launcher_android 6.3.30 (6.3.32 available)
+  vector_math 2.2.0 (2.4.2 available)
+  win32 5.15.0 (6.4.0 available)
+  xml 6.6.1 (7.0.1 available)
+Got dependencies!
+66 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Analyzing flutter_app...                                        
+
+   info - 'anonKey' is deprecated and shouldn't be used. Use publishableKey instead. anonKey will be removed in a future major version - lib\core\config\supabase_config.dart:43:5 - deprecated_member_use
+   info - Statements in an if should be enclosed in a block - lib\core\database\safe_parse.dart:44:5 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\core\services\local_notification_service.dart:105:9 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\core\services\local_notification_service.dart:148:9 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\core\services\local_notification_service.dart:157:9 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\core\services\local_notification_service.dart:197:9 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\core\services\push_notification_service.dart:59:11 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\core\services\push_notification_service.dart:110:9 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\core\services\push_notification_service.dart:120:9 - curly_braces_in_flow_control_structures
+   info - Use 'const' with the constructor to improve performance - lib\features\consultation\presentation\screens\expert_consultation_screen.dart:167:15 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\consultation\presentation\screens\expert_consultation_screen.dart:168:24 - prefer_const_constructors
+   info - Use 'const' literals as arguments to constructors of '@immutable' classes - lib\features\consultation\presentation\screens\expert_consultation_screen.dart:170:29 - prefer_const_literals_to_create_immutables
+   info - Statements in an if should be enclosed in a block - lib\features\dashboard\domain\dashboard_calculations.dart:193:5 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\dashboard\domain\dashboard_calculations.dart:199:5 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\dashboard\domain\dashboard_calculations.dart:337:5 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\dashboard\domain\dashboard_calculations.dart:425:5 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\dashboard\presentation\providers\dashboard_providers.dart:303:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\dashboard\presentation\widgets\weight_progress_card.dart:357:19 - curly_braces_in_flow_control_structures
+   info - Use 'const' with the constructor to improve performance - lib\features\email\presentation\screens\email_testing_screen.dart:80:13 - prefer_const_constructors
+   info - Statements in an if should be enclosed in a block - lib\features\expenses\presentation\providers\expenses_providers.dart:242:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\growth\presentation\providers\growth_providers.dart:226:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\growth\presentation\providers\growth_providers.dart:309:7 - curly_braces_in_flow_control_structures
+warning - A value for optional parameter 'onDelete' isn't ever given - lib\features\growth\presentation\screens\growth_screen.dart:1521:12 - unused_element_parameter
+   info - Statements in an if should be enclosed in a block - lib\features\health\data\health_repository.dart:170:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\health\data\health_repository.dart:217:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\health\domain\health_calculations.dart:319:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\health\domain\health_calculations.dart:322:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\health\domain\health_calculations.dart:325:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\health\domain\health_calculations.dart:339:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\health\domain\health_calculations.dart:349:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\health\domain\health_calculations.dart:673:5 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\health\presentation\screens\health_form_screen.dart:127:17 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\health\presentation\screens\health_form_screen.dart:216:21 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\health\presentation\screens\health_history_screen.dart:200:13 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\notifications\presentation\providers\notification_providers.dart:167:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\notifications\presentation\providers\notification_providers.dart:194:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\notifications\presentation\screens\notification_settings_screen.dart:136:27 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\notifications\presentation\screens\notification_settings_screen.dart:243:27 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\pigs\data\pig_repository.dart:592:50 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\pigs\data\pig_repository.dart:639:50 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\pigs\presentation\screens\pig_calendar_screen.dart:146:9 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\pigs\presentation\screens\pig_detail_screen.dart:119:13 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\pigs\presentation\screens\pig_detail_screen.dart:228:23 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\pigs\presentation\screens\pig_detail_screen.dart:312:9 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\pigs\presentation\screens\pig_detail_screen.dart:411:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\pigs\presentation\screens\pig_detail_screen.dart:1612:9 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\pigs\presentation\screens\pig_detail_screen.dart:2053:7 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\pigs\presentation\screens\pig_form_screen.dart:316:37 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\pigs\presentation\screens\pig_form_screen.dart:485:13 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\settings\domain\settings_strings.dart:1980:5 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\features\settings\domain\settings_strings.dart:2118:7 - curly_braces_in_flow_control_structures
+
+51 issues found. (ran in 12.9s)
+ANALYZE_EXIT=1 
+===== flutter test ===== 
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.59 (1.3.76 available)
+  app_links 7.0.0 (7.2.1 available)
+  app_links_platform_interface 2.0.2 (2.0.4 available)
+  cli_util 0.4.2 (0.5.2 available)
+  connectivity_plus 6.1.5 (7.3.1 available)
+  firebase_auth 5.7.0 (6.5.7 available)
+  firebase_auth_platform_interface 7.7.3 (9.0.6 available)
+  firebase_auth_web 5.15.3 (6.2.6 available)
+  firebase_core 3.15.2 (4.13.0 available)
+  firebase_core_platform_interface 6.0.3 (8.1.0 available)
+  firebase_core_web 2.24.1 (3.10.0 available)
+  firebase_crashlytics 4.3.10 (5.2.7 available)
+  firebase_crashlytics_platform_interface 3.8.10 (3.8.27 available)
+  firebase_messaging 15.2.10 (16.5.0 available)
+  firebase_messaging_platform_interface 4.6.10 (4.9.3 available)
+  firebase_messaging_web 3.10.10 (4.2.4 available)
+  fl_chart 0.69.2 (1.2.0 available)
+  flutter_image_compress 2.5.0 (2.5.1 available)
+  flutter_image_compress_common 1.1.0 (1.1.1 available)
+  flutter_launcher_icons 0.13.1 (0.14.4 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 18.0.1 (22.2.0 available)
+  flutter_local_notifications_linux 5.0.0 (8.0.1 available)
+  flutter_local_notifications_platform_interface 8.0.0 (12.1.0 available)
+  flutter_riverpod 2.6.1 (3.4.2 available)
+  functions_client 2.6.4 (2.7.1 available)
+  go_router 14.8.1 (17.4.0 available)
+  gotrue 2.26.0 (2.27.1 available)
+  hooks 2.0.2 (2.1.0 available)
+  image 4.8.0 (4.9.1 available)
+  image_picker_android 0.8.13+17 (0.8.13+19 available)
+  intl 0.19.0 (0.20.3 available)
+  jni 1.0.0 (1.0.3 available)
+  jni_flutter 1.0.1 (1.0.2 available)
+  lints 4.0.0 (6.1.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.19.0 available)
+  objective_c 9.4.1 (9.5.0 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 8.3.1 (10.2.1 available)
+  package_info_plus_platform_interface 3.2.1 (4.1.0 available)
+  pdf 3.12.0 (3.13.0 available)
+  posix 6.5.0 (6.5.2 available)
+  postgrest 2.8.0 (2.9.1 available)
+  qr 3.0.2 (4.0.0 available)
+  realtime_client 2.11.0 (2.13.0 available)
+  record_use 0.6.0 (1.0.0 available)
+  riverpod 2.6.1 (3.4.2 available)
+  share_plus 10.1.4 (13.3.0 available)
+  share_plus_platform_interface 5.0.2 (7.2.0 available)
+  shared_preferences_android 2.4.23 (2.4.27 available)
+  sqflite 2.4.2+1 (2.4.3 available)
+  sqflite_android 2.4.2+3 (2.4.3 available)
+  sqflite_common 2.5.8 (2.5.11 available)
+  sqflite_darwin 2.4.2 (2.4.3+1 available)
+  sqflite_platform_interface 2.4.0 (2.4.1 available)
+  storage_client 2.6.0 (2.8.0 available)
+  supabase 2.14.0 (2.16.0 available)
+  supabase_flutter 2.16.0 (2.17.1 available)
+  synchronized 3.4.0+1 (3.4.1+1 available)
+  test_api 0.7.10 (0.7.13 available)
+  timezone 0.9.4 (0.11.1 available)
+  url_launcher_android 6.3.30 (6.3.32 available)
+  vector_math 2.2.0 (2.4.2 available)
+  win32 5.15.0 (6.4.0 available)
+  xml 6.6.1 (7.0.1 available)
+Got dependencies!
+66 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart
+00:00 +0: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +0: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonListSafely one corrupted record among valid ones is skipped, valid entries still load
+test: skipped corrupted record at index 1 — type 'String' is not a subtype of type 'num?' in type cast
+#0      new HealthLogEntry.fromJson (package:asf_flutter/features/health/domain/health_calculations.dart:580:25)
+#1      parseJsonListSafely (package:asf_flutter/core/database/safe_parse.dart:49:27)
+#2      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:63:11)
+#3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +1: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +1: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonListSafely a genuinely malformed element (not a Map at all) is skipped without throwing
+test: skipped corrupted record at index 1 — type 'String' is not a subtype of type 'Map<dynamic, dynamic>' in type cast
+#0      parseJsonListSafely (package:asf_flutter/core/database/safe_parse.dart:49:61)
+#1      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:93:11)
+#2      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#3      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#4      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+test: skipped corrupted record at index 2 — type 'int' is not a subtype of type 'Map<dynamic, dynamic>' in type cast
+#0      parseJsonListSafely (package:asf_flutter/core/database/safe_parse.dart:49:61)
+#1      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:93:11)
+#2      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#3      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#4      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+test: skipped corrupted record at index 3 — type 'Null' is not a subtype of type 'Map<dynamic, dynamic>' in type cast
+#0      parseJsonListSafely (package:asf_flutter/core/database/safe_parse.dart:49:61)
+#1      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:93:11)
+#2      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#3      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#4      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +2: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +3: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +4: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +5: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +6: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +6: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonObjectSafely corrupted draft recovery: a malformed draft row returns null rather than throwing
+test: skipped a corrupted record — type 'String' is not a subtype of type 'Map<dynamic, dynamic>' in type cast
+#0      parseJsonObjectSafely (package:asf_flutter/core/database/safe_parse.dart:103:51)
+#1      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:166:21)
+#2      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#3      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#4      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +7: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +8: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +9: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +9: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonObjectSafely corrupted vet contact recovery: a malformed row returns null rather than throwing
+test: skipped a corrupted record — type 'int' is not a subtype of type 'Map<dynamic, dynamic>' in type cast
+#0      parseJsonObjectSafely (package:asf_flutter/core/database/safe_parse.dart:103:51)
+#1      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:197:11)
+#2      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#3      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#4      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +10: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +11: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +11: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: mapSafely skips an element whose parse callback throws, keeps the rest
+test: skipped corrupted record at index 2 — IntegerDivisionByZeroException
+#0      int.~/ (dart:core-patch/integers.dart:27:7)
+#1      main.<anonymous closure>.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:215:50)
+#2      mapSafely (package:asf_flutter/core/database/safe_parse.dart:83:24)
+#3      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:215:22)
+#4      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#5      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#6      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +12: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +13: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +14: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +15: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +16: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +17: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +18: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) GreetingHeader renders with no overflow
+00:00 +19: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) HealthBannerCard (critical, all-physical-options) renders with no overflow
+00:00 +20: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +21: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +22: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +23: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +24: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +25: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +26: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +27: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +28: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +29: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability Critical: one generic Critical-severity symptom plus two At-Risk symptoms
+00:01 +30: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +31: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +32: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +33: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +34: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +35: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +36: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +37: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +38: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +39: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +40: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +41: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) WeightProgressCard (with "not recorded this week" banner) renders with no overflow
+00:01 +42: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) TodayTasksCard (long subtitles, completed+pending split) renders with no overflow
+00:01 +43: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: small (320×568 — e.g. iPhone SE / small Android) TipOfDayCard renders with no overflow
+00:01 +44: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) GreetingHeader renders with no overflow
+00:01 +45: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: Stage 1 — option catalogs are non-empty with the exact expected counts kBehaviorOptions has exactly 5 items
+00:01 +46: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) HealthBannerCard (critical, all-physical-options) renders with no overflow
+00:01 +47: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) HealthBannerCard (critical, all-physical-options) renders with no overflow
+00:01 +48: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) HealthBannerCard (critical, all-physical-options) renders with no overflow
+00:01 +49: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) HealthBannerCard (critical, all-physical-options) renders with no overflow
+00:01 +50: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) HealthBannerCard (critical, all-physical-options) renders with no overflow
+00:01 +51: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthTranslationCoverageGaps — every option has a Filipino entry reports zero gaps across all four categories
+00:01 +52: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +53: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +54: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +55: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +56: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +57: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +58: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +59: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +60: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +61: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +62: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +63: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:01 +64: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthStatusLabel — Overall Status badge translation Filipino returns a distinct, non-empty string for every status
+00:01 +65: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +66: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +67: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:01 +68: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) WeightProgressCard (with "not recorded this week" banner) renders with no overflow
+00:01 +69: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) TodayTasksCard (long subtitles, completed+pending split) renders with no overflow
+00:02 +70: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: medium (390×844 — e.g. iPhone 14 / mid Android) TipOfDayCard renders with no overflow
+00:02 +71: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: large (428×926 — e.g. iPhone 14 Pro Max) GreetingHeader renders with no overflow
+00:02 +72: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: large (428×926 — e.g. iPhone 14 Pro Max) HealthBannerCard (critical, all-physical-options) renders with no overflow
+00:02 +73: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: large (428×926 — e.g. iPhone 14 Pro Max) SummaryCardGrid (2x2 hero + FCR/Growth row) renders with no overflow
+00:02 +74: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/dashboard_responsive_test.dart: large (428×926 — e.g. iPhone 14 Pro Max) SummaryCardGrid renders with no overflow in Filipino (longer labels)
+00:02 +75: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +76: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +77: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +78: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +79: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +80: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +81: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +82: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +83: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +84: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +85: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +86: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +87: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +88: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +89: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +90: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +91: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +92: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +93: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +94: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +95: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +96: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +97: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +98: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:03 +99: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:03 +100: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:03 +101: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:03 +102: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:03 +103: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:03 +104: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:03 +105: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:03 +106: All tests passed!
+TEST_EXIT=0 
+===== flutter build apk --release ===== 
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.59 (1.3.76 available)
+  app_links 7.0.0 (7.2.1 available)
+  app_links_platform_interface 2.0.2 (2.0.4 available)
+  cli_util 0.4.2 (0.5.2 available)
+  connectivity_plus 6.1.5 (7.3.1 available)
+  firebase_auth 5.7.0 (6.5.7 available)
+  firebase_auth_platform_interface 7.7.3 (9.0.6 available)
+  firebase_auth_web 5.15.3 (6.2.6 available)
+  firebase_core 3.15.2 (4.13.0 available)
+  firebase_core_platform_interface 6.0.3 (8.1.0 available)
+  firebase_core_web 2.24.1 (3.10.0 available)
+  firebase_crashlytics 4.3.10 (5.2.7 available)
+  firebase_crashlytics_platform_interface 3.8.10 (3.8.27 available)
+  firebase_messaging 15.2.10 (16.5.0 available)
+  firebase_messaging_platform_interface 4.6.10 (4.9.3 available)
+  firebase_messaging_web 3.10.10 (4.2.4 available)
+  fl_chart 0.69.2 (1.2.0 available)
+  flutter_image_compress 2.5.0 (2.5.1 available)
+  flutter_image_compress_common 1.1.0 (1.1.1 available)
+  flutter_launcher_icons 0.13.1 (0.14.4 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 18.0.1 (22.2.0 available)
+  flutter_local_notifications_linux 5.0.0 (8.0.1 available)
+  flutter_local_notifications_platform_interface 8.0.0 (12.1.0 available)
+  flutter_riverpod 2.6.1 (3.4.2 available)
+  functions_client 2.6.4 (2.7.1 available)
+  go_router 14.8.1 (17.4.0 available)
+  gotrue 2.26.0 (2.27.1 available)
+  hooks 2.0.2 (2.1.0 available)
+  image 4.8.0 (4.9.1 available)
+  image_picker_android 0.8.13+17 (0.8.13+19 available)
+  intl 0.19.0 (0.20.3 available)
+  jni 1.0.0 (1.0.3 available)
+  jni_flutter 1.0.1 (1.0.2 available)
+  lints 4.0.0 (6.1.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.19.0 available)
+  objective_c 9.4.1 (9.5.0 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 8.3.1 (10.2.1 available)
+  package_info_plus_platform_interface 3.2.1 (4.1.0 available)
+  pdf 3.12.0 (3.13.0 available)
+  posix 6.5.0 (6.5.2 available)
+  postgrest 2.8.0 (2.9.1 available)
+  qr 3.0.2 (4.0.0 available)
+  realtime_client 2.11.0 (2.13.0 available)
+  record_use 0.6.0 (1.0.0 available)
+  riverpod 2.6.1 (3.4.2 available)
+  share_plus 10.1.4 (13.3.0 available)
+  share_plus_platform_interface 5.0.2 (7.2.0 available)
+  shared_preferences_android 2.4.23 (2.4.27 available)
+  sqflite 2.4.2+1 (2.4.3 available)
+  sqflite_android 2.4.2+3 (2.4.3 available)
+  sqflite_common 2.5.8 (2.5.11 available)
+  sqflite_darwin 2.4.2 (2.4.3+1 available)
+  sqflite_platform_interface 2.4.0 (2.4.1 available)
+  storage_client 2.6.0 (2.8.0 available)
+  supabase 2.14.0 (2.16.0 available)
+  supabase_flutter 2.16.0 (2.17.1 available)
+  synchronized 3.4.0+1 (3.4.1+1 available)
+  test_api 0.7.10 (0.7.13 available)
+  timezone 0.9.4 (0.11.1 available)
+  url_launcher_android 6.3.30 (6.3.32 available)
+  vector_math 2.2.0 (2.4.2 available)
+  win32 5.15.0 (6.4.0 available)
+  xml 6.6.1 (7.0.1 available)
+Got dependencies!
+66 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Running Gradle task 'assembleRelease'...                        
+Expected to find fonts for (MaterialIcons, packages/cupertino_icons/CupertinoIcons), but found (MaterialIcons). This usually means you are referring to font families in an IconData class but not including them in the assets section of your pubspec.yaml, are missing the package that would include them, or are missing "uses-material-design: true".
+Font asset "MaterialIcons-Regular.otf" was tree-shaken, reducing it from 1645184 to 22728 bytes (98.6% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+Running Gradle task 'assembleRelease'...                          187.0s
+√ Built build\app\outputs\flutter-apk\app-release.apk (65.2MB)
+BUILD_EXIT=0 
+DONE 

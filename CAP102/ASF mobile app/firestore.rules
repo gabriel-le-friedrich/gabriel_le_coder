@@ -1,0 +1,66 @@
+rules_version = '2';
+
+/* ══════════════════════════════════════════════════════════════════════
+   ASF — Firestore Security Rules
+
+   Data model: every piece of user data lives under users/{uid}, either as
+   the profile document itself or as a subcollection beneath it:
+
+     users/{uid}                       — profile (fullName, phoneNumber, ...)
+     users/{uid}/pigs/{pigId}
+     users/{uid}/healthLogs/{logId}
+     users/{uid}/expenses/{expenseId}
+     users/{uid}/feedingLogs/{logId}
+     users/{uid}/growthLogs/{logId}
+     users/{uid}/notifications/{notifId}
+     users/{uid}/reports/{reportId}
+
+   Putting everything under a subcollection of users/{uid} (rather than
+   top-level collections with an ownerUid field) means ownership is baked
+   into the document PATH, not a field value a client could try to spoof —
+   the rule below only has to check request.auth.uid against the {uid} in
+   the path.
+
+   phoneIndex/{e164PhoneNumber} — a separate, minimal collection used ONLY to
+   let Registration check "is this phone number already taken?" without
+   needing a broad, privacy-leaking query across every user's profile.
+   Firestore has no native unique-field constraint, so this is the standard
+   workaround: the E.164 phone number IS the document ID, the document body
+   is just { uid }, and rules only allow checking whether a SPECIFIC number
+   you already know exists — never listing/enumerating all registered phones.
+
+   Deploy with: firebase deploy --only firestore:rules
+   (after `firebase init firestore` and `firebase use <your-project-id>`
+   in this folder — see SETUP.md).
+   ══════════════════════════════════════════════════════════════════════ */
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+
+      match /{collection}/{docId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+
+    // Phone-uniqueness index — see the header comment above. `get` only (a
+    // caller must already know the exact phone number/document ID; there is
+    // no `list` allowance, so this collection can never be enumerated). Only
+    // the owning uid may create its own entry, and only once — no overwrites.
+    match /phoneIndex/{phoneId} {
+      allow get: if request.auth != null;
+      allow create: if request.auth != null
+                    && request.resource.data.uid == request.auth.uid
+                    && !exists(/databases/$(database)/documents/phoneIndex/$(phoneId));
+      allow update, delete: if false;
+    }
+
+    // Deny everything else by default. Firestore already denies anything not
+    // explicitly matched above, but this makes the intent unmistakable.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

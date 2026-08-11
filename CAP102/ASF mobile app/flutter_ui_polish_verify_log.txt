@@ -1,0 +1,168 @@
+===== flutter analyze ===== 
+Analyzing flutter_app...                                        
+
+   info - 'anonKey' is deprecated and shouldn't be used. Use publishableKey instead. anonKey will be removed in a future major version - lib\core\config\supabase_config.dart:27:5 - deprecated_member_use
+
+1 issue found. (ran in 31.0s)
+ANALYZE_EXIT=1 
+===== flutter test ===== 
+00:00 +0: loading C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart
+00:00 +0: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonListSafely one corrupted record among valid ones is skipped, valid entries still load
+test: skipped corrupted record at index 1 — type 'String' is not a subtype of type 'num?' in type cast
+#0      new HealthLogEntry.fromJson (package:asf_flutter/features/health/domain/health_calculations.dart:491:25)
+#1      parseJsonListSafely (package:asf_flutter/core/database/safe_parse.dart:48:27)
+#2      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:59:22)
+#3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +1: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonListSafely a genuinely malformed element (not a Map at all) is skipped without throwing
+test: skipped corrupted record at index 1 — type 'String' is not a subtype of type 'Map<dynamic, dynamic>' in type cast
+#0      parseJsonListSafely (package:asf_flutter/core/database/safe_parse.dart:48:61)
+#1      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:86:22)
+#2      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#3      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#4      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+test: skipped corrupted record at index 2 — type 'int' is not a subtype of type 'Map<dynamic, dynamic>' in type cast
+#0      parseJsonListSafely (package:asf_flutter/core/database/safe_parse.dart:48:61)
+#1      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:86:22)
+#2      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#3      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#4      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+test: skipped corrupted record at index 3 — type 'Null' is not a subtype of type 'Map<dynamic, dynamic>' in type cast
+#0      parseJsonListSafely (package:asf_flutter/core/database/safe_parse.dart:48:61)
+#1      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:86:22)
+#2      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#3      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#4      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +2: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonListSafely completely empty database (null) returns an empty list, not an error
+00:00 +3: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonListSafely an empty list returns an empty list
+00:00 +4: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonListSafely legacy observations missing new severity-count fields still load (not skipped)
+00:00 +5: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonListSafely an invalid/unknown status string falls back to healthy instead of being skipped
+00:00 +6: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonObjectSafely corrupted draft recovery: a malformed draft row returns null rather than throwing
+test: skipped a corrupted record — type 'String' is not a subtype of type 'Map<dynamic, dynamic>' in type cast
+#0      parseJsonObjectSafely (package:asf_flutter/core/database/safe_parse.dart:102:51)
+#1      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:148:21)
+#2      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#3      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#4      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +7: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonObjectSafely valid draft data parses normally
+00:00 +8: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonObjectSafely null (no draft saved) returns null
+00:00 +9: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonObjectSafely corrupted vet contact recovery: a malformed row returns null rather than throwing
+test: skipped a corrupted record — type 'int' is not a subtype of type 'Map<dynamic, dynamic>' in type cast
+#0      parseJsonObjectSafely (package:asf_flutter/core/database/safe_parse.dart:102:51)
+#1      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:168:23)
+#2      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#3      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#4      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +10: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: parseJsonObjectSafely valid vet contact data parses normally
+00:00 +11: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: mapSafely skips an element whose parse callback throws, keeps the rest
+test: skipped corrupted record at index 2 — IntegerDivisionByZeroException
+#0      int.~/ (dart:core-patch/integers.dart:27:7)
+#1      main.<anonymous closure>.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:186:50)
+#2      mapSafely (package:asf_flutter/core/database/safe_parse.dart:82:24)
+#3      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/erjan/OneDrive/Desktop/ASF%20mobile%20app/flutter_app/test/data_integrity_test.dart:186:22)
+#4      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:25)
+<asynchronous suspension>
+#5      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+<asynchronous suspension>
+#6      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+<asynchronous suspension>
+
+00:00 +12: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: validateHealthLogEntry — pre-save validation gate a well-formed entry passes validation
+00:00 +13: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: validateHealthLogEntry — pre-save validation gate rejects a non-positive production day
+00:00 +14: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: validateHealthLogEntry — pre-save validation gate rejects an invalid timestamp
+00:00 +15: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: validateHealthLogEntry — pre-save validation gate rejects negative severity counts
+00:00 +16: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: validateHealthLogEntry — pre-save validation gate rejects a physical symptom list with duplicates
+00:00 +17: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/data_integrity_test.dart: validateHealthLogEntry — pre-save validation gate rejects a blank required field
+00:00 +18: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability Healthy: all-normal selections plus healthy physical indicators
+00:00 +19: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability Needs Monitoring: several tier-1 observations, nothing worse
+00:00 +20: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability At Risk: two At-Risk-tier physical symptoms
+00:00 +21: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability At Risk: severity score alone crosses the At-Risk threshold
+00:00 +22: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability Needs Monitoring: severity score one below the At-Risk threshold stays Monitoring
+00:00 +23: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability Critical: a named Emergency symptom in Physical always wins, regardless of everything else
+00:00 +24: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability Critical: a named Emergency symptom in Behavior also always wins
+00:00 +25: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability Critical: two generic (non-Emergency) Critical-severity symptoms
+00:00 +26: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability Critical: one generic Critical-severity symptom plus two At-Risk symptoms
+00:00 +27: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability Critical: total severity score alone crosses the Critical threshold
+00:00 +28: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability A single At-Risk-tier symptom alone is not enough to reach At Risk (needs 2+, per the rule)
+00:00 +29: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthAssessment — status reachability A single Critical-tier (non-Emergency) symptom alone floors at least to At Risk
+00:00 +30: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: kEmergencySymptomKeys sanity every emergency key resolves to a real, tier-3 option somewhere in the option lists
+00:00 +31: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeHealthStatus (thin wrapper) returns the same status as computeHealthAssessment
+00:00 +32: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeDigestiveTip fires when waste is loose and appetite is reduced
+00:00 +33: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: computeDigestiveTip does not fire when appetite is normal
+00:00 +34: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: HealthLogEntry JSON round-trip toJson/fromJson preserves every persisted field, including the severity counts
+00:00 +35: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: HealthLogEntry JSON round-trip fromJson tolerates a legacy single-string "physical" value
+00:00 +36: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_calculations_test.dart: HealthLogEntry JSON round-trip fromJson defaults missing severity-count fields to zero rather than throwing
+00:01 +37: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: Stage 1 — option catalogs are non-empty with the exact expected counts kBehaviorOptions has exactly 5 items
+00:01 +38: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: Stage 1 — option catalogs are non-empty with the exact expected counts kAppetiteOptions has exactly 4 items
+00:01 +39: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: Stage 1 — option catalogs are non-empty with the exact expected counts kPhysicalOptions has exactly 24 items, split 6/7/6/5 across tiers
+00:01 +40: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: Stage 1 — option catalogs are non-empty with the exact expected counts kWasteOptions has exactly 5 items
+00:01 +41: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: Stage 1 — option catalogs are non-empty with the exact expected counts no option in any catalog has a blank key, icon, or label
+00:01 +42: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthTranslationCoverageGaps — every option has a Filipino entry reports zero gaps across all four categories
+00:01 +43: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthTranslationCoverageGaps — every option has a Filipino entry every kBehaviorOptions key round-trips through healthOptionLabel
+00:01 +44: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthTranslationCoverageGaps — every option has a Filipino entry every kAppetiteOptions key round-trips through healthOptionLabel
+00:01 +45: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthTranslationCoverageGaps — every option has a Filipino entry every kPhysicalOptions key round-trips through healthOptionLabel
+00:01 +46: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthTranslationCoverageGaps — every option has a Filipino entry every kWasteOptions key round-trips through healthOptionLabel
+00:01 +47: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthOptionLabel — English always returns the canonical label unchanged English never reads from the Filipino dictionaries
+00:01 +48: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthOptionLabel — English always returns the canonical label unchanged an unrecognized key/category falls back to the given label, never throws
+00:01 +49: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthOptionLabel — locked-down Filipino strings matches the examples given for this feature
+00:01 +50: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthOptionSubtitle translates the three options that carry a subtitle
+00:01 +51: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthOptionSubtitle an empty fallback subtitle stays empty regardless of language
+00:01 +52: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthOptionSubtitle English always returns the given subtitle unchanged
+00:01 +53: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthStatusLabel — Overall Status badge translation English returns the same text as kHealthStatusMeta
+00:01 +54: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthStatusLabel — Overall Status badge translation Filipino returns a distinct, non-empty string for every status
+00:01 +55: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: healthStatusLabel — Overall Status badge translation reuses the existing Severity Counts / Physical section Filipino wording (no duplicate translations)
+00:01 +56: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_test.dart: tr() — screen chrome keys used by the Health Monitor form/history every used key exists in both English and Filipino, distinct from the raw key
+00:01 +57: C:/Users/erjan/OneDrive/Desktop/ASF mobile app/flutter_app/test/health_translation_widget_test.dart: switching appLanguageProvider re-renders every label in place, no restart
+00:02 +58: All tests passed!
+TEST_EXIT=0 
+===== flutter build apk --release ===== 
+Running Gradle task 'assembleRelease'...                        
+Expected to find fonts for (MaterialIcons, packages/cupertino_icons/CupertinoIcons), but found (MaterialIcons). This usually means you are referring to font families in an IconData class but not including them in the assets section of your pubspec.yaml, are missing the package that would include them, or are missing "uses-material-design: true".
+Font asset "MaterialIcons-Regular.otf" was tree-shaken, reducing it from 1645184 to 13700 bytes (99.2% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+Running Gradle task 'assembleRelease'...                          181.3s
+√ Built build\app\outputs\flutter-apk\app-release.apk (63.7MB)
+BUILD_EXIT=0 
+===== APK outputs ===== 
+ Volume in drive C is Windows-SSD
+ Volume Serial Number is 9FD4-5B60
+
+ Directory of C:\Users\erjan\OneDrive\Desktop\ASF mobile app\flutter_app\build\app\outputs\flutter-apk
+
+07/24/2026  03:45 AM    <DIR>          .
+07/23/2026  02:09 PM    <DIR>          ..
+07/23/2026  02:08 PM        24,316,721 app-arm64-v8a-release.apk
+07/23/2026  02:08 PM                40 app-arm64-v8a-release.apk.sha1
+07/23/2026  02:08 PM        22,192,845 app-armeabi-v7a-release.apk
+07/23/2026  02:08 PM                40 app-armeabi-v7a-release.apk.sha1
+07/25/2026  03:42 PM        66,819,391 app-release.apk
+07/25/2026  03:42 PM                40 app-release.apk.sha1
+07/23/2026  02:08 PM        25,809,573 app-x86_64-release.apk
+07/23/2026  02:08 PM                40 app-x86_64-release.apk.sha1
+               8 File(s)    139,138,690 bytes
+               2 Dir(s)  286,876,692,480 bytes free
+DONE 

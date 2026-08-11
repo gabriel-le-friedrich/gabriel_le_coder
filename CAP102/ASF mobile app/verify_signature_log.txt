@@ -1,0 +1,5 @@
+===== jarsigner -verify ===== 
+'jarsigner' is not recognized as an internal or external command,
+operable program or batch file.
+JARSIGNER_EXIT=9009 
+DONE 

@@ -1,0 +1,34 @@
+==== whoami / date ==== 
+erjan\erjan
+Fri 07/31/2026 
+==== firebase --version ==== 
+C:\Users\erjan\AppData\Roaming\npm\firebase
+C:\Users\erjan\AppData\Roaming\npm\firebase.cmd
+15.23.0
+==== firebase login:list ==== 
+Logged in as erjanpamintuan31@gmail.com
+==== firebase projects:list ==== 
+- Preparing the list of your Firebase projects
+√ Preparing the list of your Firebase projects
+[90m┌──────────────────────[39m[90m┬──────────────────────────[39m[90m┬────────────────[39m[90m┬──────────────────────┐[39m
+[90m│[39m[32m Project Display Name [39m[90m│[39m[32m Project ID               [39m[90m│[39m[32m Project Number [39m[90m│[39m[32m Resource Location ID [39m[90m│[39m
+[90m├──────────────────────[39m[90m┼──────────────────────────[39m[90m┼────────────────[39m[90m┼──────────────────────┤[39m
+[90m│[39m ASF-APP              [90m│[39m [36m[1masf-app-2990c (current)[22m[39m  [90m│[39m 661869403000   [90m│[39m [33m[Not specified][39m      [90m│[39m
+[90m├──────────────────────[39m[90m┼──────────────────────────[39m[90m┼────────────────[39m[90m┼──────────────────────┤[39m
+[90m│[39m asf-swine-finisher   [90m│[39m asf-swine-finisher       [90m│[39m 157487615361   [90m│[39m [33m[Not specified][39m      [90m│[39m
+[90m├──────────────────────[39m[90m┼──────────────────────────[39m[90m┼────────────────[39m[90m┼──────────────────────┤[39m
+[90m│[39m asf-swine-finisher   [90m│[39m asf-swine-finisher-29ca9 [90m│[39m 637968489733   [90m│[39m [33m[Not specified][39m      [90m│[39m
+[90m├──────────────────────[39m[90m┼──────────────────────────[39m[90m┼────────────────[39m[90m┼──────────────────────┤[39m
+[90m│[39m ASFApp               [90m│[39m asfapp-ea5f5             [90m│[39m 939409366763   [90m│[39m [33m[Not specified][39m      [90m│[39m
+[90m├──────────────────────[39m[90m┼──────────────────────────[39m[90m┼────────────────[39m[90m┼──────────────────────┤[39m
+[90m│[39m regie-realty         [90m│[39m regie-realty             [90m│[39m 461185447274   [90m│[39m [33m[Not specified][39m      [90m│[39m
+[90m└──────────────────────[39m[90m┴──────────────────────────[39m[90m┴────────────────[39m[90m┴──────────────────────┘[39m
+
+5 project(s) total.
+==== firebase use (current project in this dir) ==== 
+asf-app-2990c
+==== node --version / npm --version ==== 
+v24.15.0
+11.12.1
+==== keytool SHA fingerprints of release keystore ==== 
+(reads flutter_app\android\keystore.properties for the store password) 

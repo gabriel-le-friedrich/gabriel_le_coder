@@ -1,0 +1,25 @@
+===== build-tools dirs ===== 
+35.0.0
+36.0.0
+36.1.0
+===== apksigner verify ===== 
+Using build-tools: 36.1.0 
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): false
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: CN=ASF Swine Finisher, OU=PSAU, O=Philippine State Agricultural University, L=Magalang, ST=Pampanga, C=PH
+Signer #1 certificate SHA-256 digest: f164dcdaade1ab665f91686ec8c9798ad62d329e6a9cc05292bacd69482a5389
+Signer #1 certificate SHA-1 digest: 626300174b4e631bdf72526374f3e541b95ebd12
+Signer #1 certificate MD5 digest: 1d3d1610d3ba9b5e9f1a1391a54b2968
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 2048
+Signer #1 public key SHA-256 digest: 011ad4dc9dfddf92bca0c3856b378ce41bfbfbfefea64df783b6f4bf231bba02
+Signer #1 public key SHA-1 digest: 001ba178732b46b7ae89c12ade0c8dfb8374aff3
+Signer #1 public key MD5 digest: 9e008b283456fefc63f1003db591ac05
+APKSIGNER_EXIT=0 
+DONE 

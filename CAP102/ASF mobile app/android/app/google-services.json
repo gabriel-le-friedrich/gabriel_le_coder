@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "661869403000",
+    "project_id": "asf-app-2990c",
+    "storage_bucket": "asf-app-2990c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661869403000:android:039312ef925f88f56e068d",
+        "android_client_info": {
+          "package_name": "ph.edu.psau.asf"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCADEBRnmQe-yBFg1syGVY_J3aAnE9leHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,30 @@
+rules_version = '2';
+
+/* ══════════════════════════════════════════════════════════════════════
+   ASF — Firebase Storage Security Rules
+
+   Used by src/sync-engine.js to store the farmer's profile photo and pig
+   weekly growth photos as real files (instead of large base64 strings
+   inline in Firestore documents) — see maybeUploadPhoto() / syncImages()
+   in that file. Photos are captured offline-first into SQLite
+   (src/sqlite-db.js) and uploaded here once connectivity returns.
+
+   Layout:
+     users/{uid}/photos/profile.jpg
+     users/{uid}/photos/pig_{pigId}_wk{week}_{photoId}.jpg
+
+   Same ownership rule as Firestore: a user may only read/write files under
+   their own uid's folder. Deploy with:
+     firebase deploy --only storage
+   ══════════════════════════════════════════════════════════════════════ */
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /users/{uid}/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+    match /{allOtherPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

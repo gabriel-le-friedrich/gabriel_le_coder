@@ -1,0 +1,6 @@
+node_modules/
+*.log
+# Service-account key files — never commit these, per the note in
+# backfill-claims.js. Covers any key saved directly in this folder.
+*-firebase-adminsdk-*.json
+serviceAccountKey.json

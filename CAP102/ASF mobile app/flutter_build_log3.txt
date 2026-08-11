@@ -1,0 +1,5 @@
+===== flutter build appbundle --release ===== 
+Running Gradle task 'bundleRelease'...                             22.4s
+√ Built build\app\outputs\bundle\release\app-release.aab (47.6MB)
+BUILD_EXIT=0 
+DONE 

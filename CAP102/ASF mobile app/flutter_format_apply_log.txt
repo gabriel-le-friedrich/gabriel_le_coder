@@ -1,0 +1,8 @@
+===== dart format (apply) ===== 
+Formatted lib\features\auth\data\auth_repository.dart
+Formatted lib\features\auth\presentation\providers\auth_providers.dart
+Formatted lib\features\dashboard\presentation\screens\vet_contacts_screen.dart
+Formatted lib\features\growth\presentation\screens\growth_overview_screen.dart
+Formatted 113 files (4 changed) in 0.61 seconds.
+FORMAT_EXIT=0 
+DONE 

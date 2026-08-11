@@ -1,0 +1,139 @@
+name: asf_flutter
+description: "ASF (Administration for Swine Finisher) — Flutter rewrite. Firebase Auth + Supabase + SQLite offline-first, Riverpod state management."
+publish_to: 'none'
+version: 1.1.0+2
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+# ══════════════════════════════════════════════════════════════════════
+# SETUP NOTE (read before running `flutter pub get`):
+# This folder was written by hand (Dart source + this pubspec) WITHOUT
+# running `flutter create` first, because the environment that wrote it
+# has no Flutter/Dart toolchain available to run CLI commands. Before
+# `flutter pub get` will work, you need the native platform scaffolding
+# that `flutter create` normally generates (android/, ios/, the platform
+# entrypoints, etc.). Recommended one-time setup, from a terminal:
+#
+#   1. cd into the PARENT of this "flutter_app" folder
+#   2. flutter create --org com.asf --project-name asf_flutter --platforms android flutter_app_scaffold
+#   3. Copy flutter_app_scaffold/android and flutter_app_scaffold/.metadata
+#      into this flutter_app/ folder (do NOT copy its pubspec.yaml or lib/
+#      — keep the ones already written here).
+#   4. Copy android/app/google-services.json from the EXISTING Capacitor
+#      project (same Firebase project: asf-app-2990c) into
+#      flutter_app/android/app/google-services.json.
+#   5. flutter pub get
+#   6. flutter analyze   — report any errors back for fixes.
+#   7. flutter run        — once analyze is clean.
+# ══════════════════════════════════════════════════════════════════════
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management (per your choice)
+  flutter_riverpod: ^2.5.1
+
+  # Declarative routing — replaces manual Navigator.push/MaterialPageRoute
+  # with route-based navigation + a redirect() that mirrors the web app's
+  # authStateChange-driven showAuthShell()/showOnboarding()/showAppShell().
+  go_router: ^14.6.2
+
+  # Firebase — Authentication (accounts/sessions/OTP) + Cloud Messaging
+  # (push notifications). Firestore/Firebase Storage are still intentionally
+  # NOT used — Supabase remains the database/file store, per the existing
+  # app's hybrid-backend design.
+  firebase_core: ^3.6.0
+  # Phone Auth audit: bumped to the latest release on the currently-pinned
+  # major line (5.3.1 -> 5.7.0). A newer 6.x major exists but requires
+  # cascading firebase_core to ^4.x (and firebase_messaging/
+  # firebase_crashlytics along with it) — that's a separate, larger
+  # upgrade that touches FCM/Crashlytics init code well outside this
+  # audit's phone-auth scope, and deserves its own isolated build-and-
+  # verify pass rather than risking this fix on an unrelated API break.
+  firebase_auth: ^5.7.0
+  firebase_messaging: ^15.1.3
+
+  # Crash reporting — every uncaught Flutter framework error and every
+  # uncaught Dart error outside the framework (isolate-level) are both
+  # forwarded to Crashlytics from main.dart, so real-user crashes surface
+  # in the Firebase console instead of only ever being visible to someone
+  # plugged into a debugger. No PII is attached beyond Firebase's own
+  # anonymous installation id.
+  firebase_crashlytics: ^4.1.3
+
+  # Supabase — Postgres database + Storage buckets
+  supabase_flutter: ^2.6.0
+
+  # Local offline-first database (mirrors src/sqlite-db.js's schema exactly)
+  sqflite: ^2.3.3+1
+  path: ^1.9.0
+  path_provider: ^2.1.4
+
+  # Preferences (remember-login flag, dismissed-update-version flag —
+  # mirrors @capacitor/preferences usage in auth-main.js)
+  shared_preferences: ^2.3.2
+
+  # Connectivity (mirrors @capacitor/network usage in sync-engine.js)
+  connectivity_plus: ^6.0.5
+
+  # Camera / gallery for pig photos + weekly progress photos
+  image_picker: ^1.1.2
+
+  # Iterative JPEG quality stepping down to a 3 MB cap — the Dart/mobile
+  # equivalent of index.html's canvasToLimitedJpeg() (there's no <canvas>
+  # on a native mobile build to redo that in-browser).
+  flutter_image_compress: ^2.3.0
+
+  # Local notifications (mirrors src/notifications.js's 5 reminder types)
+  flutter_local_notifications: ^18.0.1
+  timezone: ^0.9.4
+
+  # In-app OTA update flow — opens the published APK's public URL, same
+  # approach as the existing app's window.open(url, '_system') via
+  # Android's own download manager + package installer.
+  url_launcher: ^6.3.1
+  package_info_plus: ^8.1.1
+
+  # Utilities
+  intl: ^0.19.0
+  uuid: ^4.5.1
+
+  # Growth charts (Weight vs Week, ADG trend, FCR trend) — also used for the
+  # Expenses & ROI module's category/trend charts.
+  fl_chart: ^0.69.2
+
+  # Expenses & ROI report export (CSV + PDF) — exports are read-only
+  # snapshots and never write back to SQLite/Supabase.
+  pdf: ^3.11.1
+  share_plus: ^10.1.2
+
+  # Dashboard hero weather card — Open-Meteo (free, keyless) geocoding +
+  # current-conditions lookup keyed off the farmer's saved province. Was
+  # already present transitively (pulled in by supabase_flutter); now a
+  # direct dependency since core/services/weather_service.dart imports it.
+  http: ^1.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+  # App icon generation — build-time only (regenerates android/app/src/main/res/mipmap-*
+  # from the ASF logo's pig glyph). Not a runtime dependency; not shipped in the APK.
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/asf_logo.png
+
+# ASF app icon configuration for flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon/asf_icon_flat.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/icon/asf_icon_foreground.png"

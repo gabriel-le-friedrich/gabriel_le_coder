@@ -1,0 +1,16 @@
+# Minimal Supabase CLI project config — only what's needed to deploy the
+# send-email Edge Function to the existing hosted project
+# (genxzsocmhgnxwwxjifz). This repo does not use local Supabase dev
+# (`supabase start`) — the app talks to the hosted project directly (see
+# lib/core/config/supabase_config.dart) — so no [db]/[api] local-emulator
+# sections are needed here.
+project_id = "genxzsocmhgnxwwxjifz"
+
+[functions.send-email]
+verify_jwt = true
+
+# Deliberately unauthenticated — see lookup-account/index.ts's file header.
+# This must be callable by a signed-out user (Forgot Password, pre-login
+# phone-taken check, duplicate-registration guard).
+[functions.lookup-account]
+verify_jwt = false

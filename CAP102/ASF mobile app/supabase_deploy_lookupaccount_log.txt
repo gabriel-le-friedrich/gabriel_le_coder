@@ -1,0 +1,26 @@
+===== START Fri 08/07/2026 13:09:19.28 ===== 
+----- checking for supabase CLI ----- 
+INFO: Could not find files for the given pattern(s).
+supabase CLI not found on PATH, installing locally via npm... 
+
+up to date, audited 222 packages in 6s
+
+24 packages are looking for funding
+  run `npm fund` for details
+
+3 vulnerabilities (1 moderate, 2 high)
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+Using SUPABASE_CMD=C:\Users\erjan\OneDrive\Desktop\ASF mobile app\node_modules\.bin\supabase.cmd 
+----- supabase link ----- 
+Finished supabase link.
+----- supabase functions deploy lookup-account ----- 
+WARNING: Docker is not running
+Uploading asset (lookup-account): supabase/functions/lookup-account/index.ts
+Uploading asset (lookup-account): supabase/functions/_shared/cors.ts
+Deployed Functions on project genxzsocmhgnxwwxjifz: lookup-account
+You can inspect your deployment in the Dashboard: https://supabase.com/dashboard/project/genxzsocmhgnxwwxjifz/functions
+===== DONE Fri 08/07/2026 13:09:34.33 ===== 
