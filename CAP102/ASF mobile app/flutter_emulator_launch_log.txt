@@ -1,2 +1,0 @@
-===== launching emulator ===== 
-LAUNCH_TRIGGERED 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="Myreceipt.xsl"?>
+
+<Myreceipt>
+	<head1>
+		<ds>O!Save Everyday Low Price</ds>
+		<prop>OSave Trading Philippines Corporation</prop>
+		<add1>Lot 1754 Parian Pob., Mexico Pampanga</add1>
+		<add2></add2>
+		<tn>VAT REG TIN: 600-540-045-00120</tn>
+		<sn>POS Serial No: 96JUR00944</sn>
+		<permit>MIN No: 24090615162980362</permit>
+		<min></min>
+		<offrec> OFFICIAL RECEIPT </offrec>
+	</head1>
+
+	<cut1><dash1>----------------------------------------</dash1></cut1>
+
+	<head2>
+		<cashi>Empl: 0 - PT3&#160;&#160;&#160;&#160;&#160;&#160;Date Time: 08.08.26 11:41</cashi>
+		<orno>&#160;&#160;&#160;Sales Invoice No: 00159341</orno>
+		<otaker>&#160;&#160;&#160;Store: 32 &#160; POS: 3 &#160; Transac: 169071</otaker>
+	</head2>
+
+	<cut2><dash2>----------------------------------------</dash2></cut2>
+
+	<head3>
+		<qpa>&#160;&#160;&#160;Qty. &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Price &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Amount</qpa>
+	</head3>
+
+	<cut3><dash3>----------------------------------------</dash3></cut3>
+
+	<head4>
+		<dsitem>&#160;&#160;&#160;White Eggs Medium 30s</dsitem>
+		<bilang>&#160;&#160;&#160;&#160;&#160;1 * &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;209.00 &#160;&#160;&#160;&#160;&#160;&#160;209.00 E</bilang>
+	</head4>
+
+	<cut4><dash4>----------------------------------------</dash4></cut4>
+
+	<head5>
+		<tot>&#160;&#160;&#160;TOTAL &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1</tot>
+		<tq>&#160;&#160;&#160;Total Qty(s):&#160;&#160;1</tq>
+	</head5>
+
+	<cut5><dash5>----------------------------------------</dash5></cut5>
+
+	<head6>
+		<totsales>TOTAL Sales: PHP &#160;&#160;&#160;&#160;&#160; 209.00</totsales>
+		<vatsales>Vatable Sales: &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 0.00</vatsales>
+		<vatam>Vat Amount &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 0.00</vatam>
+		<nonvatam>Vat Exempt Sales: &#160;&#160;&#160;&#160; 209.00</nonvatam>
+		<tam>Vat Zero: &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 0.00</tam>
+		<cpay>CASH PHP: &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 210.00</cpay>
+		<sukli>Change CASH: &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 1.00</sukli>
+	</head6>
+
+	<cut6><dash6>----------------------------------------</dash6></cut6>
+
+	<footer1>
+		<f1>O!Save GUARANTEE</f1>
+		<f2>If you are not satisfied with the quality of a product,</f2>
+		<f3>simply return it for a full refund. No explanation needed</f3>
+	</footer1>
+
+	<footer2>
+		<f4>&#160;&#160;&#160;Customer Details:</f4>
+		<f5>&#160;&#160;&#160;&#160;&#160;&#160;Name: Frederick Gabrielle F. Cunanan</f5>
+		<f6>&#160;&#160;&#160;&#160;&#160;&#160;Address: Laput, Mexico, Pampanga</f6>
+		<f7>&#160;&#160;&#160;&#160;&#160;&#160;TIN: / Business Style:</f7>
+	</footer2>
+
+	<footer3>
+		<f8>Diebold Nixdorf Phils. Inc</f8>
+		<f9>33F Rufino Pacific Tower, Makati City</f9>
+		<f10>TIN: 007-242-095-000</f10>
+		<f11>Accrded No: 1162228164692019101205</f11>
+		<f12>Date Issued: 05/25/21</f12>
+		<f13>POS Permit: FP092024-21B-0466726-0 0120</f13>
+		<f14>Visit Us @ https://www.osave.ph</f14>
+		<f15></f15>
+	</footer3>
+</Myreceipt>

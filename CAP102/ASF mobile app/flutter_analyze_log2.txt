@@ -1,8 +1,0 @@
-===ANALYZE RUN 2=== 
-Analyzing flutter_app...                                        
-
-   info - 'anonKey' is deprecated and shouldn't be used. Use publishableKey instead. anonKey will be removed in a future major version - lib\core\config\supabase_config.dart:27:5 - deprecated_member_use
-
-1 issue found. (ran in 16.4s)
-ANALYZE_EXIT=1 
-===DONE=== 
